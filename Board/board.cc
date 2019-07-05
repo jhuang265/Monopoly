@@ -36,6 +36,21 @@ int Board::rollDice(){
 }
 
 void Board::rollDiceAndAction(int i){
+    if(players[currentPlayer].isInJail()){
+        char yn;
+        std::cout << "You are in jail. Would you like to pay your way out? (Y/N): ";
+        std::cin >> yn;
+        if(yn == 'Y' && players[currentPlayer].getMoney() >= 50){
+            players[currentPlayer].payMoney(50);
+            players[currentPlayer].release();
+            std::cout << "You are now out of jail." << std::endl;
+        }
+        else{
+            std::cout << "Sorry, you must remain in jail." << std::end;
+            return;
+        }
+    }
+
     int firstRoll = rollDice();
     int secondRoll = rollDice();
     

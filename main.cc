@@ -31,5 +31,6 @@ int main(){
         }
 
         Game g{numPlayers, type};
+        g.playGame();
     }
 }
