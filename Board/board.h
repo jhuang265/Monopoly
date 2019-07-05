@@ -26,6 +26,8 @@ class Board{
         void playTurn();
         void auction();
         
+        void print();
+
         ~Board(); 
 };
 

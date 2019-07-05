@@ -1,6 +1,7 @@
 #include "board.h"
 #include "./../player.h"
 #include "./../tile.h"
+#include "./../color.h"
 #include <vector>
 #include <iostream>
 #include <cstlib>
@@ -15,6 +16,17 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
 
         players.emplace_back(std::make_shared<Player>(name, i));
     }
+    
+    std::shared_ptr<Color> brown = std::make_shared<Color>();
+    std::shared_ptr<Color> lblue = std::make_shared<Color>();
+    std::shared_ptr<Color> pink = std::make_shared<Color>();
+    std::shared_ptr<Color> orange = std::make_shared<Color>();
+    std::shared_ptr<Color> red = std::make_shared<Color>();
+    std::shared_ptr<Color> yellow = std::make_shared<Color>();
+    std::shared_ptr<Color> green = std::make_shared<Color>();
+    std::shared_ptr<Color> blue = std::make_shared<Color>();
+
+    Tile one = std::make_shared<Tile>();
 
 }
 
