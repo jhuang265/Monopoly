@@ -73,6 +73,40 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     std::shared_ptr<Tile> thirty9 = std::make_shared<Tile>();
     std::shared_ptr<Tile> forty = std::make_shared<Property>();
 
+    brown.attach(d1);
+    brown.attach(d4);
+    lblue.attach(d7);
+    lblue.attach(d9);
+    lblue.attach(teen);
+    pink.attach(teen2);
+    pink.attach(teen4);
+    pink.attach(teen5);
+    orange.attach(teen7);
+    orange.attach(teen9);
+    orange.attach(twenty);
+    red.attach(twenty2);
+    red.attach(twenty4);
+    red.attach(twenty5);
+    yellow.attach(twenty7);
+    yellow.attach(twenty8);
+    yellow.attach(thirty);
+    green.attach(thirty2);
+    green.attach(thirty3);
+    green.attach(thirty5);
+    blue.attach(thirty8);
+    blue.attach(forty);
+
+    colors.emplace_back(lblue);
+    colors.emplace_back(brown);
+    colors.emplace_back(pink);
+    colors.emplace_back(orange);
+    colors.emplace_back(yellow);
+    colors.emplace_back(red);
+    colors.emplace_back(green);
+    colors.emplace_back(blue);
+
+
+
     cards.emplace_back(std::make_shared<GetMoneyCard>());
     cards.emplace_back(std::make_shared<LoseMoneyCard>());
     cards.emplace_back(std::make_shared<GOJFCard>());
@@ -87,6 +121,10 @@ int Board::rollDice(){
 }
 
 void Board::rollDiceAndAction(int i){
+    if(players[currentPlayer].turnsInJail() == 3){
+        players[currentPlayer].release();
+    }
+
     if(players[currentPlayer].isInJail()){
         char yn;
         std::cout << "You are in jail. Would you like to pay your way out? (Y/N): ";
@@ -96,16 +134,16 @@ void Board::rollDiceAndAction(int i){
             players[currentPlayer].release();
             std::cout << "You are now out of jail." << std::endl;
         }
-        else{
-            std::cout << "Sorry, you must remain in jail." << std::end;
-            return;
-        }
     }
 
     int firstRoll = rollDice();
     int secondRoll = rollDice();
     
-    if(firstRoll == secondRoll && players[currentPlayer].isInJail()){
+    if(firstRoll != secondRoll && players[currentPlayer].isInJail()){
+        players[currentPlayer].addTurnInJail();
+        return;
+    }
+    else if(firstRoll == secondRoll && players[currentPlayer].isInJail()){
         players[currentPlayer].release();
     }
     else if(firstRoll == secondRoll){
