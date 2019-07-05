@@ -137,7 +137,7 @@ void Board::rollDiceAndAction(int i){
         players[currentPlayer].payMoney(Tile[pos].getRent());
         players[Tile[pos].getOwner()].recieveMoney(Tile[pos].getRent());
 
-        if(*players[currentPlayer].getNum() == *Tile[pos].getOwner.getNum()){
+        if(players[currentPlayer].getNum() == Tile[pos].getOwner.getNum()){
             if(Tile[pos].getCanBuild()){
                 if((Tile[pos].getHouses()+1) * 50 > players[currentPlayer].getMoney()){
                     char yn;
