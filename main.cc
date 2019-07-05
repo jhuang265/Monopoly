@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <game.h>
+#include "game.h"
 
 int main(){
     char s;

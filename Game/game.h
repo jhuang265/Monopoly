@@ -21,3 +21,4 @@ class Game{
         // The game has ended
         ~Game();
 };
+#endif
