@@ -2,6 +2,12 @@
 #include "./../player.h"
 #include "./../tile.h"
 #include "./../color.h"
+#include "./../Card/card.h"
+#include "./../Card/getMoneyCard.h"
+#include "./../Card/gOJFCard.h"
+#include "./../Card/gTJCard.h"
+#include "./../Card/moveCard.h"
+#include "./../Card/letMoneyCard.h"
 #include <vector>
 #include <iostream>
 #include <cstlib>
@@ -26,7 +32,52 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     std::shared_ptr<Color> green = std::make_shared<Color>();
     std::shared_ptr<Color> blue = std::make_shared<Color>();
 
-    Tile one = std::make_shared<Tile>();
+    std::shared_ptr<Tile> d1 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> d2 = std::make_shared<Property>();
+    std::shared_ptr<Tile> d3 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> d4 = std::make_shared<Property>();
+    std::shared_ptr<Tile> d5 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> d6 = std::make_shared<Tranportation>();
+    std::shared_ptr<Tile> d7 = std::make_shared<Property>();
+    std::shared_ptr<Tile> d8 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> d9 = std::make_shared<Property>();
+    std::shared_ptr<Tile> teen = std::make_shared<Property>();
+    std::shared_ptr<Tile> teen1 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> teen2 = std::make_shared<Property>();
+    std::shared_ptr<Tile> teen3 = std::make_shared<Utility>();
+    std::shared_ptr<Tile> teen4 = std::make_shared<Property>();
+    std::shared_ptr<Tile> teen5 = std::make_shared<Property>();
+    std::shared_ptr<Tile> teen6 = std::make_shared<Transportation>();
+    std::shared_ptr<Tile> teen7 = std::make_shared<Property>();
+    std::shared_ptr<Tile> teen8 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> teen9 = std::make_shared<Property>();
+    std::shared_ptr<Tile> twenty = std::make_shared<Property>();
+    std::shared_ptr<Tile> twenty1 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> twenty2 = std::make_shared<Property>();
+    std::shared_ptr<Tile> twenty3 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> twenty4 = std::make_shared<Property>();
+    std::shared_ptr<Tile> twenty5 = std::make_shared<Property>();
+    std::shared_ptr<Tile> twenty6 = std::make_shared<Transportation>();
+    std::shared_ptr<Tile> twenty7 = std::make_shared<Property>();
+    std::shared_ptr<Tile> twenty8 = std::make_shared<Property>();
+    std::shared_ptr<Tile> twenty9 = std::make_shared<Utility>();
+    std::shared_ptr<Tile> thirty = std::make_shared<Property>();
+    std::shared_ptr<Tile> thirty1 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> thirty2 = std::make_shared<Property>();
+    std::shared_ptr<Tile> thirty3 = std::make_shared<Property>();
+    std::shared_ptr<Tile> thirty4 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> thirty5 = std::make_shared<Property>();
+    std::shared_ptr<Tile> thirty6 = std::make_shared<Transportation>();
+    std::shared_ptr<Tile> thirty7 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> thirty8 = std::make_shared<Property>();
+    std::shared_ptr<Tile> thirty9 = std::make_shared<Tile>();
+    std::shared_ptr<Tile> forty = std::make_shared<Property>();
+
+    cards.emplace_back(std::make_shared<GetMoneyCard>());
+    cards.emplace_back(std::make_shared<LoseMoneyCard>());
+    cards.emplace_back(std::make_shared<GOJFCard>());
+    cards.emplace_back(std::make_shared<GTJCard>());
+    cards.emplace_back(std::make_shared<MoveCard>());
 
 }
 
@@ -81,7 +132,7 @@ void Board::rollDiceAndAction(int i){
     for(int i = 0; i < 6; ++i){
         if(pos = cardLocations[i]){
             srand(time(0));
-            Cards[(rand()%4+1].use(players[currentPlayer]);
+            cards[(rand()%4+1].use(players[currentPlayer]);
             return;
         }
     }
