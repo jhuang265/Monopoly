@@ -6,8 +6,8 @@
 #include <cstlib>
 #include <ctime>
 
-Board::Board(int type, int players): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
-    std::name;
+Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
+    std::string name;
 
     for(int i = 0; i < numPlayers; ++i){
         std::cout << "Enter the name for Player " << i << ": ";
@@ -45,7 +45,21 @@ void Board::rollDiceAndAction(int i){
 
     players[currentPlayer].move(firstRoll+secondRoll);
 
-    int position = players[currentPlayer].getPos()
+    int pos = players[currentPlayer].getPos()
+
+    int cardLocations[] = {2, 8, 17, 22, 33, 36};
+    int transLocations[] = {5, 15, 25, 35};
+    int utilLocations[] = {12, 28};
+
+    for(int i = 0; i < 6; ++i){
+        if(pos = cardLocations[i]){
+            srand(time(0));
+            Cards[(rand()%4+1].use(players[currentPlayer]);
+            return;
+        }
+    }
+    
+    pos = players[currentPlayer].getPos();
 
     switch(pos){
         case 0: 
@@ -66,17 +80,6 @@ void Board::rollDiceAndAction(int i){
             break;
     }
     
-    int cardLocations[] = {2, 8, 17, 22, 33, 36};
-    int transLocations[] = {5, 15, 25, 35};
-    int utilLocations[] = {12, 28};
-
-    for(int i = 0; i < 6; ++i){
-        if(pos = cardLocations[i]){
-            srand(time(0));
-            Cards[(rand()%4+1].use(players[currentPlayer]);
-            return;
-        }
-    }
 
     for(int i = 0; i < 4; ++i){
         if(Tile[pos].isOwned()){
@@ -151,7 +154,23 @@ void Board::rollDiceAndAction(int i){
 }
 
 void Board::playTurn(){
-
+    while(players.size() > 1){
+        //currentPlayer = 0;
+        for(auto i = players.begin(); i != players.end() && players.size() > 1){
+            rollDiceAndAction();
+            if(*i.getMoney() < 0){
+                i = players.erase(i);
+                continue;
+            }
+            while(*i.getDoubles() > 0 && *i.getDoubles() < 3){
+                if(*i.getMoney() < 0){
+                    i = players.erase(i);
+                    break;
+                }
+                rollDiceAndAction();
+            }
+        }
+    }
 }
 
 void Board::trade(){
