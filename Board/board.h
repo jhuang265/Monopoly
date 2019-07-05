@@ -16,7 +16,7 @@ class Board{
         int numPlayers;
         int currentPlayer;
         std::vector<shared_ptr<Player>> players;
-
+        std::vector<shared_ptr<Card>> cards;
     public:
         Board(int type, int players);
 
@@ -26,6 +26,8 @@ class Board{
         void playTurn();
         void auction();
         
+        void print();
+
         ~Board(); 
 };
 
