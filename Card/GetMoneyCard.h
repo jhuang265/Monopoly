@@ -1,14 +1,14 @@
-#ifndef __GETMONEYCARD_H__
-#define __GETMONEYCARD_H__
+#ifndef __getMoneyCard_H__
+#define __getMoneyCard_H__
 #include "card.h"
 
-class GetMoneyCard {
+class getMoneyCard {
  vector<string> desc;
 
  public:
-  GetMoneyCard();
+  getMoneyCard();
   void use(share_ptr<Player>) override;
-  ~GetMoneyCard();
+  ~getMoneyCard();
 };
 
 #endif

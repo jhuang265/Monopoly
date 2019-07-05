@@ -1,12 +1,12 @@
-#ifndef __MOVECARD_H__
-#define __MOVECARD_H__
+#ifndef __moveCard_H__
+#define __moveCard_H__
 #include "card.h"
 
-class MoveCard {
+class moveCard {
  public:
-  MoveCard();
+  moveCard();
   void use(shared_ptr<Player>) override;
-  ~MoveCard();
+  ~moveCard();
 };
 
 #endif

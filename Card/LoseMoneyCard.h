@@ -1,14 +1,14 @@
-#ifndef __LOSEMONEYCARD_H__
-#define __LOSEMONEYCARD_H__
+#ifndef __loseMoneyCard_H__
+#define __loseMoneyCard_H__
 #include "card.h"
 
-class LoseMoneyCard {
+class loseMoneyCard {
  vector<string> desc;
 
  public:
-  LoseMoneyCard();
+  loseMoneyCard();
   void use(shared_ptr<Player>) override;
-  ~LoseMoneyCard();
+  ~loseMoneyCard();
 };
 
 #endif
