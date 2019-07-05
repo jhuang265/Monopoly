@@ -1,0 +1,19 @@
+#include "LoseMoneyCard.h"
+
+using namespace std;
+
+LoseMoneyCard::LoseMoneyCard() {
+    desc.emplace_back("Debt Collect: ");
+    desc.emplace_back("Mr. Goose got mad! ");
+    desc.emplace_back("Pay tuition: ");
+}
+
+LoseMoneyCard::use(share_ptr<Player> p) {
+    int debt = (rand()%1000) + 100;
+    int i = rand()%2; //2 for now since only 3 cards
+    cout << desc.at(i) << "$"<<to_string(money) << " will be taken from your account :("<<endl;
+    p.payMoney(money);
+}
+
+LoseMoneyCard::~LoseMoneyCard() {}
+
