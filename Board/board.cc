@@ -122,7 +122,7 @@ void Board::rollDiceAndAction(int i){
                 Tile[pos].buy(players[currentPlayer]);
             }
             else{
-                auction();
+                auction(Tile[pos]);
             }
             return;
         }
@@ -142,7 +142,7 @@ void Board::rollDiceAndAction(int i){
                 Tile[pos].buy(players[currentPlayer]);
             }
             else{
-                auction();
+                auction(Tile[pos]);
             }
             return;
        }
@@ -173,7 +173,7 @@ void Board::rollDiceAndAction(int i){
             Tile[pos].buy(players[currentPlayer]);
         }
         else{
-            auction();
+            auction(Tile[pos]);
         }
         return;
     }
@@ -182,7 +182,7 @@ void Board::rollDiceAndAction(int i){
 
 void Board::playTurn(){
     while(players.size() > 1){
-        //currentPlayer = 0;
+        currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1){
             rollDiceAndAction();
             if(*i.getMoney() < 0){
@@ -196,14 +196,46 @@ void Board::playTurn(){
                 }
                 rollDiceAndAction();
             }
+            currentPlayer = (currentPlayer+1) % players.size();
         }
     }
 }
 
 void Board::trade(){
-
+    return;
 }
 
-void Board::auction(){
+void Board::auction(std::shared_ptr<Tile> t){
+    int maxBid = 0;
+    int maxPlayerIndex = currentPlayer;
+    vector <int> remaining;
+    for(int i = 0; i < players.size(); ++i){
+        remaining.push_back(i);
+    }
 
+    for(int i = currentPlayer; remaining.size() != 1; ++i){
+        int bid;
+
+        std::cout << "Player " << remaining[i] << " please enter your bid. (If you don't want to participate, enter -1): ";
+        std::cin >> bid;
+        if(bid <= -1){
+            remaining.erase(remaining[i]);
+            --i;
+        }
+        if(bid > players[currentPlayer].getMoney()){
+            cout << "Invalid bid" << endl;
+        }
+        if(bid > maxBid){
+            maxBid = bid;
+            maxPlayerIndex = remaining[i];
+        }
+
+        if(i == remaining.size()-1){
+            i = -1;
+        }
+    }
+
+    t.buy(players[remaining[0]]);
+
+    return;
 }
