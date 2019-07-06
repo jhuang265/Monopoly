@@ -6,11 +6,11 @@
 #include "./../Tile/tile.h"
 #include "./../Color/color.h"
 #include "./../Card/card.h"
-#include "./../Card/GetMoneyCard.h"
+#include "./../Card/getMoneyCard.h"
 #include "./../Card/GOJFCard.h"
 #include "./../Card/GTJCard.h"
-#include "./../Card/MoveCard.h"
-#include "./../Card/LoseMoneyCard.h"
+#include "./../Card/moveCard.h"
+#include "./../Card/loseMoneyCard.h"
 #include <vector>
 #include <iostream>
 #include <ctime>
@@ -407,7 +407,7 @@ void Board::playTurn(){
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
-            printCurPlayerStatus();
+            //printCurPlayerStatus();
             cout<<"1) Play without trading (enter A)"<<endl;
             cout<<"2) Do you want to trade?(enter B)"<<endl;
             cout<<"3) Do you want to quit? (enter C)"<<endl;
@@ -440,7 +440,7 @@ void Board::playTurn(){
     }
 }
 
-//needs to fix the number of player 
+//needs to fix the number of player
 void Board::trade(shared_ptr<Player> player){
     char inputChar;
     int desiredMoney;
@@ -448,7 +448,7 @@ void Board::trade(shared_ptr<Player> player){
     shared_ptr<Player> targetPlayer;
     vector<string> tradeList;
     cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
-    player->printAsset();
+    //player->printAsset();
     cout<<"Enter the assets you want to trade by corresponding number and and e to end: "<<endl;
     while(cin>>inputChar){
         if(inputChar=='e'){
@@ -476,7 +476,7 @@ void Board::trade(shared_ptr<Player> player){
     for(int p = 0 ; p < players.size() ; p++){
         if(players[p]->getIndex() == player->getIndex()){
             continue;
-        } 
+        }
         cout<<p+1<< " " << players[p]->getName()<<endl;
     }
     while (cin>>targetPlayerIndex){

@@ -26,7 +26,7 @@ class Board{
         //std::vector<shared_ptr<Card>> cards;
     public:
         Board(int type, int players);
-        void printCurPlayerStatus();
+        //void printCurPlayerStatus();
         void trade(shared_ptr<Player>);
         int rollDice();
         void rollDiceAndAction();
