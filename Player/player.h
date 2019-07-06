@@ -12,9 +12,9 @@ using namespace std;
 class Player {
   string name;
   const int index;
-  vector<shared_ptr<Property> > properties;
-  vector<shared_ptr<Utility> > utilities;
-  vector<shared_ptr<Transportation> > transportations;
+  vector<shared_ptr<Property>> properties;
+  vector<shared_ptr<Utility>> utilities;
+  vector<shared_ptr<Transportation>> transportations;
   int money;
   int pos;
   int numDoubles;
