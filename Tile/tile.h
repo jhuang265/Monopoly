@@ -3,8 +3,16 @@
 #include <string>
 #include <vector>
 class Player;
+/*
+template<class T> class enable_shared_from_this
+{
+public:
 
-class Tile {
+    shared_ptr<T> shared_from_this();
+    shared_ptr<T const> shared_from_this() const;
+}
+*/
+class Tile{
     private: 
         std::string tileType;
         std::string name;
