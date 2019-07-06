@@ -548,8 +548,6 @@ void Board::playTurn(){
             cout<< "-------------------------------------------------" << endl;
             cout<< "Player "<< (*i)->getIndex() + 1<< "'s turn." << endl;
             cout<< "Current Player: "<< currentPlayer << endl;
-
-
             (*i)->print();//prints status of cur player
             cout<<endl;
 
