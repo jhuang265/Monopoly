@@ -11,7 +11,7 @@ int main(){
 
         if(s != 'N'){
             int type, numPlayers;
-            std::cout << '\n' << std::endl;
+            std::cout << std::endl;
             std::cout << "How many players would you like to play with? (Please enter a number between 2 and 4): ";
             std::cin >> numPlayers;
 
@@ -34,9 +34,11 @@ int main(){
 
             Game g{type, numPlayers};
             g.playGame();
+            cout << std::endl;
         }
         else{
             break;
         }
     }
+    cout << "Goodbye!" << endl;
 }
