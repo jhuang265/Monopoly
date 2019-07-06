@@ -13,7 +13,7 @@ void Property:: buyHouse(){
     houses++;
 }
 int Property:: getCanBuild(){
-    return 1+canBuild;
+    return canBuild;
 }
 
 int Property:: getHouses(){
