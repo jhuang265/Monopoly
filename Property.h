@@ -2,7 +2,9 @@
 #define PROPERTY_H_
 #include <string>
 #include <memory>
-#include "Tile.h"
+#include "tile.h"
+#include "color.h"
+#include "./Player/player.h"
 
 class Property:: public Tile{
     private:

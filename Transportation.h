@@ -2,7 +2,8 @@
 #define TRANSPORTATION_H_
 #include <string>
 #include <memory>
-#include "Tile.h"
+#include "tile.h"
+#include "./Player/player.h"
 
 class Transportation:: public Tile{
     private:
