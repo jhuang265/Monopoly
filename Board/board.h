@@ -7,6 +7,7 @@
 #include "./../player.h"
 #include "./../tile.h"
 #include "./../color.h"
+#include "./../Card/card.h"
 
 class Board{
     private:
