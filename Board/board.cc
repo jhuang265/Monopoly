@@ -445,7 +445,7 @@ void Board::trade(shared_ptr<Player> player){
     int desiredMoney;
     int targetPlayerIndex;
     shared_ptr<Player> targetPlayer;
-    vector<int> tradeList;
+    vector<string> tradeList;
     cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
     player->printAsset();
     cout<<"Enter the assets you want to trade by corresponding number and and e to end: "<<endl;
@@ -476,7 +476,7 @@ void Board::trade(shared_ptr<Player> player){
         cout<<p+1<< " " << players[p]->getName()<<endl;
     }
     while (cin>>targetPlayerIndex){
-        if(targetPlayerIndex>player->size()){
+        if(targetPlayerIndex> players.size()){
             cout<<"Please re-enter player index: ";
             continue;
         }
