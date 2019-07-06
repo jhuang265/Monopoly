@@ -36,15 +36,15 @@ shared_ptr<Player> Property:: getOwner() {
 void Property::buy(shared_ptr<Player> player) {
     owner = player;
     owner->payMoney(cost);
-    owner->addProperty(shared_from_this());
+    owner->addProperty(shared_ptr<Property>(this));
     isOwned=true;
     color->updateCanBuild();
 
 }
 void Property:: changeOwner(shared_ptr<Player> player) {
-    owner->removeAsset(shared_from_this());
+    owner->removeAsset(shared_ptr<Property>(this));
     owner = player;
-    owner->addProperty(shared_from_this());
+    owner->addProperty(shared_ptr<Property>(this));
     color->updateCanBuild();
 }
 
