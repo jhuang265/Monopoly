@@ -22,13 +22,13 @@ void Transportation:: buy(shared_ptr<Player> player) override{
     owner = player;
     isOwned=true;
     owner.payMoney(cost);
-    owner.addAsset(shared_from_this());
+    owner.addTransportation(shared_from_this());
 }
 
 void Transportation:: changeOwner (shared_ptr<Player> player){
     owner.removeAsset(shared_from_this());
     owner = player;
-    owner.addAsset(shared_from_this());
+    owner.addTransportation(shared_from_this());
     
 }
 
