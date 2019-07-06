@@ -64,6 +64,7 @@ public:
 
   void print();
   void printAsset();//needs to be written for giving trade options
+  void printBoard();
   ~Player();
 };
 
