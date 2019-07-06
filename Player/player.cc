@@ -11,6 +11,8 @@ Player::Player(string name, const int index): name{name}, index{index} {
     bool hasGOJFC = false;
 }
 
+string Player::getName() { return name; }
+
 int Player::getIndex() { return index; }
 
 int Player::getMoney() { return money; }

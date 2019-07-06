@@ -23,6 +23,7 @@ class Player {
  
 public:
   Player(std::string, int);
+  string getName();
   int getIndex();
 
   int getMoney();
