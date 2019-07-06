@@ -1,4 +1,5 @@
 #include "color.h"
+#include "./../Tile/property.h"
 using namespace std;
 
 Color:: Color(){}
