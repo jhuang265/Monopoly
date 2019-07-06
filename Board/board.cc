@@ -416,12 +416,12 @@ void Board::playTurn(){
                 cin>>playerChoice;
             }
             if (playerChoice=='C'){
-                //implement quit
+                i = players.erase(i);
+                continue;
             }
             else if(playerChoice == 'B'){
-                trade();//needs to be done
+                trade(*i);
             }
-
             rollDiceAndAction();
             if((*i)->getMoney() < 0){
                 i = players.erase(i);
@@ -440,20 +440,77 @@ void Board::playTurn(){
     }
 }
 
-//needs to be done
-void Board::trade(){
-    /*
+void Board::trade(shared_ptr<Player> player){
+    char inputChar;
+    int desiredMoney;
+    int targetPlayerIndex;
+    shared_ptr<Player> targetPlayer;
     vector<int> tradeList;
-    cout<<"Here is the list of properties/utilities/transportations you can trade:"<<endl;
-    for(int x= 0; x< *i.properties.size();x++){
-        cout<<
-        *i.printAsset();
+    cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
+    player->printAsset();
+    cout<<"Enter the assets you want to trade by corresponding number and and e to end: "<<endl;
+    while(cin>>inputChar){
+        if(inputChar=='e'){
+            if(tradeList.size()==0){
+                return;
+            }
+            break;
+        }
+        else if((int)inputChar > (getNumProperties + getNumUtilities + getNumTransportations)){
+            continue;
+        }
+        else{
+            if((int)inputChar<= getNumProperties){
+                tradeList.emblace_back(player->propertyNameAt((int)inputChar-1));
+            }
+            else if((int)inputChar < getNumProperties+getNumUtilities ){
+                tradeList.emblace_back(player->utilityNameAt((int)inputChar-getNumProperties-1));
+            }
+            else{
+                tradeList.emblace_back(player->transportationNameAt((int)inputChar-(getNumProperties + getNumUtilities)-1));
+            }
+        }  
     }
-    while
+    cout<<"Select the player you want to trade with (enter their number):"<<endl;
+    for(int p = 0 ; p < players.size() ; p++){
+        cout<<p+1<< " " << players[p]->getName()<<endl;
+    }
+    while (cin>>targetPlayerIndex){
+        if(targetPlayerIndex>player.size()){
+            cout<<"Please re-enter player index: ";
+            continue;
+        }
+        break;
+    }
+    --targetPlayerIndex;
+    targetPlayer = players[targetPlayerIndex];
+    cout<<"Enter the money you want to get from " << targetPlayer->getName()<<endl;
+    while(cin>>desiredMoney){
+        if(desiredMoney > player->getMoney()){
+            cout<<"Not enough money, please re-enter a value: ";
+            continue;
+        }
+        break;
 
-
-    return;
-    */
+    }
+    cout<<"Player "<< targetPlayer->getName()<< ", do you agree to change "<< desiredMoney << "with "<< player->getName()<<"(Y/N)"<<endl;
+    while(cin>>inputChar){
+        if(inputChar!='Y' && inputChar!= 'N'){
+            cout<<"Invalid input, please re-enter: ";
+        }
+        break;
+    }
+    if(inputChar=='N'){
+        return;
+    }
+    else{
+        player->payMoney(desiredMoney);
+        targetPlayer->receiveMoney(desiredMoney);
+        for(int x = 0; x < tradeList.size(); x++){
+            *(player).returnAsset(tradeList[x]).changeOwner(targetPlayer);
+        }
+        cout<< "Trade Successful"<<endl;
+    }
 }
 
 void Board::auction(std::shared_ptr<Tile> t){
