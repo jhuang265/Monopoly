@@ -578,6 +578,8 @@ void Board::auction(std::shared_ptr<Tile> t){
     }
 
     for(int i = currentPlayer; remaining.size() != 1; i++){
+        cout<< "Current Max Bid: " << maxBid <<endl;
+        cout<< "Current Max Bidder: " << maxPlayerIndex <<endl;
         int bid;
 
         std::cout << "Player " << remaining[i] << " please enter your bid. (If you don't want to participate, enter -1): ";
@@ -594,7 +596,7 @@ void Board::auction(std::shared_ptr<Tile> t){
         if(bid > players[currentPlayer]->getMoney()){
             cout << "Invalid bid" << endl;
         }
-        if(bid > maxBid){
+        else if(bid > maxBid){
             maxBid = bid;
             maxPlayerIndex = remaining[i];
         }
