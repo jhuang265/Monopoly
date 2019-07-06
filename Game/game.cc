@@ -7,7 +7,7 @@ Game::Game(int type, int players): type{type}, players{players}{
 }
 
 void Game::playGame(){
-    b.playTurn();
+    b->playTurn();
 }
 
-~Game::Game(){}
+Game::~Game(){}
