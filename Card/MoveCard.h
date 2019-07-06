@@ -5,7 +5,7 @@
 class moveCard {
  public:
   moveCard();
-  void use(shared_ptr<Player>) override;
+  void use(shared_ptr<Player>);
   ~moveCard();
 };
 

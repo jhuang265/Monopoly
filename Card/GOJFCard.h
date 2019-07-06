@@ -5,7 +5,7 @@
 class GOJFCard {
  public:
   GOJFCard();
-  void use(shared_ptr<Player>) override;
+  void use(shared_ptr<Player>);
   ~GOJFCard();
 };
 

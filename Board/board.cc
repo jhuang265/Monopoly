@@ -7,14 +7,14 @@
 #include "./../Color/color.h"
 #include "./../Card/card.h"
 #include "./../Card/getMoneyCard.h"
-#include "./../Card/gOJFCard.h"
-#include "./../Card/gTJCard.h"
+#include "./../Card/GOJFCard.h"
+#include "./../Card/GTJCard.h"
 #include "./../Card/moveCard.h"
-#include "./../Card/letMoneyCard.h"
+#include "./../Card/loseMoneyCard.h"
 #include <vector>
 #include <iostream>
-#include <cstlib>
 #include <ctime>
+#include <memory>
 
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;

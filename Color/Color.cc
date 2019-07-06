@@ -1,8 +1,9 @@
 #include "color.h"
+#include "./../Player/player.h"
 #include "./../Tile/property.h"
 using namespace std;
 
-Color:: Color(){}
+Color::Color(){}
 
 void Color::updateCanBuild(){
     int index = properties[0].getOwnerIndex();

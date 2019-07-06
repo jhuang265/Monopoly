@@ -3,8 +3,10 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "./../Player/player.h"
-#include "./../Tile/property.h"
+//#include "./../Player/player.h"
+//#include "./../Tile/property.h"
+class Player;
+class Property;
 
 class Color{
     private:

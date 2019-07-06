@@ -7,7 +7,7 @@ class Tile{
         std::string tileType;
         std::string name;
     public:
-        Tile(std::string,std::string  );
+        Tile(std::string, std::string);
         std::string getName();
 
 };

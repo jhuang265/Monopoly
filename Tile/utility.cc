@@ -1,6 +1,5 @@
 #include "utility.h"
 #include "tile.h"
-#include "./../Player/player.h"
 using namespace std;
 Utility:: Utility(int cost_, vector<int> rent_, string tileType_, string name_):
                     cost(cost_),rent(rent_),Tile(tileType_,name_){}

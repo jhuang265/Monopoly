@@ -7,7 +7,7 @@ class loseMoneyCard {
 
  public:
   loseMoneyCard();
-  void use(shared_ptr<Player>) override;
+  void use(shared_ptr<Player>);
   ~loseMoneyCard();
 };
 

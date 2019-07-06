@@ -7,7 +7,7 @@ class getMoneyCard {
 
  public:
   getMoneyCard();
-  void use(share_ptr<Player>) override;
+  void use(std::shared_ptr<Player>);
   ~getMoneyCard();
 };
 

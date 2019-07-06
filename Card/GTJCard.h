@@ -5,7 +5,7 @@
 class GTJCARD {
  public:
   GTJCARD();
-  void use(shared_ptr<Player>) override;
+  void use(shared_ptr<Player>);
   ~GTJCARD();
 };
 

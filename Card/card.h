@@ -9,7 +9,7 @@
 
 class Card {
  public:
-  virtual void use(std::shared_ptr<Player>) = 0;
+  virtual void use(std::shared_ptr<Player>);
   virtual ~Card() = 0;
 };
 
