@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include "./Player/player.h"
+#include "./Property/property.h"
 class Color{
     private:
         std::string color;
