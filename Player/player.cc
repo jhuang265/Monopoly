@@ -16,17 +16,17 @@ string Player::getName() { return name; }
 int Player::getIndex() { return index; }
 
 string Player::propertyNameAtIndex(int i) {
-    if(i < properties.size()) { return properties.at(i); }
+    if(i < properties.size()) { return properties.at(i)->getName(); }
     return "";
 }
 
 string Player::utilityNameAtIndex(int i) {
-    if(i < utilities.size()) { return utilities.at(i); }
+    if(i < utilities.size()) { return utilities.at(i)->getName(); }
     return "";
 }
 
 string Player::transportationNameAtIndex(int i) {
-    if(i < transportations.size()) { return transportations.at(i); }
+    if(i < transportations.size()) { return transportations.at(i)->getName(); }
     return "";
 }
 
@@ -43,7 +43,7 @@ void Player::payMoney(int payment) {
 }
 
 void Player::addAsset(shared_ptr<Tile> tile) {
-    string type = tile->getTileType();
+    string type = tile->getType();
     if(type == "Property") {
         properties.emplace_back(tile);
     } else if(type == "Utility") {
@@ -55,23 +55,31 @@ void Player::addAsset(shared_ptr<Tile> tile) {
 }
 
 void Player::removeAsset(shared_ptr<Tile> tile) {
-    string type = tile->getTileType();
+    string type = tile->getType();
     string name = tile->getName();
-    vector<shared_ptr<Property> > asset;
+    vector<shared_ptr<Tile> > asset;
     if(type == "Property") {
-        asset = properties;
-    } else if(type == "Utility") {
-        asset = utilities;
-    } else if(type == "Transportation") {
-        asset = transportations;
-    } //else error
-
-    for(int i = 0; i < asset.size(); ++i) {
-        if(asset[i]->getName() == name) {
-            asset.erase(asset.begin()+i);
-            break;
+        for(int i = 0; i < properties.size(); ++i) {
+            if(properties[i]->getName() == name) {
+                properties.erase(properties.begin()+i);
+                break;
+            }
         }
-    }
+    } else if(type == "Utility") {
+        for(int i = 0; i < utilities.size(); ++i) {
+            if(utilities[i]->getName() == name) {
+                utilities.erase(utilities.begin()+i);
+                break;
+            }
+        }
+    } else if(type == "Transportation") {
+        for(int i = 0; i < transportations.size(); ++i) {
+            if(transportations[i]->getName() == name) {
+                transportations.erase(transportations.begin()+i);
+                break;
+            }
+        }
+    } //else error
     return;
 }
 
@@ -93,12 +101,12 @@ int Player::getNumTransportations() { return transportations.size(); }
 
 int Player::getNumProperties() { return properties.size(); }
 
-int Player::getPos() { return Pos; }
+int Player::getPos() { return pos; }
 
 void Player::move(int n) {
-    int result = Pos + n;
-    result = (result <= 39 && result >= 0) ? result : result%40;
-    return result; 
+    int result = pos + n;
+    pos = (result <= 39 && result >= 0) ? result : result%40;
+    return;
 }
 
 int Player::getDoubles() {
@@ -132,11 +140,11 @@ void Player::addTurnInJail(){
 }
 
 bool Player::isInJail() {
-    return isInJail;
+    return inJail;
 }
 
 void Player::release() {
-    isInJail = false;
+    inJail = false;
     turnsInJail = 0;
     return;
 }
@@ -197,7 +205,7 @@ void Player::print() {
     }
 }
 
-~Player::Player() {
+Player::~Player() {
     for(auto& p : properties) {
         p->reset();
     }
