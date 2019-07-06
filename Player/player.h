@@ -1,8 +1,11 @@
 #define __PLAYER_H__
 #define __PLAYER_H__
 #include <string>
-#include "board.h"
-#include "tile.h"
+#include <iostream>
+#include "../Tile/tile.h"
+#include "../Tile/Property.h"
+#include "../Tile/Utility.h"
+#include "../Tile/Transportation.h"
 
 
 class Player {
@@ -26,8 +29,8 @@ public:
   void receiveMoney(int);
   void payMoney(int);
 
-  void addAsset(shared_ptr<tile> tile);
-  void removeAsset(shared_ptr<tile> tile);
+  void addAsset(shared_ptr<Tile> tile);
+  void removeAsset(shared_ptr<Tile> tile);
   int getNumUtilities();
   int getNumTransportations();
 
