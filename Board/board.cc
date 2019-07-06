@@ -385,12 +385,6 @@ void Board::trade(shared_ptr<Player> player){
             }
         }  
     }
-<<<<<<< HEAD
-=======
-    while
->>>>>>> 01ac19d55e86b59189b775fbfb3530a02d218cd3
-
-
     cout<<"Select the player you want to trade with (enter their number):"<<endl;
     for(int p = 0 ; p < players.size() ; p++){
         cout<<p+1<< " " << players[p]->getName()<<endl;
