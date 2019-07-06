@@ -468,7 +468,11 @@ void Board::trade(shared_ptr<Player> player){
     int targetPlayerIndex;
     shared_ptr<Player> targetPlayer;
     vector<string> tradeList;
-    cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
+    if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
+        cout<<"Ooops! You have no assets. Now please roll your dice."<<endl;
+        return;
+    }
+    //cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
     //player->printAsset();
     cout<<"Enter the assets you want to trade by corresponding number and and e to end: "<<endl;
     while(cin>>inputChar){
