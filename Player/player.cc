@@ -3,7 +3,7 @@
 using namespace std;
 
 Player::Player(string name, const int index): name{name}, index{index} {
-     money = 1500;
+     money = 100;
      pos = 0;
      numDoubles = 0;
      turnsInJail = 0;
