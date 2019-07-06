@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <./../Board/board.h>
+#include "./../Board/board.h"
 #include <memory>
 
 class Game{

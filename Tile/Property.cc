@@ -3,8 +3,6 @@
 #include "color.h"
 #include "./Player/player.h"
 using namespace std;
-
-
 Property:: Property(int cost_, int gameType_, vector<int> rent_, shared_ptr<Color> color_, string tileType_, string name_):
             Tile(tileType_,name_), cost(cost_), gameType(gameType_),houses(0),rent(rent_), color(color_),canBuild(gameType_),isOwned(false){
 }

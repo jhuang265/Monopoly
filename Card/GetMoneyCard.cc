@@ -1,4 +1,5 @@
 #include "getMoneyCard.h"
+#include "./../Player/player.h"
 
 using namespace std;
 
