@@ -9,6 +9,7 @@ class Tile{
         std::string name;
     public:
         Tile(std::string, std::string);
+        std::string getType();
         std::string getName();
         virtual bool getIsOwned(){return false;};
         virtual std::shared_ptr<Player> getOwner(){return nullptr;};
