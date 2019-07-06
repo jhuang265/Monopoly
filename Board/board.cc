@@ -16,6 +16,12 @@
 #include <ctime>
 #include <random>
 #include <memory>
+#include <map>
+
+map<int,int> boardPos; //pos, rowNum
+map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
+map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
+map<int,int> replacePos; //rowNum, colNum
 
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
@@ -388,54 +394,130 @@ void Board::rollDiceAndAction(){
         }
     }
 }
+
+bool hasPlayerOnRow(int rowNum) {
+    for(int i=65; i < 69; ++i) {
+        if(playerPos[i].first == rowNum) return true;
+    }
+    return false;
+}
+
 //every tile has width  12 and height 4
 void Board::printBoard() {
-    cout << " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
+//    map<int,int> boardPos; //pos, rowNum
+//    map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
+//    map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
+//    map<int,int> replacePos;
+
+    int countLine = 5;
+
+    //boardPos Insertion
+    for(int i=0; i < 20; i++) {
+        if(i <= 10) {
+            boardPos.insert(pair<int,int>(i, 41));
+            boardPos.insert(pair<int,int>(30-i, 1));
+        }
+        else if(i > 10 && i < 20) {
+            boardPos.insert(pair<int,int>(i, countLine));
+            boardPos.insert(pair<int,int>(50-i, countLine));
+        }
+    }
+
+    //playerPos Insertion
+    int c = 65;
+    // playerPos   playerNum : < rowNum, colNum(tileNum) >
+    for(auto& p : players) {
+        int rowNum = boardPos[p->getPos()];
+        playerPos.insert(pair<int,pair<int,int> >(c, pair<int,int>(rowNum, p->getPos())));
+        ++c;
+    }
+
+    //targetPos: Set resulting replace index on a row in the string
+    for(int i=0; i<4; ++i) {
+        int colNum = (playerPos[i].second)%10;
+        int targetColNum = colNum*12 - 8;
+        if(playerPos.count(c)) {
+            while (targetPos.count(pair<int,int>(playerPos[i].first, targetColNum))) {
+                ++targetColNum;
+            }
+            int rowNum = playerPos[i].first;
+            targetPos.insert(pair<pair<int,int>,int> (pair<int,int>(rowNum, targetColNum), c));
+            replacePos.insert(pair<int,int>(rowNum, targetColNum));
+            ++c;
+        }
+    }
+
+    c = 65;
+    string boarder = " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n";
+    string line = " |            |            |            |            |            |            |            |            |            |            |\n";
+    string divider = " |++++++++++++|                                                                                                       |++++++++++++|\n";
+
+    //output board, x: rowNum; y: colNum (horizontal)
+    cout << boarder;
+    for(int x = 0; x < 40; ++x) {
+        if(x%4 == 1) {
+            cerr << " Entered mod 4 = 1"<<endl;
+            if(hasPlayerOnRow(x)) {
+                cerr << "Has Player on Row"<<endl;
+                int y = replacePos[x];
+                char playerIndex = char(targetPos[pair<int,int>(x,y)]);
+                string replacedLine = line;
+                replacedLine.at(y) = playerIndex;
+                cout << replacedLine;
+            }
+        } else if(x%4 == 3 && x!=39){
+            cout << divider;
+        } else { cout << line; }
+    }
+    cout << boarder;
+
+  /*  cout << " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
             " |            |            |            |            |            |            |            |            |            |            |\n"
+           1 " |            |            |            |            |            |            |            |            |            |            |\n"
             " |            |            |            |            |            |            |            |            |            |            |\n"
-            " |            |            |            |            |            |            |            |            |            |            |\n"
+          3  " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            5" |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+         7   " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+          9  " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+          11  " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+        13    " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+         17   " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+         21   " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+        25    " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+     29       " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+        33    " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+       37     " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
             " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
             " |            |            |            |            |            |            |            |            |            |            |\n"
-            " |            |            |            |            |            |            |            |            |            |            |\n"
+       41     " |            |            |            |            |            |            |            |            |            |            |\n"
             " |            |            |            |            |            |            |            |            |            |            |\n"
             " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n";
-}
+*/
+   }
 
 void Board::playTurn(){
     printBoard();
