@@ -42,15 +42,18 @@ void Player::payMoney(int payment) {
     return;
 }
 
-void Player::addAsset(shared_ptr<Tile> tile) {
-    string type = tile->getType();
-    if(type == "Property") {
-        properties.emplace_back(tile);
-    } else if(type == "Utility") {
-        utilities.emplace_back(tile);
-    } else if(type == "Transportation") {
-        transportations.emplace_back(tile);
-    } //else error
+void Player::addProperty(shared_ptr<Property> p) {
+    properties.emplace_back(p);
+    return;
+}
+
+void Player::addUtility(shared_ptr<Utility> u) {
+    utilities.emplace_back(u);
+    return;
+}
+
+void Player::addTransportation(shared_ptr<Transportation> t) {
+    transportations.emplace_back(t);
     return;
 }
 

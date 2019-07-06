@@ -6,46 +6,46 @@ Property:: Property(int cost_,vector<int> rent_, shared_ptr<Color> color_, int g
             Tile(tileType_,name_), cost(cost_), gameType(gameType_),houses(0),rent(rent_), color(color_),canBuild(gameType_),isOwned(false){
 }
 
-void Property:: buyHouse() override{
+void Property:: buyHouse() {
     houses++;
 }
-int Property:: getCanBuild() override{
+int Property:: getCanBuild() {
     return canBuild;
 }
 
-int Property:: getHouses() override{
+int Property:: getHouses() {
     return houses;
 }
-int Property:: getPrice() override{
+int Property:: getPrice() {
     return cost;
 }
 
-int Property:: getRent() override{
+int Property:: getRent() {
     return rent[houses];
 }
 
 
-bool Property:: getIsOwned() override{
+bool Property:: getIsOwned() {
     return isOwned;
 }
 
-shared_ptr<Player> Property:: getOwner() override{
+shared_ptr<Player> Property:: getOwner() {
     return owner;
 }
 
-void Property::buy(shared_ptr<Player> player) override{
+void Property::buy(shared_ptr<Player> player) {
     owner = player;
-    owner.payMoney(cost);
-    owner.addProperty(shared_from_this());
+    owner->payMoney(cost);
+    owner->addProperty(shared_from_this());
     isOwned=true;
-    color.updateCanBuild();
+    color->updateCanBuild();
 
 }
-void Property:: changeOwner(shared_ptr<Player> player) override{
-    owner.removeAsset(shared_from_this());
+void Property:: changeOwner(shared_ptr<Player> player) {
+    owner->removeAsset(shared_from_this());
     owner = player;
-    owner.addProperty(shared_from_this());
-    color.updateCanBuild();
+    owner->addProperty(shared_from_this());
+    color->updateCanBuild();
 }
 
 void Property:: reset(){
@@ -54,10 +54,10 @@ void Property:: reset(){
     isOwned = false;
 }
 
-int Property:: getOwnerIndex() override{
-    return owner.getIndex();
+int Property:: getOwnerIndex() {
+    return owner->getIndex();
 }
 
 void Property:: setCanBuild(){
-    canBuild = 1- canBuild;
+    canBuild = 1 - canBuild;
 }

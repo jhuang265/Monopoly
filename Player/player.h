@@ -34,7 +34,9 @@ public:
   void receiveMoney(int);
   void payMoney(int);
 
-  void addAsset(shared_ptr<Tile> tile);
+  void addProperty(shared_ptr<Property>);
+  void addUtility(shared_ptr<Utility>);
+  void addTransportation(shared_ptr<Transportation>);
   void removeAsset(shared_ptr<Tile> tile);
   shared_ptr<Tile> returnAsset(std::string);
   int getNumUtilities();
