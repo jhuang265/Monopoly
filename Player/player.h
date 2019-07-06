@@ -9,6 +9,10 @@
 #include "../Tile/transportation.h"
 
 using namespace std;
+
+class Utility;
+class Transportation;
+
 class Player {
   string name;
   const int index;

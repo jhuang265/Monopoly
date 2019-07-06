@@ -6,19 +6,19 @@ using namespace std;
 Transportation:: Transportation(int cost_, vector<int> rent_, string tileType_, string name_):
                     cost(cost_),rent(rent_),Tile(tileType_,name_){}
 
-int Transportation:: getPrice() override{
+int Transportation:: getPrice() {
     return cost;
 }
 
-int Transportation:: getRent() override{
+int Transportation:: getRent() {
     return owner.getNumTransportation()*25;
 }
 
-bool Transportation:: getIsOwned() override{
+bool Transportation:: getIsOwned() {
     return isOwned;
 }
 
-void Transportation:: buy(shared_ptr<Player> player) override{
+void Transportation:: buy(shared_ptr<Player> player) {
     owner = player;
     isOwned=true;
     owner.payMoney(cost);
