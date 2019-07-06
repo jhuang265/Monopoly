@@ -28,7 +28,7 @@ class Property: public Tile{
         void buy(std::shared_ptr<Player> ) override;
         std::shared_ptr<Player> getOwner() override;
         void reset();
-        void changeOwner(std::shared_ptr<Player>);
+        void changeOwner(std::shared_ptr<Player>) override;
         void setCanBuild();
         ~Property(){}
 

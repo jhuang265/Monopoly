@@ -20,6 +20,7 @@ class Tile{
         virtual void buy(std::shared_ptr<Player> p){return;};
         virtual int getHouses(){return 0;};
         virtual void buyHouse(){return;};
+        virtual void changeOwner(std::shared_ptr<Player> p){return;};
         virtual ~Tile();
 };
 #endif
