@@ -387,22 +387,53 @@ void Board::rollDiceAndAction(){
         }
     }
 }
-
+//every tile has width  12 and height 4
 void Board::printBoard() {
-    cout << "M O O * * M O O * * M O O * * M    |  ________________________  |\n"
-            "O                             O    | |                        | |\n"
-            "O                             O    | |                        | |\n"
-            "*                             *    | |                        | |\n"
-            "*                             *    | |                        | | \n"
-            "M                             M    | |                        | | \n"
-            "O                             O    | |                        | | \n"
-            " | |                        | |\n"
-            " |          |          |          |          |          |          |          |          |          |          |\n"
-            " |               |_______________________________________________________________________________________________________________________________________________________________________________________________________________|               |\n"
-            " |               |               |               |               |               |               |               |               |               |               |               |               |               |               |               |\n"
-            " |               |               |               |               |               |               |               |               |               |               |               |               |               |               |               |\n"
-            " |               |               |               |               |               |               |               |               |               |               |               |               |               |               |               |\n"
-            " |_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|";
+    cout << " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
+            " |            |            |            |            |            |            |            |            |            |            |\n"
+            " |            |            |            |            |            |            |            |            |            |            |\n"
+            " |            |            |            |            |            |            |            |            |            |            |\n"
+            " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|                                                                                                       |++++++++++++|\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |            |                                                                                                       |            |\n"
+            " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
+            " |            |            |            |            |            |            |            |            |            |            |\n"
+            " |            |            |            |            |            |            |            |            |            |            |\n"
+            " |            |            |            |            |            |            |            |            |            |            |\n"
+            " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n";
 }
 
 void Board::playTurn(){
@@ -455,7 +486,6 @@ void Board::playTurn(){
     }
 }
 
-//needs to fix the number of player
 void Board::trade(shared_ptr<Player> player){
     char inputChar;
     int desiredMoney;
@@ -509,8 +539,8 @@ void Board::trade(shared_ptr<Player> player){
     targetPlayer = players[targetPlayerIndex];
     cout<<"Enter the money you want to get from " << targetPlayer->getName()<<endl;
     while(cin>>desiredMoney){
-        if(desiredMoney > player->getMoney()){
-            cout<<"Not enough money, please re-enter a value: ";
+        if(desiredMoney > targetPlayer->getMoney()){
+            cout<<targetPlayer->getName() <<" does not have this amount to trade. Please re-enter a valid value: ";
             continue;
         }
         break;
@@ -527,8 +557,8 @@ void Board::trade(shared_ptr<Player> player){
         return;
     }
     else{
-        player->payMoney(desiredMoney);
-        targetPlayer->receiveMoney(desiredMoney);
+        player->receiveMoney(desiredMoney);
+        targetPlayer->payMoney(desiredMoney);
         for(int x = 0; x < tradeList.size(); x++){
             (player->returnAsset(tradeList[x]))->changeOwner(targetPlayer);
         }
