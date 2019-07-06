@@ -198,7 +198,8 @@ void Board::rollDiceAndAction(){
         return;
     }
 
-    players[currentPlayer]->move(firstRoll+secondRoll);
+    //players[currentPlayer]->move(firstRoll+secondRoll);
+    players[currentPlayer]->move(1);
 
     int pos = players[currentPlayer]->getPos();
 
