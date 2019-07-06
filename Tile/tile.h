@@ -10,7 +10,7 @@ class Tile{
         Tile(std::string, std::string);
         std::string getName();
         virtual bool getIsOwned(){return false;};
-        virtual int getRent(){return 0;)}
+        virtual int getRent() {return 0;}
 
 };
 #endif

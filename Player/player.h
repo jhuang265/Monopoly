@@ -1,6 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 #include <string>
+#include <vector>
 #include <iostream>
 #include "../Tile/tile.h"
 #include "../Tile/property.h"
@@ -35,6 +36,7 @@ public:
 
   void addAsset(shared_ptr<Tile> tile);
   void removeAsset(shared_ptr<Tile> tile);
+  shared_ptr<Tile> returnAsset(std::string);
   int getNumUtilities();
   int getNumTransportations();
 

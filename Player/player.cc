@@ -75,6 +75,18 @@ void Player::removeAsset(shared_ptr<Tile> tile) {
     return;
 }
 
+shared_ptr<Tile> Player::returnAsset(string name) {
+    for(auto &p : properties) {
+        if(p->getName() == name) return p;
+    }
+    for(auto &u : utilities) {
+        if(u->getName() == name) return u;
+    }
+    for(auto &t : transportations) {
+        if(t->getName() == name) return t;
+    }
+}
+
 int Player::getNumUtilities() { return utilities.size(); }
 
 int Player::getNumTransportations() { return transportations.size(); }
