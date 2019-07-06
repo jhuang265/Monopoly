@@ -15,17 +15,17 @@ string Player::getName() { return name; }
 
 int Player::getIndex() { return index; }
 
-string propertyNameAtIndex(int i) {
+string Player::propertyNameAtIndex(int i) {
     if(i < properties.size()) { return properties.at(i); }
     return "";
 }
 
-string utilityNameAtIndex(int i) {
+string Player::utilityNameAtIndex(int i) {
     if(i < utilities.size()) { return utilities.at(i); }
     return "";
 }
 
-string transportationNameAtIndex(int i) {
+string Player::transportationNameAtIndex(int i) {
     if(i < transportations.size()) { return transportations.at(i); }
     return "";
 }
@@ -185,6 +185,18 @@ void Player::print() {
             }
             cout << t->getName()<<", ";
         }
+    }
+}
+
+~Player::Player() {
+    for(auto& p : properties) {
+        p->reset();
+    }
+    for(auto& u : utilities) {
+        u->reset();
+    }
+    for(auto& t : transportations) {
+        t->reset();
     }
 }
 
