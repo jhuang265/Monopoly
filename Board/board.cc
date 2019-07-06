@@ -20,6 +20,7 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     std::string name;
 
     for(int i = 0; i < numPlayers; i++){
+        std::cout << numPlayers << std::endl;
         std::cout << "Enter the name for Player " << i << ": ";
         std::cin >> name;
 
@@ -217,6 +218,7 @@ void Board::rollDiceAndAction(){
     }
     else if(firstRoll == secondRoll){
         players[currentPlayer]->rolledDoubles();
+        cout << "You rolled a double: " << firstRoll << " and " << secondRoll << endl;
     }
     else{
         players[currentPlayer]->resetDoubles();
@@ -407,6 +409,7 @@ void Board::playTurn(){
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
+            cout<< "Player "<< (*i)->getIndex() << "'s turn." << endl;
             //printCurPlayerStatus();
             cout<<"1) Play without trading (enter A)"<<endl;
             cout<<"2) Do you want to trade?(enter B)"<<endl;
