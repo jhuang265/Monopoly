@@ -41,7 +41,7 @@ void Property::buy(shared_ptr<Player> player) override{
     color.updateCanBuild();
 
 }
-void Property:: changeOwner(shared_ptr<Player> player){
+void Property:: changeOwner(shared_ptr<Player> player) override{
     owner.removeAsset(shared_from_this());
     owner = player;
     owner.addAsset(shared_from_this());
