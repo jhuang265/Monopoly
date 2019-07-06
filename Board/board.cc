@@ -456,18 +456,18 @@ void Board::trade(shared_ptr<Player> player){
             }
             break;
         }
-        else if((int)inputChar > (player.getNumProperties() + player.getNumUtilities() + player.getNumTransportations())){
+        else if((int)inputChar > (player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations())){
             continue;
         }
         else{
-            if((int)inputChar<= getNumProperties){
+            if((int)inputChar<= player->getNumProperties()){
                 tradeList.emplace_back(player->propertyNameAtIndex((int)inputChar-1));
             }
-            else if((int)inputChar < getNumProperties+getNumUtilities ){
-                tradeList.emplace_back(player->utilityNameAtIndex((int)inputChar-player.getNumProperties()-1));
+            else if((int)inputChar < player->getNumProperties()+player->getNumUtilities() ){
+                tradeList.emplace_back(player->utilityNameAtIndex((int)inputChar-player->getNumProperties()-1));
             }
             else{
-                tradeList.emplace_back(player->transportationNameAtIndex((int)inputChar-(player.getNumProperties() + player.getNumUtilities())-1));
+                tradeList.emplace_back(player->transportationNameAtIndex((int)inputChar-(player->getNumProperties() + player->getNumUtilities())-1));
             }
         }
     }
@@ -476,7 +476,7 @@ void Board::trade(shared_ptr<Player> player){
         cout<<p+1<< " " << players[p]->getName()<<endl;
     }
     while (cin>>targetPlayerIndex){
-        if(targetPlayerIndex>player.size()){
+        if(targetPlayerIndex>player->size()){
             cout<<"Please re-enter player index: ";
             continue;
         }
