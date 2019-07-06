@@ -24,7 +24,7 @@ void Utility:: buy(shared_ptr<Player> player){
     owner.addAsset(shared_from_this());
 }
 
-void Utility:: changeOwner (shared_ptr<Player>){
+void Utility:: changeOwner (shared_ptr<Player> player){
     owner.removeAsset(shared_from_this());
     owner = player;
     owner.addAsset(shared_from_this());
