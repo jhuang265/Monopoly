@@ -17,7 +17,7 @@
 #include <random>
 #include <memory>
 #include <map>
-
+using namespace std;
 map<int,int> boardPos; //pos, rowNum
 map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
 map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
@@ -546,8 +546,7 @@ void Board::playTurn(){
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
             cout<< endl;
             cout<< "-------------------------------------------------" << endl;
-            cout<< "Player "<< (*i)->getIndex() + 1<< "'s turn." << endl;
-            cout<< "Current Player: "<< currentPlayer << endl;
+            cout<< "Player "<< (*i)->getIndex()+1 << "'s turn." << endl;
             (*i)->print();//prints status of cur player
             cout<<endl;
 
@@ -600,6 +599,8 @@ void Board::playTurn(){
     return;
 }
 
+
+
 void Board::trade(shared_ptr<Player> player){
     char inputChar;
     int desiredMoney;
@@ -619,15 +620,15 @@ void Board::trade(shared_ptr<Player> player){
      //  cout<< "propert total: "<< player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations()<<endl;
       // cout<<(int)inputChar*4<< endl;
         if((int)inputChar-48 <= (player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations())){
-            cout<<"reads in "<< inputChar<<endl;
-            if((int)inputChar<= player->getNumProperties()){
-                tradeList.emplace_back(player->propertyNameAtIndex((int)inputChar-1));
+          
+            if((int)inputChar-48<= player->getNumProperties()){
+                tradeList.emplace_back(player->propertyNameAtIndex((int)inputChar-48-1));
             }
-            else if((int)inputChar < player->getNumProperties()+player->getNumUtilities() ){
-                tradeList.emplace_back(player->utilityNameAtIndex((int)inputChar-player->getNumProperties()-1));
+            else if((int)inputChar-48 < player->getNumProperties()+player->getNumUtilities() ){
+                tradeList.emplace_back(player->utilityNameAtIndex((int)inputChar-48-player->getNumProperties()-1));
             }
             else{
-                tradeList.emplace_back(player->transportationNameAtIndex((int)inputChar-(player->getNumProperties() + player->getNumUtilities())-1));
+                tradeList.emplace_back(player->transportationNameAtIndex((int)inputChar-48-(player->getNumProperties() + player->getNumUtilities())-1));
             }
         }
         
@@ -661,6 +662,7 @@ void Board::trade(shared_ptr<Player> player){
         break;
 
     }
+
     cout<<"Player "<< targetPlayer->getName()<< ", do you agree to change "<< desiredMoney << "with "<< player->getName()<<" (Y/N) "<<endl;
     cin>>inputChar;
     while(inputChar!='Y' && inputChar!= 'N'){
@@ -671,21 +673,29 @@ void Board::trade(shared_ptr<Player> player){
         return;
     }
     else{
+
         player->receiveMoney(desiredMoney);
         targetPlayer->payMoney(desiredMoney);
         for(int x = 0; x < tradeList.size(); x++){
             if(getAssetType(tradeList[x]) == "Transportation"){
+              //  cout<< "trade"<< tradeList[x]<<endl;
+              //  cout<< "property name"<< (player->returnTransportation(tradeList[x]))->getName()<<endl;
                 (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);
             }
             else if(getAssetType(tradeList[x]) == "Property" ){
+            //    cout<< "trade"<< tradeList[x]<<endl;
+            //    cout<< "property name"<< (player->returnProperty(tradeList[x]))->getName()<<endl;
                 (player->returnProperty(tradeList[x]))->changeOwner(targetPlayer);
             }
             else{
+                // cout<< "trade"<< tradeList[x]<<endl;
+                // cout<< "property name"<< (player->returnUtility(tradeList[x]))->getName()<<endl;
                 (player->returnUtility(tradeList[x]))->changeOwner(targetPlayer);
             }
         }
-        cout<< "Trade Successful"<<endl;
-    }
+    } 
+    
+    cout<< "Trade Successful"<<endl;
 }
 
 void Board::auction(std::shared_ptr<Tile> t){
@@ -763,26 +773,24 @@ void Board::auction(std::shared_ptr<Tile> t){
     return;
 }
 
-string getAssetType( string name){
-
-    for(int i = 0; i < properties.size(); ++i) {
+string Board::getAssetType( string name){
+    for(int i = 0; i < properties.size(); i++) {
         if(properties[i]->getName() == name) {
             return properties[i]->getType();
         }
     }
 
-    for(int i = 0; i < utilities.size(); ++i) {
+    for(int i = 0; i < utilities.size(); i++) {
         if(utilities[i]->getName() == name) {
             return utilities[i]->getType();
         }
     }
 
-    for(int i = 0; i < transportations.size(); ++i) {
+    for(int i = 0; i < transportations.size(); i++) {
         if(transportations[i]->getName() == name) {
             return transportations[i]->getType();
         }
     }
-
-
 }
+
 Board::~Board(){}

@@ -41,9 +41,12 @@ void Property::buy(shared_ptr<Player> player) {
     color->updateCanBuild();
 }
 void Property:: changeOwner(shared_ptr<Player> player) {
+   // cout<<"check 1"<<endl;
     owner->removeAsset(shared_ptr<Property>(this));
+   // cout<<"check 2"<<endl;
     owner = player;
     owner->addProperty(shared_ptr<Property>(this));
+   // cout<<"check 3"<<endl;
     color->updateCanBuild();
 }
 

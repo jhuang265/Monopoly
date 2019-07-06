@@ -1,5 +1,4 @@
 #include "player.h"
-
 using namespace std;
 
 Player::Player(string name, const int index): name{name}, index{index} {

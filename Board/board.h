@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include "board.h"
+#include <vector>
 #include "./../Player/player.h"
 #include "./../Tile/tile.h"
 #include "./../Tile/property.h"
@@ -22,7 +23,7 @@ class Board{
         int type;
         int numPlayers;
         int currentPlayer;
-        std::vector<shared_ptr<Player>> players;
+        std::vector<std::shared_ptr<Player>> players;
         //std::vector<shared_ptr<Card>> cards;
     public:
         Board(int type, int players);
@@ -33,7 +34,7 @@ class Board{
         void playTurn();
         void checkOwnership();
         void auction(std::shared_ptr<Tile>);
-        std:: string getAssetType(string){}
+        std::string getAssetType(std::string);
         void printBoard();
 
         ~Board();
