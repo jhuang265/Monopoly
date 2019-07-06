@@ -11,5 +11,6 @@ class Color{
         Color();
         void updateCanBuild();
         void attach(std::shared_ptr<Property>);
+        ~Color(){}
 };
 #endif
