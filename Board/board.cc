@@ -563,6 +563,7 @@ void Board::playTurn(){
             cout << '\n';
 
             while(playerChoice!= 'A' && playerChoice!= 'B' && playerChoice!= 'C'){
+                cout<<"Please enter a valid action: ";
                 cin>>playerChoice;
             }
             if (playerChoice=='C'){
