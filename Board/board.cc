@@ -380,7 +380,7 @@ void Board::rollDiceAndAction(){
                     cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
-                    auction(tiles[pos]);
+                    auction(properties[i]);
                 }
                 return;
             }
@@ -440,7 +440,7 @@ void Board::playTurn(){
                 continue;
             }
             while((*i)->getDoubles() > 0 && (*i)->getDoubles() < 3){
-                cout << "Rolled double! Go again." << endl;
+                cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
                 if((*i)->getMoney() < 0){
                     i = players.erase(i);
                     break;
