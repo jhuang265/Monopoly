@@ -4,9 +4,9 @@
 #include <vector>
 #include <memory>
 #include "board.h"
-#include "./../player.h"
-#include "./../tile.h"
-#include "./../color.h"
+#include "./../Player/player.h"
+#include "./../Tile/tile.h"
+#include "./../Color/color.h"
 #include "./../Card/card.h"
 
 class Board{
