@@ -4,29 +4,29 @@ using namespace std;
 Utility:: Utility(int cost_, vector<int> rent_, string tileType_, string name_):
                     cost(cost_),rent(rent_),Tile(tileType_,name_){}
 
-int Utility:: getPrice() override{
+int Utility:: getPrice() {
     return cost;
 }
 
-int Utility:: getUtilityRent(int dice) override{
-    return rent[owner.getNumUtility()-1]* dice ;
+int Utility:: getUtilityRent(int dice) {
+    return rent[owner->getNumUtilities()-1]* dice ;
 }
 
-bool Utility:: getIsOwned() override{
+bool Utility:: getIsOwned() {
     return isOwned;
 }
 
-void Utility:: buy(shared_ptr<Player> player) override{
+void Utility:: buy(shared_ptr<Player> player) {
     owner = player;
     isOwned=true;
-    owner.payMoney(cost);
-    owner.addUtility(shared_from_this());
+    owner->payMoney(cost);
+    owner->addUtility(shared_from_this());
 }
 
 void Utility:: changeOwner (shared_ptr<Player> player){
-    owner.removeAsset(shared_from_this());
+    owner->removeAsset(shared_from_this());
     owner = player;
-    owner.addUtility(shared_from_this());
+    owner->addUtility(shared_from_this());
 }
 
 void Utility:: reset(){
