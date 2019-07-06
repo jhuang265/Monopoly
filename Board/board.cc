@@ -326,7 +326,7 @@ void Board::playTurn(){
             while(playerChoice!= 'A' && playerChoice!= 'B' && playerChoice!= 'C'){
                 cin>>playerChoice;
             }
-            if (playerChoice=='C'){
+            if (playerChoice=='C'){   
                 players.erase(i);
                 continue;
             }

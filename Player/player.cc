@@ -155,13 +155,16 @@ void Player::print() {
     cout << "Name: "<<name<<endl;
     cout << "Account Balance: "<<money<<endl;
     cout << "Properties Owned: "<<endl;
+    int cnt=1;
     if(!properties.empty()) {
         for(auto & p : properties) {
             if (p == properties.back()) {
-                cout << p->getName() <<endl;
+                cout << "("<< cnt<< ")"<<p->getName() <<endl;
+                cnt++;
                 break;
             }
-            cout << p->getName()<<", ";
+            cout << "("<< cnt<< ")"<< p->getName()<<", ";
+            cnt++;
         }
     }
 
@@ -169,10 +172,12 @@ void Player::print() {
     if(!utilities.empty()) {
         for(auto & u : utilities) {
             if (u == utilities.back()) {
-                cout << u->getName() <<endl;
+                cout <<"("<< cnt<< ")"<< u->getName() <<endl;
+                cnt++;
                 break;
             }
-            cout << u->getName()<<", ";
+            cout <<"("<< cnt<< ")"<< u->getName()<<", ";
+            cnt++;
         }
     }
 
@@ -180,10 +185,12 @@ void Player::print() {
     if(!transportations.empty()) {
         for(auto & t : transportations) {
             if (t == transportations.back()) {
-                cout << t->getName() <<endl;
+                cout << "("<< cnt<< ")"<<t->getName() <<endl;
+                cnt++;
                 break;
             }
-            cout << t->getName()<<", ";
+            cout << "("<< cnt<< ")"<<t->getName()<<", ";
+            cnt++;
         }
     }
 }
