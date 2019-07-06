@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include "tile.h"
-#include "color.h"
+#include "./../Color/color.h"
 #include "./Player/player.h"
 
 class Property: public Tile{

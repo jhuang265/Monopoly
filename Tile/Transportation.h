@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include "tile.h"
-#include "./Player/player.h"
+#include "./../Player/player.h"
 
 class Transportation: public Tile{
     private:
