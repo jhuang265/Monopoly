@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 class Player;
-class Tile : public std::enable_shared_from_this<Tile>{
+
+class Tile {
     private: 
         std::string tileType;
         std::string name;
