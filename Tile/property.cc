@@ -20,12 +20,12 @@ int Property:: getPrice(){
     return cost;
 }
 
-int Property:: getRent(){
+int Property:: getRent() override{
     return rent[houses];
 }
 
 
-bool Property:: getIsOwned(){
+bool Property:: getIsOwned() override{
     return isOwned;
 }
 

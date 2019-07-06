@@ -11,19 +11,19 @@ class Property: public Tile{
         int cost;
         int gameType;
         int houses; //current num of houses
-        std:: vector<int> rent;
+        std::vector<int> rent;
         std::shared_ptr<Player> owner;
         std::shared_ptr<Color> color; //constant, initilaized by contructor 
         int canBuild; // if one can build house, only happens if owner has all colored sets
         bool isOwned;
     public:
-        Property(int, int, std::vector<int> , std::shared_ptr<Color>, std::string, std::string  );
+        Property(int, std::vector<int>, std::shared_ptr<Color>, int, std::string, std::string);
         void buyHouse();
         int getCanBuild();
         int getHouses();
         int getPrice();
-        int getRent();
-        bool getIsOwned();
+        int getRent() override;
+        bool getIsOwned() override;
         int getOwnerIndex();
         void buy(std::shared_ptr<Player> );
         std::shared_ptr<Player> getOwner();

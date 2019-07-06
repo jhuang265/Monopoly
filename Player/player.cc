@@ -11,7 +11,24 @@ Player::Player(string name, const int index): name{name}, index{index} {
     bool hasGOJFC = false;
 }
 
+string Player::getName() { return name; }
+
 int Player::getIndex() { return index; }
+
+string propertyNameAtIndex(int i) {
+    if(i < properties.size()) { return properties.at(i); }
+    return "";
+}
+
+string utilityNameAtIndex(int i) {
+    if(i < utilities.size()) { return utilities.at(i); }
+    return "";
+}
+
+string transportationNameAtIndex(int i) {
+    if(i < transportations.size()) { return transportations.at(i); }
+    return "";
+}
 
 int Player::getMoney() { return money; }
 
@@ -58,6 +75,18 @@ void Player::removeAsset(shared_ptr<Tile> tile) {
     return;
 }
 
+shared_ptr<Tile> Player::returnAsset(string name) {
+    for(auto &p : properties) {
+        if(p->getName() == name) return p;
+    }
+    for(auto &u : utilities) {
+        if(u->getName() == name) return u;
+    }
+    for(auto &t : transportations) {
+        if(t->getName() == name) return t;
+    }
+}
+
 int Player::getNumUtilities() { return utilities.size(); }
 
 int Player::getNumTransportations() { return transportations.size(); }
@@ -72,6 +101,11 @@ void Player::move(int n) {
 
 int Player::getDoubles() {
     return numDoubles;
+}
+
+void Player::resetDoubles() {
+    numDoubles = 0;
+    return;
 }
 
 void Player::rolledDoubles() {
@@ -90,6 +124,11 @@ void Player::goToJail() {
     return;
 }
 
+void Player::addTurnInJail(){
+    turnsInJail++;
+    return;
+}
+
 bool Player::isInJail() {
     return isInJail;
 }
@@ -100,7 +139,7 @@ void Player::release() {
     return;
 }
 
-void Player::getTurnsInJail() { return turnsInJail; }
+int Player::getTurnsInJail() { return turnsInJail; }
 
 void Player::setHasGOTJFCard() {
     hasGOJFC = true;

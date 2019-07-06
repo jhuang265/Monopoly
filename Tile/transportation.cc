@@ -10,11 +10,11 @@ int Transportation:: getPrice(){
     return cost;
 }
 
-int Transportation:: getRent(){
+int Transportation:: getRent() override{
     return owner.getNumTransportation()*25;
 }
 
-bool Transportation:: getIsOwned(){
+bool Transportation:: getIsOwned() override{
     return isOwned;
 }
 
