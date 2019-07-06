@@ -2,21 +2,20 @@
 #define UTILITY_H_
 #include <string>
 #include <memory>
-#include <vector>
-#include "Tile.h"
-#include "Player.h"
+#include "tile.h"
+#include "./Player/player.h"
 class Utility : public Tile{
     private:
         int cost;
-        std:: vector<int> rent; // contains 2 elements; either 4 or 10
-        std:: shared_ptr<Player> owner;
+        std::vector<int> rent; // contains 2 elements; either 4 or 10
+        std::shared_ptr<Player> owner;
         bool isOwned;
         int getRent() override{} //this class does not use this method
     public:
         Utility(int , std::vector<int> , std::string , std::string );
         int getUtilityRent(int);
         int getPrice();
-        bool getIsOwned();
+        bool getIsOwned();                                           
         void buy(std::shared_ptr<Player>);
         void changeOwner(std::shared_ptr<Player>);
         void reset();

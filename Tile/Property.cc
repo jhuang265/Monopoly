@@ -1,4 +1,7 @@
-#include "Property.h"
+#include "property.h"
+#include "tile.h"
+#include "color.h"
+#include "./Player/player.h"
 using namespace std;
 
 

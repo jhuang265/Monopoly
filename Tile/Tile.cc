@@ -1,4 +1,9 @@
 #include <Tile.h>
 
-using namespace stds;
-Tile:: Tile(string tType): tileType(tType){}
+using namespace std;
+
+Tile:: Tile(string tileType_, string name_): tileType(tileType_),name(name_){}
+
+string Tile:: getName(){
+    return name;
+}

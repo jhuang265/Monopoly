@@ -1,5 +1,7 @@
-#include "Transportation.h"
-#include <vector>
+#include "transportation.h"
+#include "tile.h"
+#include "./Player/player.h"
+using namespace std;
 using namespace std;
 
 Transportation:: Transportation(int cost_, vector<int> rent_, string tileType_, string name_):
