@@ -11,7 +11,7 @@ int Transportation:: getPrice() {
 }
 
 int Transportation:: getRent() {
-    return owner.getNumTransportation()*25;
+    return owner->getNumTransportations()*25;
 }
 
 bool Transportation:: getIsOwned() {
@@ -21,14 +21,14 @@ bool Transportation:: getIsOwned() {
 void Transportation:: buy(shared_ptr<Player> player) {
     owner = player;
     isOwned=true;
-    owner.payMoney(cost);
-    owner.addTransportation((shared_ptr<Property>(this)));
+    owner->payMoney(cost);
+    owner->addTransportation((shared_ptr<Transportation>(this)));
 }
 
 void Transportation:: changeOwner (shared_ptr<Player> player){
-    owner.removeAsset((shared_ptr<Property>(this)));
+    owner->removeAsset((shared_ptr<Transportation>(this)));
     owner = player;
-    owner.addTransportation(shared_ptr<Property>(this));
+    owner->addTransportation(shared_ptr<Transportation>(this));
     
 }
 
