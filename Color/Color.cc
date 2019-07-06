@@ -1,6 +1,6 @@
 #include "color.h"
 #include "./../Player/player.h"
-#include "./../Tile/property.h"
+#include "./../Tile/tile.h"
 using namespace std;
 
 Color::Color(){}

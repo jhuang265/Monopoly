@@ -13,13 +13,13 @@ class Utility : public Tile{
         //int getRent(){} //this class does not use this method
     public:
         Utility(int , std::vector<int> , std::string , std::string );
-        int getUtilityRent(int);
-        int getPrice();
+        int getUtilityRent(int) override;
+        int getPrice() override;
         bool getIsOwned() override;                                           
-        void buy(std::shared_ptr<Player>);
+        void buy(std::shared_ptr<Player>) override;
         void changeOwner(std::shared_ptr<Player>);
         void reset();
-        ~Utility(){}
+        ~Utility();
 };
 
 #endif

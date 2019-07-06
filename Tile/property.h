@@ -18,15 +18,15 @@ class Property: public Tile{
         bool isOwned;
     public:
         Property(int, std::vector<int>, std::shared_ptr<Color>, int, std::string, std::string);
-        void buyHouse();
-        int getCanBuild();
-        int getHouses();
-        int getPrice();
+        void buyHouse() override;
+        int getCanBuild() override;
+        int getHouses() override;
+        int getPrice() override;
         int getRent() override;
         bool getIsOwned() override;
-        int getOwnerIndex();
-        void buy(std::shared_ptr<Player> );
-        std::shared_ptr<Player> getOwner();
+        int getOwnerIndex() override;
+        void buy(std::shared_ptr<Player> ) override;
+        std::shared_ptr<Player> getOwner() override;
         void reset();
         void changeOwner(std::shared_ptr<Player>);
         void setCanBuild();

@@ -6,7 +6,7 @@ using namespace std;
 Transportation:: Transportation(int cost_, vector<int> rent_, string tileType_, string name_):
                     cost(cost_),rent(rent_),Tile(tileType_,name_){}
 
-int Transportation:: getPrice(){
+int Transportation:: getPrice() override{
     return cost;
 }
 
@@ -18,7 +18,7 @@ bool Transportation:: getIsOwned() override{
     return isOwned;
 }
 
-void Transportation:: buy(shared_ptr<Player> player){
+void Transportation:: buy(shared_ptr<Player> player) override{
     owner = player;
     isOwned=true;
     owner.payMoney(cost);
@@ -36,3 +36,4 @@ void Transportation:: reset(){
     isOwned = false;
 }
     
+Transportation::~Transportation(){};

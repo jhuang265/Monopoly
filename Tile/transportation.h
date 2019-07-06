@@ -14,13 +14,13 @@ class Transportation: public Tile{
 
     public:
         Transportation(int, std::vector<int> , std::string, std::string);
-        int getPrice();
+        int getPrice() override;
         int getRent() override;
         bool getIsOwned() override;
-        void buy(std::shared_ptr<Player>);
+        void buy(std::shared_ptr<Player>) override;
         void changeOwner(std::shared_ptr<Player>);
         void reset();
-        ~Transportation(){}
+        ~Transportation();
         
 
 };
