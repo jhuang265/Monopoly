@@ -19,7 +19,7 @@
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
 
-    for(int i = 0; i < numPlayers; ++i){
+    for(int i = 0; i < numPlayers; i++){
         std::cout << "Enter the name for Player " << i << ": ";
         std::cin >> name;
 
@@ -266,7 +266,7 @@ void Board::rollDiceAndAction(){
     GTJCard c4{};
     moveCard c5{};
 
-    for(int i = 0; i < 6; ++i){
+    for(int i = 0; i < 6; i++){
         if(pos == cardLocations[i]){
             srand(time(0));
             int rNum = (rand()%5+1);
@@ -306,12 +306,12 @@ void Board::rollDiceAndAction(){
     }
 
 
-    for(int i = 0; i < 4; ++i){
+    for(int i = 0; i < 4; i++){
         if(pos == transLocations[i]){
             if(transportations[i]->getIsOwned()){
                 players[currentPlayer]->payMoney(transportations[i]->getRent());
 
-                for(auto j = players.begin(); j != players.end(); ++j){
+                for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == transportations[i]->getOwnerIndex()){
                         (*j)->receiveMoney(transportations[i]->getRent());
                     }
@@ -334,11 +334,11 @@ void Board::rollDiceAndAction(){
         }
     }
 
-    for(int i = 0; i < 2; ++i){
+    for(int i = 0; i < 2; i++){
         if(pos == utilLocations[i]){
             if(utilities[i]->getIsOwned()){
                 players[currentPlayer]->payMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
-                for(auto j = players.begin(); j != players.end(); ++j){
+                for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == utilities[i]->getOwnerIndex()){
                         (*j)->receiveMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
                     }
@@ -362,11 +362,11 @@ void Board::rollDiceAndAction(){
         }
     }
 
-    for(int i = 0; i < 22; ++i){
+    for(int i = 0; i < 22; i++){
         if(pos == propertyLocations[i]){
             if(properties[i]->getIsOwned()){
                 players[currentPlayer]->payMoney(properties[i]->getRent());
-                for(auto j = players.begin(); j != players.end(); ++j){
+                for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == properties[i]->getOwnerIndex()){
                         (*j)->receiveMoney(properties[i]->getRent());
                     }
@@ -521,17 +521,17 @@ void Board::auction(std::shared_ptr<Tile> t){
     int maxBid = 0;
     int maxPlayerIndex = currentPlayer;
     vector <int> remaining;
-    for(int i = 0; i < players.size(); ++i){
+    for(int i = 0; i < players.size(); i++){
         remaining.push_back(i);
     }
 
-    for(int i = currentPlayer; remaining.size() != 1; ++i){
+    for(int i = currentPlayer; remaining.size() != 1; i++){
         int bid;
 
         std::cout << "Player " << remaining[i] << " please enter your bid. (If you don't want to participate, enter -1): ";
         std::cin >> bid;
         if(bid <= -1){
-            for(auto j = remaining.begin(); j != remaining.end(); ++i){
+            for(auto j = remaining.begin(); j != remaining.end(); j++){
                 if ((*j) == remaining[i]){
                     remaining.erase(j);
                 }
