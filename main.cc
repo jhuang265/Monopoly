@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "game.h"
+#include "./Game/game.h"
 
 int main(){
     char s;

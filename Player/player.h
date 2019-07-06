@@ -3,9 +3,9 @@
 #include <string>
 #include <iostream>
 #include "../Tile/tile.h"
-#include "../Tile/Property.h"
-#include "../Tile/Utility.h"
-#include "../Tile/Transportation.h"
+#include "../Tile/property.h"
+#include "../Tile/utility.h"
+#include "../Tile/transportation.h"
 
 
 class Player {
