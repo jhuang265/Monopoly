@@ -21,7 +21,7 @@ int main(){
         std::cout << '\n' << endl;
         std::cout << "We offer two types of games to play. The first requires collecting all properties" << endl;
         std::cout << "of an individual color before you can build houses on them, while the second type" << endl;
-        std::cout << "does not require you to do so.";
+        std::cout << "does not require you to do so. ";
         std::cout << "Which type of game would you like to play? (1 or 2): ";
         std::cin >> type;
 
@@ -30,7 +30,7 @@ int main(){
             std::cin >> type;
         }
 
-        Game g{numPlayers, type};
+        Game g{type, numPlayers};
         g.playGame();
     }
 }
