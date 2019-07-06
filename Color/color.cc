@@ -28,3 +28,7 @@ void Color::updateCanBuild(){
         }
     }
 }
+
+void  Color:: attach(shared_ptr<Property> property){
+    properties.emplace_back(property);
+}
