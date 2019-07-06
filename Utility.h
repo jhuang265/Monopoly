@@ -12,6 +12,7 @@ class Utility{
         bool isOwned;
         int getRent() override{} //this class does not use this method
     public:
+        Utility(int, vector<int>, string, string);
         int getUtilityRent(int);
         int getPrice();
         bool getIsOwned();

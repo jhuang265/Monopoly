@@ -15,7 +15,7 @@ class Property:: public Tile{
         int canBuild; // if one can build house, only happens if owner has all colored sets
         bool isOwned;
     public:
-        Property(int, int*, std::shared_ptr<Color> );
+        Property(int, vector<int>, std::shared_ptr<Color>, int, string, string);
         void buyHouse();
         int getCanBuild();
         int getHouses();

@@ -12,7 +12,7 @@ class Transportation:: public Tile{
         bool isOwned; 
 
     public:
-
+        Transportation(int, vector<int>, string, string);
         int getPrice();
         int getRent() override;
         bool getIsOwned();
