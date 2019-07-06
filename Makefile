@@ -1,8 +1,16 @@
-a2q2: a2q2.o maze.o
-	g++ -std=c++14 a2q2.o maze.o -o a2q2
+CXX = g++ -std=c++14
+CXXFLAGS = -g -std=c++14 -Wall -MMD
+#CXXFLAGS = -std=c++14 -Wall -MMD
+EXEC = monopoly
+OBJECTS = ./Game/game.o ./Board/board.o ./Player/player.o ./Color/color.o ./Tile/tile.o ./Tile/property.o ./Tile/utility.o ./Tile/transportation.o ./Card/card.o ./Card/GOJFCard.o ./Card/GTJCard.o ./Card/getMoneyCard.o ./Card/loseMoneyCard.o ./Card/moveCard.o
+DEPENDS = ${OBJECTS:.o=.d}
 
-maze.o: maze.cc maze.h
-	g++ -std=c++14 -c maze.cc
+${EXEC}: ${OBJECTS}
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
 
-a2q2.o: a2q2.cc maze.h
-	g++ -std=c++14 -c a2q2.cc
+-include ${DEPENDS}
+
+.PHONY: clean
+
+clean:
+	rm ${OBJECTS} ${EXEC} ${DEPENDS}
