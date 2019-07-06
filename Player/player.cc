@@ -26,7 +26,7 @@ void Player::payMoney(int payment) {
 }
 
 void Player::addAsset(shared_ptr<Tile> tile) {
-    string type = Tile->getTileType();
+    string type = tile->getTileType();
     if(type == "Property") {
         properties.emplace_back(tile);
     } else if(type == "Utility") {
@@ -38,8 +38,8 @@ void Player::addAsset(shared_ptr<Tile> tile) {
 }
 
 void Player::removeAsset(shared_ptr<Tile> tile) {
-    string type = Tile->getTileType();
-    string name = Tile->getName();
+    string type = tile->getTileType();
+    string name = tile->getName();
     vector<shared_ptr<Property> > asset;
     if(type == "Property") {
         asset = properties;

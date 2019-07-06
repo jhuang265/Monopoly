@@ -49,6 +49,9 @@ public:
 
   void print();
   void printAsset();//needs to be written for giving trade options
+  std::string propertyNameAtIndex(int);
+  std::string transportationNameAtIndex(int);
+  std::string utilityNameAtIndex(int); 
   ~Player();
 };
 
