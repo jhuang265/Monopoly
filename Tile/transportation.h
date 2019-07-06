@@ -17,6 +17,7 @@ class Transportation: public Tile{
         int getPrice() override;
         int getRent() override;
         bool getIsOwned() override;
+        int getOwnerIndex() override;
         void buy(std::shared_ptr<Player>) override;
         void changeOwner(std::shared_ptr<Player>) override;
         void reset();

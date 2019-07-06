@@ -16,6 +16,7 @@ class Utility : public Tile{
         int getUtilityRent(int) override;
         int getPrice() override;
         bool getIsOwned() override;                                           
+        int getOwnerIndex() override;
         void buy(std::shared_ptr<Player>) override;
         void changeOwner(std::shared_ptr<Player>) override;
         void reset();

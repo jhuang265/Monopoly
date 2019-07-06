@@ -19,21 +19,28 @@ bool Transportation:: getIsOwned() {
 }
 
 void Transportation:: buy(shared_ptr<Player> player) {
+    //cout << "Name: " << player->getName() << "\t Index: "  << player->getIndex() << endl;
     owner = player;
-    isOwned=true;
     owner->payMoney(cost);
-    owner->addTransportation((shared_ptr<Transportation>(this)));
+    owner->addTransportation(shared_ptr<Transportation>(this));
+    isOwned=true;
+    cout << "Index: "  << this->getOwnerIndex() << endl;
+    //cout << "Name: " << owner->getName() << "\t Index: "  << owner->getIndex() << endl;
+}
+
+int Transportation:: getOwnerIndex() {
+    return owner->getIndex();
 }
 
 void Transportation:: changeOwner (shared_ptr<Player> player){
-    owner->removeAsset((shared_ptr<Transportation>(this)));
+    owner->removeAsset(shared_ptr<Transportation>(this));
     owner = player;
     owner->addTransportation(shared_ptr<Transportation>(this));
-    
+
 }
 
 void Transportation:: reset(){
     isOwned = false;
 }
-    
+
 Transportation::~Transportation(){};

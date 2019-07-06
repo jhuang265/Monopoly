@@ -1,5 +1,6 @@
 #include "moveCard.h"
 #include "./../Player/player.h"
+#include <random>
 
 using namespace std;
 
@@ -7,8 +8,12 @@ using namespace std;
 
 moveCard::moveCard() {}
 void moveCard::use(shared_ptr<Player> p) {
-    int newpos = rand()%39;
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> dis(0, 39);
+    int newpos = dis(gen);
     p->move(newpos);
+    cout << "You moved to position " << newpos << "on the board." << endl;
 }
 
 moveCard::~moveCard() {}

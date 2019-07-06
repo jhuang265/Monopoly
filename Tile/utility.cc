@@ -17,10 +17,16 @@ bool Utility:: getIsOwned() {
 }
 
 void Utility:: buy(shared_ptr<Player> player) {
+    //cout << "Name: " << player->getName() << "\t Index: "  << player->getIndex() << endl;
     owner = player;
-    isOwned=true;
     owner->payMoney(cost);
     owner->addUtility(shared_ptr<Utility>(this));
+    isOwned=true;
+    //cout << "Name: " << owner->getName() << "\t Index: "  << owner->getIndex() << endl;
+}
+
+int Utility:: getOwnerIndex() {
+    return owner->getIndex();
 }
 
 void Utility:: changeOwner (shared_ptr<Player> player){
@@ -32,5 +38,5 @@ void Utility:: changeOwner (shared_ptr<Player> player){
 void Utility:: reset(){
     isOwned = false;
 }
-    
+
 Utility::~Utility(){}

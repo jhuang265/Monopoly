@@ -159,6 +159,25 @@ int Board::rollDice(){
     return dis(gen);
 }
 
+void Board::checkOwnership(){
+    for(int i = 0; i < utilities.size(); i++){
+        if(utilities[i]->getIsOwned()){
+            cout << utilities[i]->getName() << ": " << utilities[i]->getOwnerIndex() << endl;
+        }
+    }
+    for(int i = 0; i < transportations.size(); i++){
+        if(transportations[i]->getIsOwned()){
+            cout << transportations[i]->getName() << ": " << transportations[i]->getOwnerIndex() << endl;
+        }
+    }
+    for(int i = 0; i < properties.size(); i++){
+        if(properties[i]->getIsOwned()){
+            cout << properties[i]->getName() << ": " << properties[i]->getOwnerIndex() << endl;
+        }
+    }
+    return;
+}
+
 void Board::rollDiceAndAction(){
     if(players[currentPlayer]->getTurnsInJail() == 3){
         players[currentPlayer]->release();
@@ -204,8 +223,8 @@ void Board::rollDiceAndAction(){
         return;
     }
 
-    //players[currentPlayer]->move(firstRoll+secondRoll);
-    players[currentPlayer]->move(1);
+    players[currentPlayer]->move(firstRoll+secondRoll);
+    //players[currentPlayer]->move(1);
 
     int pos = players[currentPlayer]->getPos();
 
@@ -292,7 +311,7 @@ void Board::rollDiceAndAction(){
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
                     cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
-                    cout << transportations[i]->getPrice() << endl;
+                    cout << "Cost: " << transportations[i]->getPrice() << endl;
                     transportations[i]->buy(players[currentPlayer]);
                     cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
                 }
@@ -331,7 +350,7 @@ void Board::rollDiceAndAction(){
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
                     cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
-                    cout << utilities[i]->getPrice() << endl;
+                    cout << "Cost: " << utilities[i]->getPrice() << endl;
                     utilities[i]->buy(players[currentPlayer]);
                     cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
                 }
@@ -528,6 +547,8 @@ void Board::playTurn(){
             cout<< endl;
             cout<< "-------------------------------------------------" << endl;
             cout<< "Player "<< (*i)->getIndex() << "'s turn." << endl;
+            cout<< "Current Player: "<< currentPlayer << endl;
+
             (*i)->print();//prints status of cur player
             cout<<endl;
 
@@ -536,6 +557,10 @@ void Board::playTurn(){
             cout<<"3) Do you want to quit? (enter C)"<<endl;
             cout<<"Enter your choice: ";
             cin>>playerChoice;
+
+            cout << '\n';
+            checkOwnership();
+            cout << '\n';
 
             while(playerChoice!= 'A' && playerChoice!= 'B' && playerChoice!= 'C'){
                 cin>>playerChoice;
@@ -547,7 +572,6 @@ void Board::playTurn(){
             else if(playerChoice == 'B'){
                 trade(*i);
             }
-            cout << "Roll" << endl;
             rollDiceAndAction();
             cout << "Current Player's Money: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
@@ -556,6 +580,8 @@ void Board::playTurn(){
                 continue;
             }
             while((*i)->getDoubles() > 0 && (*i)->getDoubles() < 3){
+                cout << "You get an extra roll for rolling a double." << endl;
+                cout << '\n';
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
                 if((*i)->getMoney() < 0){
                     i = players.erase(i);
@@ -675,6 +701,14 @@ void Board::auction(std::shared_ptr<Tile> t){
 
         std::cout << "Player " << remaining[i] << " please enter your bid. (If you want to stop bidding, enter -1): ";
         std::cin >> bid;
+        if (!cin.good()){
+            bid = 0;
+            std::cin.clear(); //clear bad input flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            //i = i-1;
+            //continue;
+            cout << "Invalid bid. Please wait your turn to bid again." << endl;
+        }
 
         if(bid > players[i]->getMoney()){
             cout << "Invalid bid. You don't have the money to make this." << endl;

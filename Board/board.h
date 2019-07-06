@@ -31,6 +31,7 @@ class Board{
         int rollDice();
         void rollDiceAndAction();
         void playTurn();
+        void checkOwnership();
         void auction(std::shared_ptr<Tile>);
 
         void printBoard();
