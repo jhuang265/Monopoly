@@ -45,45 +45,102 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     std::shared_ptr<Color> blue = std::make_shared<Color>();
 
     std::shared_ptr<Tile> d1 = std::make_shared<Tile>("Go", "Go");
-    std::shared_ptr<Property> d2 = std::shared_ptr<Property>(new Property(60, {2, 10, 30, 90, 160, 250}, brown, initialBuild, "Property", "P1"));
+
+    std::vector<int> rents{2, 10, 30, 90, 160, 250};
+
+    std::shared_ptr<Property> d2 = std::make_shared<Property>(60, rents, brown, initialBuild, "Property", "P1");
     std::shared_ptr<Tile> d3 = std::make_shared<Tile>("Income Tax", "Income Tax");
-    std::shared_ptr<Property> d4 = std::shared_ptr<Property >(new Property(60, {4, 20, 60, 180, 320, 450}, brown, initialBuild, "Property", "P2"));
+
+    rents = {4, 20, 60, 180, 320, 450};
+    std::shared_ptr<Property> d4 = std::make_shared<Property >(60, rents, brown, initialBuild, "Property", "P2");
     std::shared_ptr<Tile> d5 = std::make_shared<Tile>("Community Chest", "Community Chest");
-    std::shared_ptr<Transportation> d6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T1"));
-    std::shared_ptr<Property> d7 = std::shared_ptr<Property >(new Property(100, {6, 30, 90, 270, 400, 550}, lblue, initialBuild, "Property", "P3"));
+
+    std::vector<int> rentsTrans{25, 50, 100, 200};
+    std::shared_ptr<Transportation> d6 = std::make_shared<Transportation>(200, rents, "Transportation", "T1");
+
+    rents = {6, 30, 90, 270, 400, 550};
+    std::shared_ptr<Property> d7 = std::make_shared<Property >(100, rents, lblue, initialBuild, "Property", "P3");
+
     std::shared_ptr<Tile> d8 = std::make_shared<Tile>("Chance", "Chance");
-    std::shared_ptr<Property> d9 = std::shared_ptr<Property >(new Property(100, {6, 30, 90, 270, 400, 550}, lblue, initialBuild, "Property", "P4"));
-    std::shared_ptr<Property> teen = std::shared_ptr<Property >(new Property(120, {8, 40, 100, 300, 450, 600}, lblue, initialBuild, "Property", "P5"));
+
+    rents = {6, 30, 90, 270, 400, 550};
+    std::shared_ptr<Property> d9 = std::make_shared<Property >(100, rents, lblue, initialBuild, "Property", "P4");
+
+    rents = {8, 40, 100, 300, 450, 600};
+    std::shared_ptr<Property> teen = std::make_shared<Property >(120, rents, lblue, initialBuild, "Property", "P5");
+
     std::shared_ptr<Tile> teen1 = std::make_shared<Tile>("Jail/Visiting", "Jail/Visiting");
-    std::shared_ptr<Property> teen2 = std::shared_ptr<Property >(new Property(140, {10, 50, 150, 450, 625, 750}, pink, initialBuild, "Property", "P6"));
-    std::shared_ptr<Utility> teen3 = std::shared_ptr<Utility>(new Utility(150, {4, 10}, "Utility", "U1"));
-    std::shared_ptr<Property> teen4 = std::shared_ptr<Property >(new Property(140, {10, 50, 150, 450, 625, 750}, pink, initialBuild, "Property", "P7"));
-    std::shared_ptr<Property> teen5 = std::shared_ptr<Property >(new Property(160, {12, 60, 180, 500, 700, 900}, pink, initialBuild, "Property", "P8"));
-    std::shared_ptr<Transportation> teen6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T2"));
-    std::shared_ptr<Property> teen7 = std::shared_ptr<Property >(new Property(180, {14, 70, 200, 550, 750, 950}, orange, initialBuild, "Property", "P9"));
+
+    rents = {10, 50, 150, 450, 625, 750};
+    std::shared_ptr<Property> teen2 = std::make_shared<Property >(140, rents, pink, initialBuild, "Property", "P6");
+
+    vector<int> rentsUtils {4, 10};
+    std::shared_ptr<Utility> teen3 = std::make_shared<Utility>(150, rentsUtils, "Utility", "U1");
+
+    std::shared_ptr<Property> teen4 = std::make_shared<Property >(140, rents, pink, initialBuild, "Property", "P7");
+
+    rents = {12, 60, 180, 500, 700, 900};
+    std::shared_ptr<Property> teen5 = std::make_shared<Property >(160, rents, pink, initialBuild, "Property", "P8");
+
+    std::shared_ptr<Transportation> teen6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "T2");
+
+    rents = {14, 70, 200, 550, 750, 950};
+    std::shared_ptr<Property> teen7 = std::make_shared<Property >(180, rents, orange, initialBuild, "Property", "P9");
+
     std::shared_ptr<Tile> teen8 = std::make_shared<Tile>("Community Chest", "Community Chest");
-    std::shared_ptr<Property> teen9 = std::shared_ptr<Property >(new Property(180, {14, 70, 200, 550, 750, 950}, orange, initialBuild, "Property", "P10"));
-    std::shared_ptr<Property> twenty = std::shared_ptr<Property >(new Property(200, {16, 80, 220, 600, 800, 1000}, orange, initialBuild, "Property", "P11"));
+
+    std::shared_ptr<Property> teen9 = std::make_shared<Property >(180, rents, orange, initialBuild, "Property", "P10");
+
+    rents = {16, 80, 220, 600, 800, 1000};
+    std::shared_ptr<Property> twenty = std::make_shared<Property >(200, rents, orange, initialBuild, "Property", "P11");
+
     std::shared_ptr<Tile> twenty1 = std::make_shared<Tile>("Free Parking", "Free Parking");
-    std::shared_ptr<Property> twenty2 = std::shared_ptr<Property >(new Property(220, {18, 90, 250, 700, 875, 1050}, red, initialBuild, "Property", "P12"));
+
+    rents = {18, 90, 250, 700, 875, 1050};
+    std::shared_ptr<Property> twenty2 = std::make_shared<Property >(220, rents, red, initialBuild, "Property", "P12");
+
     std::shared_ptr<Tile> twenty3 = std::make_shared<Tile>("Chance", "Chance");
-    std::shared_ptr<Property> twenty4 = std::shared_ptr<Property >(new Property(220, {18, 90, 250, 700, 875, 1050}, red, initialBuild, "Property", "P13"));
-    std::shared_ptr<Property> twenty5 = std::shared_ptr<Property >(new Property(240, {20, 100, 300, 750, 925, 1100}, red, initialBuild, "Property", "P14"));
-    std::shared_ptr<Transportation> twenty6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T3"));
-    std::shared_ptr<Property> twenty7 = std::shared_ptr<Property >(new Property(260, {22, 110, 330, 800, 975, 1150}, yellow, initialBuild, "Property", "P15"));
-    std::shared_ptr<Property> twenty8 = std::shared_ptr<Property >(new Property(260, {22, 110, 330, 800, 975, 1150}, yellow, initialBuild, "Property", "P16"));
-    std::shared_ptr<Utility> twenty9 = std::shared_ptr<Utility>(new Utility(150, {4, 10}, "Utility", "U2"));
-    std::shared_ptr<Property> thirty = std::shared_ptr<Property >(new Property(280, {22, 120, 360, 850, 1025, 1200}, yellow, initialBuild, "Property", "P17"));
+
+    std::shared_ptr<Property> twenty4 = std::make_shared<Property >(220, rents, red, initialBuild, "Property", "P13");
+
+    rents = {20, 100, 300, 750, 925, 1100};
+    std::shared_ptr<Property> twenty5 = std::make_shared<Property >(240, rents, red, initialBuild, "Property", "P14");
+
+    std::shared_ptr<Transportation> twenty6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "T3");
+
+    rents = {22, 110, 330, 800, 975, 1150};
+    std::shared_ptr<Property> twenty7 = std::make_shared<Property >(260, rents, yellow, initialBuild, "Property", "P15");
+
+    std::shared_ptr<Property> twenty8 = std::make_shared<Property >(260, rents, yellow, initialBuild, "Property", "P16");
+
+    std::shared_ptr<Utility> twenty9 = std::make_shared<Utility>(150, rentsUtils, "Utility", "U2");
+
+    rents = {22, 120, 360, 850, 1025, 1200};
+    std::shared_ptr<Property> thirty = std::make_shared<Property >(280, rents, yellow, initialBuild, "Property", "P17");
+
     std::shared_ptr<Tile> thirty1 = std::make_shared<Tile>("Go To Jail", "Go To Jail");
-    std::shared_ptr<Property> thirty2 = std::shared_ptr<Property >(new Property(300, {26, 130, 390, 900, 1100, 1275}, green, initialBuild, "Property", "P18"));
-    std::shared_ptr<Property> thirty3 = std::shared_ptr<Property >(new Property(300, {26, 130, 390, 900, 1100, 1275}, green, initialBuild, "Property", "P19"));
+
+    rents = {26, 130, 390, 900, 1100, 1275};
+    std::shared_ptr<Property> thirty2 = std::make_shared<Property >(300, rents, green, initialBuild, "Property", "P18");
+
+    std::shared_ptr<Property> thirty3 = std::make_shared<Property >(300, rents, green, initialBuild, "Property", "P19");
+
     std::shared_ptr<Tile> thirty4 = std::make_shared<Tile>("Community Chest", "Community Chest");
-    std::shared_ptr<Property> thirty5 = std::shared_ptr<Property >(new Property(320, {28, 150, 450, 1000, 1200, 1400}, green, initialBuild, "Property", "P20"));
-    std::shared_ptr<Transportation> thirty6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T4"));
+
+    rents = {28, 150, 450, 1000, 1200, 1400};
+    std::shared_ptr<Property> thirty5 = std::make_shared<Property >(320, rents, green, initialBuild, "Property", "P20");
+
+    std::shared_ptr<Transportation> thirty6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "T4");
+
     std::shared_ptr<Tile> thirty7 = std::make_shared<Tile>("Chance", "Chance");
-    std::shared_ptr<Property> thirty8 = std::shared_ptr<Property >(new Property(350, {35, 175, 500, 1100, 1300, 1500}, blue, initialBuild, "Property", "P21"));
+
+    rents = {35, 175, 500, 1100, 1300, 1500};
+    std::shared_ptr<Property> thirty8 = std::make_shared<Property >(350, rents, blue, initialBuild, "Property", "P21");
+
     std::shared_ptr<Tile> thirty9 = std::make_shared<Tile>("Luxury Tax", "Luxury Tax");
-    std::shared_ptr<Property> forty = std::shared_ptr<Property >(new Property(400, {50, 200, 600, 1400, 1700, 2000}, blue, initialBuild, "Property", "P22"));
+
+    rents = {50, 200, 600, 1400, 1700, 2000};
+    std::shared_ptr<Property> forty = std::make_shared<Property >(400, rents, blue, initialBuild, "Property", "P22");
 
     utilities.emplace_back(teen3);
     utilities.emplace_back(twenty9);
@@ -416,6 +473,7 @@ void Board::rollDiceAndAction(){
 
 bool hasPlayerOnRow(int rowNum) {
     for(int i=65; i < 69; ++i) {
+        cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum: "<<rowNum<<endl;
         if(playerPos[i].first == rowNum) return true;
     }
     return false;
@@ -452,17 +510,21 @@ void Board::printBoard() {
     }
 
     //targetPos: Set resulting replace index on a row in the string
-    for(int i=0; i<4; ++i) {
-        int colNum = (playerPos[i].second)%10;
+    c = 65;
+    for(c; c<69; ++c) {
+        cerr <<"HEYYYYY: playerPos[i].first: "<<playerPos[c].first<<endl;
+        int colNum = (playerPos[c].second)%10 + 1;
         int targetColNum = colNum*12 - 8;
+        cerr<<"colNum: "<<colNum<<endl;
         if(playerPos.count(c)) {
-            while (targetPos.count(pair<int,int>(playerPos[i].first, targetColNum))) {
+            while (targetPos.count(pair<int,int>(playerPos[c].first, targetColNum))) {
                 ++targetColNum;
             }
-            int rowNum = playerPos[i].first;
+            int rowNum = playerPos[c].first;
+            cerr<<"targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
             targetPos.insert(pair<pair<int,int>,int> (pair<int,int>(rowNum, targetColNum), c));
             replacePos.insert(pair<int,int>(rowNum, targetColNum));
-            ++c;
+//            ++c;
         }
     }
 
@@ -473,16 +535,18 @@ void Board::printBoard() {
 
     //output board, x: rowNum; y: colNum (horizontal)
     cout << boarder;
-    for(int x = 0; x < 40; ++x) {
+    for(int x = 0; x <= 41; ++x) {
         if(x%4 == 1) {
             cerr << " Entered mod 4 = 1"<<endl;
             if(hasPlayerOnRow(x)) {
-                cerr << "Has Player on Row"<<endl;
                 int y = replacePos[x];
-                char playerIndex = char(targetPos[pair<int,int>(x,y)]);
+                int playerNum = targetPos[pair<int,int>(x,y)];
+                char playerIndex = char(playerNum);
+                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerIndex: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
                 string replacedLine = line;
                 replacedLine.at(y) = playerIndex;
                 cout << replacedLine;
+                cerr << "Has Player on Row: Replace "<<y<<endl;
             }
         } else if(x%4 == 3 && x!=39){
             cout << divider;
@@ -539,11 +603,11 @@ void Board::printBoard() {
    }
 
 void Board::playTurn(){
-    printBoard();
     char playerChoice;
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
+            printBoard();
             cout<< endl;
             cout<< "-------------------------------------------------" << endl;
             cout<< "Player "<< (*i)->getIndex()+1 << "'s turn." << endl;
@@ -565,6 +629,25 @@ void Board::playTurn(){
                 cin>>playerChoice;
             }
             if (playerChoice=='C'){
+
+                for(auto j = properties.begin(); j != properties.end(); j++){
+                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                        (*j)->reset();
+                    }
+                }
+
+                for(auto j = utilities.begin(); j != utilities.end(); j++){
+                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                        (*j)->reset();
+                    }
+                }
+
+                for(auto j = transportations.begin(); j != transportations.end(); j++){
+                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                        (*j)->reset();
+                    }
+                }
+
                 i = players.erase(i);
                 continue;
             }
@@ -575,6 +658,24 @@ void Board::playTurn(){
             cout << "Current Player's Money: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
 
+                for(auto j = properties.begin(); j != properties.end(); j++){
+                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                        (*j)->reset();
+                    }
+                }
+
+                for(auto j = utilities.begin(); j != utilities.end(); j++){
+                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                        (*j)->reset();
+                    }
+                }
+
+                for(auto j = transportations.begin(); j != transportations.end(); j++){
+                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                        (*j)->reset();
+                    }
+                }
+
                 i = players.erase(i);
                 continue;
             }
@@ -583,6 +684,25 @@ void Board::playTurn(){
                 cout << '\n';
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
                 if((*i)->getMoney() < 0){
+
+                    for(auto j = properties.begin(); j != properties.end(); j++){
+                        if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                            (*j)->reset();
+                        }
+                    }
+
+                    for(auto j = utilities.begin(); j != utilities.end(); j++){
+                        if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                            (*j)->reset();
+                        }
+                    }
+
+                    for(auto j = transportations.begin(); j != transportations.end(); j++){
+                        if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
+                            (*j)->reset();
+                        }
+                    }
+
                     i = players.erase(i);
                     break;
                 }

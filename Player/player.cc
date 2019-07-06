@@ -222,6 +222,7 @@ void Player::print() {
 }
 
 Player::~Player() {
+    cout << "hello" << endl;
     for(auto& p : properties) {
         p->reset();
     }

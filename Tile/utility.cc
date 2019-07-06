@@ -36,7 +36,9 @@ void Utility:: changeOwner (shared_ptr<Player> player){
 }
 
 void Utility:: reset(){
+    cout << endl;
     isOwned = false;
+    cout << endl;
 }
 
 Utility::~Utility(){}
