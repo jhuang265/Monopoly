@@ -444,9 +444,9 @@ void Board::playTurn(){
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
             cout<< endl;
             cout<< "-------------------------------------------------" << endl;
-
             cout<< "Player "<< (*i)->getIndex() << "'s turn." << endl;
-            //printCurPlayerStatus();
+            (*i)->print();//prints status of cur player
+            cout<<endl;
 
             cout<<"1) Play without trading (enter A)"<<endl;
             cout<<"2) Do you want to trade? (enter B)"<<endl;
