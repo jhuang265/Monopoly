@@ -17,11 +17,19 @@
 #include <random>
 #include <memory>
 #include <map>
+<<<<<<< Updated upstream
 using namespace std;
 map<int,int> boardPos; //pos, rowNum
 map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
 map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
 map<int,int> replacePos; //rowNum, colNum
+=======
+
+//map<int,int> boardPos; //pos, rowNum
+//map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
+//map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
+//map<int,int> replacePos; //rowNum, colNum
+>>>>>>> Stashed changes
 
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
@@ -471,20 +479,20 @@ void Board::rollDiceAndAction(){
     }
 }
 
-bool hasPlayerOnRow(int rowNum) {
-    for(int i=65; i < 69; ++i) {
-        cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum: "<<rowNum<<endl;
-        if(playerPos[i].first == rowNum) return true;
-    }
-    return false;
-}
+//bool hasPlayerOnRow(int rowNum) {
+//    for(int i=65; i < 69; ++i) {
+//        cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum: "<<rowNum<<endl;
+//        if(playerPos[i].first == rowNum) return true;
+//    }
+//    return false;
+//}
 
 //every tile has width  12 and height 4
 void Board::printBoard() {
-//    map<int,int> boardPos; //pos, rowNum
-//    map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
-//    map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
-//    map<int,int> replacePos;
+    map<int,int> boardPos; //pos, rowNum
+    map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
+    map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
+    map<int,int> replacePos; //rowNum, colNum
 
     int countLine = 5;
 
@@ -512,16 +520,16 @@ void Board::printBoard() {
     //targetPos: Set resulting replace index on a row in the string
     c = 65;
     for(c; c<69; ++c) {
-        cerr <<"HEYYYYY: playerPos[i].first: "<<playerPos[c].first<<endl;
+//        cerr <<"HEYYYYY: playerPos[i].first: "<<playerPos[c].first<<endl;
         int colNum = (playerPos[c].second)%10 + 1;
         int targetColNum = colNum*12 - 8;
-        cerr<<"colNum: "<<colNum<<endl;
+//        cerr<<"colNum: "<<colNum<<endl;
         if(playerPos.count(c)) {
             while (targetPos.count(pair<int,int>(playerPos[c].first, targetColNum))) {
                 ++targetColNum;
             }
             int rowNum = playerPos[c].first;
-            cerr<<"targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
+//            cerr<<"targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
             targetPos.insert(pair<pair<int,int>,int> (pair<int,int>(rowNum, targetColNum), c));
             replacePos.insert(pair<int,int>(rowNum, targetColNum));
 //            ++c;
@@ -530,15 +538,24 @@ void Board::printBoard() {
 
     c = 65;
     string boarder = " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n";
-    string line = " |            |            |            |            |            |            |            |            |            |            |\n";
+    string line1 = " |            |                                                                                                       |            |\n";
+    string line2 = " |            |            |            |            |            |            |            |            |            |            |\n";
     string divider = " |++++++++++++|                                                                                                       |++++++++++++|\n";
 
     //output board, x: rowNum; y: colNum (horizontal)
     cout << boarder;
     for(int x = 0; x <= 41; ++x) {
         if(x%4 == 1) {
-            cerr << " Entered mod 4 = 1"<<endl;
-            if(hasPlayerOnRow(x)) {
+//            cerr << " Entered mod 4 = 1"<<endl;
+            bool hasPlayerOnRow = false;
+            for(int i=65; i < 69; ++i) {
+//                cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum(x): "<<x<<endl;
+                if(playerPos[i].first == x) hasPlayerOnRow = true;
+            }
+            if(hasPlayerOnRow) {
+                string line;
+                if(x > 39 || x < 3) { line = line2; }
+                else { line = line1; }
                 int y = replacePos[x];
                 int playerNum = targetPos[pair<int,int>(x,y)];
                 char playerIndex = char(playerNum);
@@ -546,11 +563,13 @@ void Board::printBoard() {
                 string replacedLine = line;
                 replacedLine.at(y) = playerIndex;
                 cout << replacedLine;
-                cerr << "Has Player on Row: Replace "<<y<<endl;
+//                cerr << "Has Player on Row: Replace "<<y<<endl;
             }
-        } else if(x%4 == 3 && x!=39){
+        } else if(x == 3 || x == 39) { cout << boarder;}
+        else if(x%4 == 3){
             cout << divider;
-        } else { cout << line; }
+        } else if(x > 39 || x < 3) { cout << line2; }
+        else { cout << line1; }
     }
     cout << boarder;
 
@@ -893,6 +912,7 @@ void Board::auction(std::shared_ptr<Tile> t){
     return;
 }
 
+<<<<<<< Updated upstream
 string Board::getAssetType( string name){
     for(int i = 0; i < properties.size(); i++) {
         if(properties[i]->getName() == name) {
