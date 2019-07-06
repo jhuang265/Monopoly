@@ -61,3 +61,7 @@ int Property:: getOwnerIndex() {
 void Property:: setCanBuild(){
     canBuild = 1 - canBuild;
 }
+
+string Property:: getColor(){
+    return color->getColor();
+}
