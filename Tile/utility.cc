@@ -20,13 +20,13 @@ void Utility:: buy(shared_ptr<Player> player) {
     owner = player;
     isOwned=true;
     owner->payMoney(cost);
-    owner->addUtility(shared_from_this());
+    owner->addUtility(shared_ptr<Utility>(this));
 }
 
 void Utility:: changeOwner (shared_ptr<Player> player){
-    owner->removeAsset(shared_from_this());
+    owner->removeAsset(shared_ptr<Tile>(this));
     owner = player;
-    owner->addUtility(shared_from_this());
+    owner->addUtility(shared_ptr<Utility>(this));
 }
 
 void Utility:: reset(){
