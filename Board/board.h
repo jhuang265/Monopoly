@@ -33,7 +33,7 @@ class Board{
         void playTurn();
         void checkOwnership();
         void auction(std::shared_ptr<Tile>);
-
+        std:: string getAssetType(string){}
         void printBoard();
 
         ~Board();
