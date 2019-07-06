@@ -9,8 +9,8 @@
 
 class Card {
  public:
-  virtual use(*Player) = 0;
-  ~Card() = 0;
+  virtual use(std::shared_ptr<Player>) = 0;
+  virtual ~Card() = 0;
 };
 
 #endif

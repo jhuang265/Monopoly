@@ -15,7 +15,7 @@ class Transportation: public Tile{
     public:
         Transportation(int, std::vector<int> , std::string, std::string);
         int getPrice();
-        int getRent() override;
+        int getRent();
         bool getIsOwned();
         void buy(std::shared_ptr<Player>);
         void changeOwner(std::shared_ptr<Player>);

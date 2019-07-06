@@ -5,10 +5,11 @@
 #include <memory>
 #include "./../Player/player.h"
 #include "./../Tile/property.h"
+
 class Color{
     private:
         std::string color;
-        std::vector<std:: shared_ptr<Property> > properties;
+        std::vector<std::shared_ptr<Property>> properties;
     public:
         Color();
         void updateCanBuild();

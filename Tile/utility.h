@@ -10,7 +10,7 @@ class Utility : public Tile{
         std::vector<int> rent; // contains 2 elements; either 4 or 10
         std::shared_ptr<Player> owner;
         bool isOwned;
-        int getRent() override{} //this class does not use this method
+        //int getRent(){} //this class does not use this method
     public:
         Utility(int , std::vector<int> , std::string , std::string );
         int getUtilityRent(int);

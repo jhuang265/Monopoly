@@ -4,7 +4,7 @@
 #include <memory>
 #include "tile.h"
 #include "./../Color/color.h"
-#include "./Player/player.h"
+#include "./../Player/player.h"
 
 class Property: public Tile{
     private:
@@ -22,7 +22,7 @@ class Property: public Tile{
         int getCanBuild();
         int getHouses();
         int getPrice();
-        int getRent() override;
+        int getRent();
         bool getIsOwned();
         int getOwnerIndex();
         void buy(std::shared_ptr<Player> );
