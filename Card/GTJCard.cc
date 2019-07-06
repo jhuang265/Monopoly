@@ -1,4 +1,5 @@
-#include "GTJCard.h"
+#include "gTJCard.h"
+#include "./../Player/player.h"
 
 using namespace std;
 

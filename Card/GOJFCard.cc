@@ -1,4 +1,5 @@
-#include "GOJFCard.h"
+#include "gOJFCard.h"
+#include "./../Player/player.h"
 
 using namespace std;
 

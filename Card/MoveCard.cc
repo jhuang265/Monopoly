@@ -1,4 +1,5 @@
 #include "moveCard.h"
+#include "./../Player/player.h"
 
 using namespace std;
 
