@@ -27,7 +27,7 @@ class Board{
     public:
         Board(int type, int players);
         void printCurPlayerStatus();
-        void trade();
+        void trade(shared_ptr<Player>);
         int rollDice();
         void rollDiceAndAction();
         void playTurn();

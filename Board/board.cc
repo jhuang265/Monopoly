@@ -80,10 +80,12 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
 
     utilities.emplace_back(teen3);
     utilities.emplace_back(twenty9);
+
     transportations.emplace_back(d6);
     transportations.emplace_back(teen6);
     transportations.emplace_back(twenty6);
     transportations.emplace_back(thirty6);
+
     properties.emplace_back(d2);
     properties.emplace_back(d4);
     properties.emplace_back(d7);

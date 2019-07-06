@@ -1,6 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 #include <string>
+#include <vector>
 #include <iostream>
 #include "../Tile/tile.h"
 #include "../Tile/property.h"
@@ -23,7 +24,11 @@ class Player {
  
 public:
   Player(std::string, int);
+  string getName();
   int getIndex();
+  std::string propertyNameAtIndex(int);
+  std::string utilityNameAtIndex(int);
+  std::string transportationNameAtIndex(int);
 
   int getMoney();
   void receiveMoney(int);
@@ -31,6 +36,7 @@ public:
 
   void addAsset(shared_ptr<Tile> tile);
   void removeAsset(shared_ptr<Tile> tile);
+  shared_ptr<Tile> returnAsset(std::string);
   int getNumUtilities();
   int getNumTransportations();
 

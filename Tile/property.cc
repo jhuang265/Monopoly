@@ -56,7 +56,6 @@ void Property:: reset(){
 
 int Property:: getOwnerIndex() override{
     return owner.getIndex();
-
 }
 
 void Property:: setCanBuild(){

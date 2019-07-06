@@ -11,7 +11,24 @@ Player::Player(string name, const int index): name{name}, index{index} {
     bool hasGOJFC = false;
 }
 
+string Player::getName() { return name; }
+
 int Player::getIndex() { return index; }
+
+string Player::propertyNameAtIndex(int i) {
+    if(i < properties.size()) { return properties.at(i); }
+    return "";
+}
+
+string Player::utilityNameAtIndex(int i) {
+    if(i < utilities.size()) { return utilities.at(i); }
+    return "";
+}
+
+string Player::transportationNameAtIndex(int i) {
+    if(i < transportations.size()) { return transportations.at(i); }
+    return "";
+}
 
 int Player::getMoney() { return money; }
 
@@ -26,7 +43,7 @@ void Player::payMoney(int payment) {
 }
 
 void Player::addAsset(shared_ptr<Tile> tile) {
-    string type = Tile->getTileType();
+    string type = tile->getTileType();
     if(type == "Property") {
         properties.emplace_back(tile);
     } else if(type == "Utility") {
@@ -38,8 +55,8 @@ void Player::addAsset(shared_ptr<Tile> tile) {
 }
 
 void Player::removeAsset(shared_ptr<Tile> tile) {
-    string type = Tile->getTileType();
-    string name = Tile->getName();
+    string type = tile->getTileType();
+    string name = tile->getName();
     vector<shared_ptr<Property> > asset;
     if(type == "Property") {
         asset = properties;
@@ -56,6 +73,18 @@ void Player::removeAsset(shared_ptr<Tile> tile) {
         }
     }
     return;
+}
+
+shared_ptr<Tile> Player::returnAsset(string name) {
+    for(auto &p : properties) {
+        if(p->getName() == name) return p;
+    }
+    for(auto &u : utilities) {
+        if(u->getName() == name) return u;
+    }
+    for(auto &t : transportations) {
+        if(t->getName() == name) return t;
+    }
 }
 
 int Player::getNumUtilities() { return utilities.size(); }
@@ -126,13 +155,16 @@ void Player::print() {
     cout << "Name: "<<name<<endl;
     cout << "Account Balance: "<<money<<endl;
     cout << "Properties Owned: "<<endl;
+    int cnt=1;
     if(!properties.empty()) {
         for(auto & p : properties) {
             if (p == properties.back()) {
-                cout << p->getName() <<endl;
+                cout << "("<< cnt<< ")"<<p->getName() <<endl;
+                cnt++;
                 break;
             }
-            cout << p->getName()<<", ";
+            cout << "("<< cnt<< ")"<< p->getName()<<", ";
+            cnt++;
         }
     }
 
@@ -140,10 +172,12 @@ void Player::print() {
     if(!utilities.empty()) {
         for(auto & u : utilities) {
             if (u == utilities.back()) {
-                cout << u->getName() <<endl;
+                cout <<"("<< cnt<< ")"<< u->getName() <<endl;
+                cnt++;
                 break;
             }
-            cout << u->getName()<<", ";
+            cout <<"("<< cnt<< ")"<< u->getName()<<", ";
+            cnt++;
         }
     }
 
@@ -151,11 +185,25 @@ void Player::print() {
     if(!transportations.empty()) {
         for(auto & t : transportations) {
             if (t == transportations.back()) {
-                cout << t->getName() <<endl;
+                cout << "("<< cnt<< ")"<<t->getName() <<endl;
+                cnt++;
                 break;
             }
-            cout << t->getName()<<", ";
+            cout << "("<< cnt<< ")"<<t->getName()<<", ";
+            cnt++;
         }
+    }
+}
+
+~Player::Player() {
+    for(auto& p : properties) {
+        p->reset();
+    }
+    for(auto& u : utilities) {
+        u->reset();
+    }
+    for(auto& t : transportations) {
+        t->reset();
     }
 }
 

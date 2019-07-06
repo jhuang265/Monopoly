@@ -21,6 +21,5 @@ class Tile{
         virtual int getHouses(){return 0;};
         virtual void buyHouse(){return;};
         ~Tile();
-
 };
 #endif
