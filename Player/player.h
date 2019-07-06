@@ -63,7 +63,8 @@ public:
   void clearHasGOJFCard();
 
   void print();
-  void printAsset();//needs to be written for giving trade options
+ // void printAsset();//needs to be written for giving trade options
+  void printBoard();
   ~Player();
 };
 

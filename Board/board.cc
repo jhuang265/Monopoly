@@ -388,7 +388,25 @@ void Board::rollDiceAndAction(){
     }
 }
 
+void Board::printBoard() {
+    cout << "M O O * * M O O * * M O O * * M    |  ________________________  |\n"
+            "O                             O    | |                        | |\n"
+            "O                             O    | |                        | |\n"
+            "*                             *    | |                        | |\n"
+            "*                             *    | |                        | | \n"
+            "M                             M    | |                        | | \n"
+            "O                             O    | |                        | | \n"
+            " | |                        | |\n"
+            " |          |          |          |          |          |          |          |          |          |          |\n"
+            " |               |_______________________________________________________________________________________________________________________________________________________________________________________________________________|               |\n"
+            " |               |               |               |               |               |               |               |               |               |               |               |               |               |               |               |\n"
+            " |               |               |               |               |               |               |               |               |               |               |               |               |               |               |               |\n"
+            " |               |               |               |               |               |               |               |               |               |               |               |               |               |               |               |\n"
+            " |_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|_______________|";
+}
+
 void Board::playTurn(){
+    printBoard();
     char playerChoice;
     while(players.size() > 1){
         currentPlayer = 0;
@@ -444,7 +462,11 @@ void Board::trade(shared_ptr<Player> player){
     int targetPlayerIndex;
     shared_ptr<Player> targetPlayer;
     vector<string> tradeList;
-    cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
+    if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
+        cout<<"Ooops! You have no assets. Now please roll your dice."<<endl;
+        return;
+    }
+    //cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
     //player->printAsset();
     cout<<"Enter the assets you want to trade by corresponding number and and e to end: "<<endl;
     while(cin>>inputChar){

@@ -30,6 +30,7 @@ class Property: public Tile{
         void reset();
         void changeOwner(std::shared_ptr<Player>) override;
         void setCanBuild();
+        std::string getColor();
         ~Property(){}
 
 };

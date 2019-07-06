@@ -33,7 +33,7 @@ class Board{
         void playTurn();
         void auction(std::shared_ptr<Tile>);
 
-        void print();
+        void printBoard();
 
         ~Board();
 };
