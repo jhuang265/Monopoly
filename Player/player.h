@@ -39,6 +39,7 @@ public:
   shared_ptr<Tile> returnAsset(std::string);
   int getNumUtilities();
   int getNumTransportations();
+  int getNumProperties();
 
   int getPos();
   void move(int);

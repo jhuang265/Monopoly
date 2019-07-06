@@ -91,6 +91,8 @@ int Player::getNumUtilities() { return utilities.size(); }
 
 int Player::getNumTransportations() { return transportations.size(); }
 
+int Player::getNumProperties() { return properties.size(); }
+
 int Player::getPos() { return Pos; }
 
 void Player::move(int n) {
