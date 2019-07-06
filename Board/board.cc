@@ -314,9 +314,25 @@ void Board::rollDiceAndAction(int i){
 }
 
 void Board::playTurn(){
+    char playerChoice;
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1){
+            printCurPlayerStatus();
+            cout<<"1) Play without trading (enter A)"<<endl;
+            cout<<"2) Do you want to trade?(enter B)"<<endl;
+            cout<<"3) Do you want to quit? (enter C)"<<endl;
+            cin>>playerChoice;
+            while(playerChoice!= 'A' && playerChoice!= 'B' && playerChoice!= 'C'){
+                cin>>playerChoice;
+            }
+            if (playerChoice=='C'){
+                //implement quit 
+            }
+            else if(playerChoice == 'B'){
+                trade();//needs to be done
+            }
+            
             rollDiceAndAction();
             if(*i.getMoney() < 0){
                 i = players.erase(i);
@@ -330,11 +346,22 @@ void Board::playTurn(){
                 rollDiceAndAction();
             }
             currentPlayer = (currentPlayer+1) % players.size();
+            
         }
     }
 }
 
+//needs to be done
 void Board::trade(){
+    vector<int> tradeList;
+    cout<<"Here is the list of properties/utilities/transportations you can trade:"<<endl;
+    for(int x= 0; x< *i.properties.size();x++){
+        cout<<
+        *i.printAsset();
+    }
+    while 
+
+
     return;
 }
 

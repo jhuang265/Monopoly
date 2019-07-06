@@ -20,12 +20,12 @@ class Board{
         std::vector<shared_ptr<Card>> cards;
     public:
         Board(int type, int players);
-
+        void printCurPlayerStatus();
         void trade();
         int rollDice();
         void rollDiceAndAction();
         void playTurn();
-        void auction();
+        void auction(int);
         
         void print();
 
