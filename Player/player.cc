@@ -130,7 +130,8 @@ void Player::rolledDoubles() {
 void Player::goToJail() {
     if(hasGOJFC == false) {
         inJail = true;
-        turnsInJail++;
+        turnsInJail = 0;
+        numDoubles = 0;
     } else {
         hasGOJFC = false;
         cout << "You've used your Go To Jail Free Card and you are free to go!"<<endl;

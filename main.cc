@@ -12,13 +12,13 @@ int main(){
         int type, numPlayers;
         std::cout << "How many players would you like to play with? (Please enter a number between 2 and 4): ";
         std::cin >> numPlayers;
-        
+
         if(numPlayers < 2 || numPlayers > 4){
             std::cout << "Please enter a valid number of players: ";
             std::cin >> numPlayers;
         }
 
-        std::cout << '\n' << endl;
+        std::cout << std::endl;
         std::cout << "We offer two types of games to play. The first requires collecting all properties" << endl;
         std::cout << "of an individual color before you can build houses on them, while the second type" << endl;
         std::cout << "does not require you to do so. ";

@@ -14,13 +14,13 @@
 #include <vector>
 #include <iostream>
 #include <ctime>
+#include <random>
 #include <memory>
 
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
 
     for(int i = 0; i < numPlayers; i++){
-        std::cout << numPlayers << std::endl;
         std::cout << "Enter the name for Player " << i << ": ";
         std::cin >> name;
 
@@ -141,53 +141,16 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     colors.emplace_back(red);
     colors.emplace_back(green);
     colors.emplace_back(blue);
-/*
-    tiles.emplace_back(d1);
-    tiles.emplace_back(d2);
-    tiles.emplace_back(d3);
-    tiles.emplace_back(d4);
-    tiles.emplace_back(d5);
-    tiles.emplace_back(d6);
-    tiles.emplace_back(d7);
-    tiles.emplace_back(d8);
-    tiles.emplace_back(d9);
-    tiles.emplace_back(teen);
-    tiles.emplace_back(teen1);
-    tiles.emplace_back(teen2);
-    tiles.emplace_back(teen3);
-    tiles.emplace_back(teen4);
-    tiles.emplace_back(teen5);
-    tiles.emplace_back(teen6);
-    tiles.emplace_back(teen7);
-    tiles.emplace_back(teen8);
-    tiles.emplace_back(teen9);
-    tiles.emplace_back(twenty);
-    tiles.emplace_back(twenty1);
-    tiles.emplace_back(twenty2);
-    tiles.emplace_back(twenty3);
-    tiles.emplace_back(twenty4);
-    tiles.emplace_back(twenty5);
-    tiles.emplace_back(twenty6);
-    tiles.emplace_back(twenty7);
-    tiles.emplace_back(twenty8);
-    tiles.emplace_back(twenty9);
-    tiles.emplace_back(thirty);
-    tiles.emplace_back(thirty1);
-    tiles.emplace_back(thirty2);
-    tiles.emplace_back(thirty3);
-    tiles.emplace_back(thirty4);
-    tiles.emplace_back(thirty5);
-    tiles.emplace_back(thirty6);
-    tiles.emplace_back(thirty7);
-    tiles.emplace_back(thirty8);
-    tiles.emplace_back(thirty9);
-    tiles.emplace_back(forty);
-*/
+
 }
 
 int Board::rollDice(){
-    srand(time(0));
-    return (rand()%6) + 1;
+    //srand(time(NULL));
+    //return (rand()%6) + 1;
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> dis(1, 6);
+    return dis(gen);
 }
 
 void Board::rollDiceAndAction(){
@@ -208,17 +171,22 @@ void Board::rollDiceAndAction(){
 
     int firstRoll = rollDice();
     int secondRoll = rollDice();
+    cout << "You rolled: " << firstRoll << " and " << secondRoll << endl;
 
     if(firstRoll != secondRoll && players[currentPlayer]->isInJail()){
+        std::cout << "You did not roll a double, so you're stuck in jail." << std::endl;
         players[currentPlayer]->addTurnInJail();
+        std::cout << "Turns you have been in jail: "<< players[currentPlayer]->getTurnsInJail() << std::endl;
         return;
     }
     else if(firstRoll == secondRoll && players[currentPlayer]->isInJail()){
+        std::cout << "You rolled a double so you're out of jail now." << std::endl;
         players[currentPlayer]->release();
+        players[currentPlayer]->rolledDoubles();
     }
     else if(firstRoll == secondRoll){
         players[currentPlayer]->rolledDoubles();
-        cout << "You rolled a double: " << firstRoll << " and " << secondRoll << endl;
+        cout << "You rolled a double!" << endl;
     }
     else{
         players[currentPlayer]->resetDoubles();
@@ -234,33 +202,12 @@ void Board::rollDiceAndAction(){
 
     int pos = players[currentPlayer]->getPos();
 
-    int cardLocations[] = {2, 8, 17, 22, 33, 36};
+    cout << '\n' << "New Position: " << pos << '\n' << endl;
+
+    int cardLocations[] = {2, 7, 17, 22, 33, 36};
     int transLocations[] = {5, 15, 25, 35};
     int utilLocations[] = {12, 28};
     int propertyLocations[] = {1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39};
-
-/*d2);
-    properties.emplace_back(d4);
-    properties.emplace_back(d7);
-    properties.emplace_back(d9);
-    properties.emplace_back(teen);
-    properties.emplace_back(teen2);
-    properties.emplace_back(teen4);
-    properties.emplace_back(teen5);
-    properties.emplace_back(teen7);
-    properties.emplace_back(teen9);
-    properties.emplace_back(twenty);
-    properties.emplace_back(twenty2);
-    properties.emplace_back(twenty4);
-    properties.emplace_back(twenty5);
-    properties.emplace_back(twenty7);
-    properties.emplace_back(twenty8);
-    properties.emplace_back(thirty);
-    properties.emplace_back(thirty2);
-    properties.emplace_back(thirty3);
-    properties.emplace_back(thirty5);
-    properties.emplace_back(thirty8);
-    properties.emplace_back(forty);*/
 
     loseMoneyCard c1{};
     getMoneyCard c2{};
@@ -290,19 +237,23 @@ void Board::rollDiceAndAction(){
 
     switch(pos){
         case 0:
-            //players[currentPlayer].getMoney(200);
             break;
         case 4:
+            cout << "You had to pay 200$ in income tax." << endl;
             players[currentPlayer]->payMoney(200);
             break;
         case 10:
+            cout << "Visiting jail." << endl;
             break;
         case 20:
+            cout << "Free Parking" << endl;
             break;
         case 30:
+            cout << "You are sent to jail." << endl;
             players[currentPlayer]->goToJail();
             break;
         case 38:
+            cout << "You had to pay 150$ in luxury tax." << endl;
             players[currentPlayer]->payMoney(150);
             break;
     }
@@ -311,11 +262,18 @@ void Board::rollDiceAndAction(){
     for(int i = 0; i < 4; i++){
         if(pos == transLocations[i]){
             if(transportations[i]->getIsOwned()){
+                cout << "You have to pay rent for landing on owned transportation." << endl;
+
+                cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
                 players[currentPlayer]->payMoney(transportations[i]->getRent());
+                cout << "Rent: " << transportations[i]->getRent() << endl;
+                cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == transportations[i]->getOwnerIndex()){
+                        cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(transportations[i]->getRent());
+                        cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
                 //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getRent());
@@ -323,10 +281,13 @@ void Board::rollDiceAndAction(){
             }
             else{
                 char yn;
-                std::cout << "You have landed on an unowned transportation. Would you like to buy it? (Y/N): ";
+                std::cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
+                    cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                    cout << transportations[i]->getPrice() << endl;
                     transportations[i]->buy(players[currentPlayer]);
+                    cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
                     auction(transportations[i]);
@@ -339,10 +300,18 @@ void Board::rollDiceAndAction(){
     for(int i = 0; i < 2; i++){
         if(pos == utilLocations[i]){
             if(utilities[i]->getIsOwned()){
+                cout << "You have to pay rent for landing on owned utility." << endl;
+
+                cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Rent: " << utilities[i]->getUtilityRent(firstRoll+secondRoll) << endl;
                 players[currentPlayer]->payMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
+                cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == utilities[i]->getOwnerIndex()){
+                        cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
+                        cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
                 //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getRent());
@@ -351,10 +320,13 @@ void Board::rollDiceAndAction(){
             }
             else{
                 char yn;
-                std::cout << "You have landed on an unowned utility. Would you like to buy it? (Y/N): ";
+                std::cout << "You have landed on an unowned utility " << utilities[i]->getName() <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
+                    cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                    cout << utilities[i]->getPrice() << endl;
                     utilities[i]->buy(players[currentPlayer]);
+                    cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
                     auction(utilities[i]);
@@ -367,12 +339,21 @@ void Board::rollDiceAndAction(){
     for(int i = 0; i < 22; i++){
         if(pos == propertyLocations[i]){
             if(properties[i]->getIsOwned()){
+                cout << "You have to pay rent for landing on owned property." << endl;
+
+                cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Cost: " << properties[i]->getRent() << endl;
                 players[currentPlayer]->payMoney(properties[i]->getRent());
+                cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == properties[i]->getOwnerIndex()){
+                        cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(properties[i]->getRent());
+                        cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
+
                 //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getRent());
 
                 if(players[currentPlayer]->getIndex() == properties[i]->getOwner()->getIndex()){
@@ -390,10 +371,13 @@ void Board::rollDiceAndAction(){
             }
             else{
                 char yn;
-                std::cout << "You have landed on an unowned property. Would you like to buy it? (Y/N): ";
+                std::cout << "You have landed on an unowned property " << properties[i]->getName() <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= properties[i]->getPrice()){
+                    cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Cost: " << properties[i]->getPrice() << endl;
                     properties[i]->buy(players[currentPlayer]);
+                    cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
                     auction(tiles[pos]);
@@ -409,12 +393,18 @@ void Board::playTurn(){
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
+            cout<< endl;
+            cout<< "-------------------------------------------------" << endl;
+
             cout<< "Player "<< (*i)->getIndex() << "'s turn." << endl;
             //printCurPlayerStatus();
+
             cout<<"1) Play without trading (enter A)"<<endl;
-            cout<<"2) Do you want to trade?(enter B)"<<endl;
+            cout<<"2) Do you want to trade? (enter B)"<<endl;
             cout<<"3) Do you want to quit? (enter C)"<<endl;
+            cout<<"Enter your choice: ";
             cin>>playerChoice;
+
             while(playerChoice!= 'A' && playerChoice!= 'B' && playerChoice!= 'C'){
                 cin>>playerChoice;
             }
@@ -425,18 +415,22 @@ void Board::playTurn(){
             else if(playerChoice == 'B'){
                 trade(*i);
             }
+            cout << "Roll" << endl;
             rollDiceAndAction();
             if((*i)->getMoney() < 0){
                 i = players.erase(i);
                 continue;
             }
             while((*i)->getDoubles() > 0 && (*i)->getDoubles() < 3){
+                cout << "Rolled double! Go again." << endl;
                 if((*i)->getMoney() < 0){
                     i = players.erase(i);
                     break;
                 }
                 rollDiceAndAction();
             }
+            ++i;
+            cout<< "-------------------------------------------------" << endl;
             currentPlayer = (currentPlayer+1) % players.size();
 
         }
@@ -521,6 +515,9 @@ void Board::trade(shared_ptr<Player> player){
 }
 
 void Board::auction(std::shared_ptr<Tile> t){
+
+    cout << "Entered an auction phase" << endl;
+
     int maxBid = 0;
     int maxPlayerIndex = currentPlayer;
     vector <int> remaining;

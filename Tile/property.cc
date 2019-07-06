@@ -39,7 +39,6 @@ void Property::buy(shared_ptr<Player> player) {
     owner->addProperty(shared_ptr<Property>(this));
     isOwned=true;
     color->updateCanBuild();
-
 }
 void Property:: changeOwner(shared_ptr<Player> player) {
     owner->removeAsset(shared_ptr<Property>(this));
