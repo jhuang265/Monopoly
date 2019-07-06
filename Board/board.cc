@@ -466,7 +466,9 @@ void Board::playTurn(){
             }
             cout << "Roll" << endl;
             rollDiceAndAction();
+            cout << "Current Player's Money: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
+
                 i = players.erase(i);
                 continue;
             }
@@ -484,6 +486,9 @@ void Board::playTurn(){
 
         }
     }
+
+    cout << "The winner is Player "<< players[0]->getIndex() << endl;
+    return;
 }
 
 void Board::trade(shared_ptr<Player> player){
@@ -596,6 +601,7 @@ void Board::auction(std::shared_ptr<Tile> t){
             maxPlayerIndex = remaining[i];
         }
 
+        //cout << remaining.size() << endl;
         if(bid <= -1){
             //cout << "Erasing User" << endl;
             for(auto j = remaining.begin(); j != remaining.end();){
@@ -603,6 +609,7 @@ void Board::auction(std::shared_ptr<Tile> t){
                 if ((*j) == remaining[i]){
                     //cout << "Found user to delete" << endl;
                     j = remaining.erase(j);
+                    break;
                 }
                 else{
                     j++;
@@ -621,6 +628,10 @@ void Board::auction(std::shared_ptr<Tile> t){
         //cout << remaining.size() << endl;
     }
 
+    if(maxBid == 0){
+        cout << "The asset could not be auctioned off."<<endl;
+        return;
+    }
     cout << "Sold to Player "<< maxPlayerIndex << " for " << maxBid <<"$."<<endl;
     t->buy(players[maxPlayerIndex]);
 
