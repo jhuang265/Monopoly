@@ -38,45 +38,45 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     std::shared_ptr<Color> blue = std::make_shared<Color>();
 
     std::shared_ptr<Tile> d1 = std::make_shared<Tile>("Go", "Go");
-    std::shared_ptr<Property> d2 = std::make_shared<Property>(new Property(60, {2, 10, 30, 90, 160, 250}, brown, initialBuild, "Property", "P1"));
+    std::shared_ptr<Property> d2 = std::shared_ptr<Property>(new Property(60, {2, 10, 30, 90, 160, 250}, brown, initialBuild, "Property", "P1"));
     std::shared_ptr<Tile> d3 = std::make_shared<Tile>("Income Tax", "Income Tax");
-    std::shared_ptr<Property> d4 = std::make_shared<Property>(new Property(60, {4, 20, 60, 180, 320, 450}, brown, initialBuild, "Property", "P2"));
+    std::shared_ptr<Property> d4 = std::shared_ptr<Property >(new Property(60, {4, 20, 60, 180, 320, 450}, brown, initialBuild, "Property", "P2"));
     std::shared_ptr<Tile> d5 = std::make_shared<Tile>("Community Chest", "Community Chest");
-    std::shared_ptr<Transportation> d6 = std::make_shared<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T1"));
-    std::shared_ptr<Property> d7 = std::make_shared<Property>(new Property(100, {6, 30, 90, 270, 400, 550}, lblue, initialBuild, "Property", "P3"));
+    std::shared_ptr<Transportation> d6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T1"));
+    std::shared_ptr<Property> d7 = std::shared_ptr<Property >(new Property(100, {6, 30, 90, 270, 400, 550}, lblue, initialBuild, "Property", "P3"));
     std::shared_ptr<Tile> d8 = std::make_shared<Tile>("Chance", "Chance");
-    std::shared_ptr<Property> d9 = std::make_shared<Property>(new Property(100, {6, 30, 90, 270, 400, 550}, lblue, initialBuild, "Property", "P4"));
-    std::shared_ptr<Property> teen = std::make_shared<Property>(new Property(120, {8, 40, 100, 300, 450, 600}, lblue, initialBuild, "Property", "P5"));
+    std::shared_ptr<Property> d9 = std::shared_ptr<Property >(new Property(100, {6, 30, 90, 270, 400, 550}, lblue, initialBuild, "Property", "P4"));
+    std::shared_ptr<Property> teen = std::shared_ptr<Property >(new Property(120, {8, 40, 100, 300, 450, 600}, lblue, initialBuild, "Property", "P5"));
     std::shared_ptr<Tile> teen1 = std::make_shared<Tile>("Jail/Visiting", "Jail/Visiting");
-    std::shared_ptr<Property> teen2 = std::make_shared<Property>(new Property(140, {10, 50, 150, 450, 625, 750}, pink, initialBuild, "Property", "P6"));
-    std::shared_ptr<Utility> teen3 = std::make_shared<Utility>(new Utility(150, {4, 10}, "Utility", "U1"));
-    std::shared_ptr<Property> teen4 = std::make_shared<Property>(new Property(140, {10, 50, 150, 450, 625, 750}, pink, initialBuild, "Property", "P7"));
-    std::shared_ptr<Property> teen5 = std::make_shared<Property>(new Property(160, {12, 60, 180, 500, 700, 900}, pink, initialBuild, "Property", "P8"));
-    std::shared_ptr<Transportation> teen6 = std::make_shared<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T2"));
-    std::shared_ptr<Property> teen7 = std::make_shared<Property>(new Property(180, {14, 70, 200, 550, 750, 950}, orange, initialBuild, "Property", "P9"));
+    std::shared_ptr<Property> teen2 = std::shared_ptr<Property >(new Property(140, {10, 50, 150, 450, 625, 750}, pink, initialBuild, "Property", "P6"));
+    std::shared_ptr<Utility> teen3 = std::shared_ptr<Utility>(new Utility(150, {4, 10}, "Utility", "U1"));
+    std::shared_ptr<Property> teen4 = std::shared_ptr<Property >(new Property(140, {10, 50, 150, 450, 625, 750}, pink, initialBuild, "Property", "P7"));
+    std::shared_ptr<Property> teen5 = std::shared_ptr<Property >(new Property(160, {12, 60, 180, 500, 700, 900}, pink, initialBuild, "Property", "P8"));
+    std::shared_ptr<Transportation> teen6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T2"));
+    std::shared_ptr<Property> teen7 = std::shared_ptr<Property >(new Property(180, {14, 70, 200, 550, 750, 950}, orange, initialBuild, "Property", "P9"));
     std::shared_ptr<Tile> teen8 = std::make_shared<Tile>("Community Chest", "Community Chest");
-    std::shared_ptr<Property> teen9 = std::make_shared<Property>(new Property(180, {14, 70, 200, 550, 750, 950}, orange, initialBuild, "Property", "P10"));
-    std::shared_ptr<Property> twenty = std::make_shared<Property>(new Property(200, {16, 80, 220, 600, 800, 1000}, orange, initialBuild, "Property", "P11"));
+    std::shared_ptr<Property> teen9 = std::shared_ptr<Property >(new Property(180, {14, 70, 200, 550, 750, 950}, orange, initialBuild, "Property", "P10"));
+    std::shared_ptr<Property> twenty = std::shared_ptr<Property >(new Property(200, {16, 80, 220, 600, 800, 1000}, orange, initialBuild, "Property", "P11"));
     std::shared_ptr<Tile> twenty1 = std::make_shared<Tile>("Free Parking", "Free Parking");
-    std::shared_ptr<Property> twenty2 = std::make_shared<Property>(new Property(220, {18, 90, 250, 700, 875, 1050}, red, initialBuild, "Property", "P12"));
+    std::shared_ptr<Property> twenty2 = std::shared_ptr<Property >(new Property(220, {18, 90, 250, 700, 875, 1050}, red, initialBuild, "Property", "P12"));
     std::shared_ptr<Tile> twenty3 = std::make_shared<Tile>("Chance", "Chance");
-    std::shared_ptr<Property> twenty4 = std::make_shared<Property>(new Property(220, {18, 90, 250, 700, 875, 1050}, red, initialBuild, "Property", "P13"));
-    std::shared_ptr<Property> twenty5 = std::make_shared<Property>(new Property(240, {20, 100, 300, 750, 925, 1100}, red, initialBuild, "Property", "P14"));
-    std::shared_ptr<Transportation> twenty6 = std::make_shared<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T3"));
-    std::shared_ptr<Property> twenty7 = std::make_shared<Property>(new Property(260, {22, 110, 330, 800, 975, 1150}, yellow, initialBuild, "Property", "P15"));
-    std::shared_ptr<Property> twenty8 = std::make_shared<Property>(new Property(260, {22, 110, 330, 800, 975, 1150}, yellow, initialBuild, "Property", "P16"));
-    std::shared_ptr<Utility> twenty9 = std::make_shared<Utility>(new Utility(150, {4, 10}, "Utility", "U2"));
-    std::shared_ptr<Property> thirty = std::make_shared<Property>(new Property(280, {22, 120, 360, 850, 1025, 1200}, yellow, initialBuild, "Property", "P17"));
+    std::shared_ptr<Property> twenty4 = std::shared_ptr<Property >(new Property(220, {18, 90, 250, 700, 875, 1050}, red, initialBuild, "Property", "P13"));
+    std::shared_ptr<Property> twenty5 = std::shared_ptr<Property >(new Property(240, {20, 100, 300, 750, 925, 1100}, red, initialBuild, "Property", "P14"));
+    std::shared_ptr<Transportation> twenty6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T3"));
+    std::shared_ptr<Property> twenty7 = std::shared_ptr<Property >(new Property(260, {22, 110, 330, 800, 975, 1150}, yellow, initialBuild, "Property", "P15"));
+    std::shared_ptr<Property> twenty8 = std::shared_ptr<Property >(new Property(260, {22, 110, 330, 800, 975, 1150}, yellow, initialBuild, "Property", "P16"));
+    std::shared_ptr<Utility> twenty9 = std::shared_ptr<Utility>(new Utility(150, {4, 10}, "Utility", "U2"));
+    std::shared_ptr<Property> thirty = std::shared_ptr<Property >(new Property(280, {22, 120, 360, 850, 1025, 1200}, yellow, initialBuild, "Property", "P17"));
     std::shared_ptr<Tile> thirty1 = std::make_shared<Tile>("Go To Jail", "Go To Jail");
-    std::shared_ptr<Property> thirty2 = std::make_shared<Property>(new Property(300, {26, 130, 390, 900, 1100, 1275}, green, initialBuild, "Property", "P18"));
-    std::shared_ptr<Property> thirty3 = std::make_shared<Property>(new Property(300, {26, 130, 390, 900, 1100, 1275}, green, initialBuild, "Property", "P19"));
+    std::shared_ptr<Property> thirty2 = std::shared_ptr<Property >(new Property(300, {26, 130, 390, 900, 1100, 1275}, green, initialBuild, "Property", "P18"));
+    std::shared_ptr<Property> thirty3 = std::shared_ptr<Property >(new Property(300, {26, 130, 390, 900, 1100, 1275}, green, initialBuild, "Property", "P19"));
     std::shared_ptr<Tile> thirty4 = std::make_shared<Tile>("Community Chest", "Community Chest");
-    std::shared_ptr<Property> thirty5 = std::make_shared<Property>(new Property(320, {28, 150, 450, 1000, 1200, 1400}, green, initialBuild, "Property", "P20"));
-    std::shared_ptr<Transportation> thirty6 = std::make_shared<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T4"));
+    std::shared_ptr<Property> thirty5 = std::shared_ptr<Property >(new Property(320, {28, 150, 450, 1000, 1200, 1400}, green, initialBuild, "Property", "P20"));
+    std::shared_ptr<Transportation> thirty6 = std::shared_ptr<Transportation>(new Transportation(200, {25, 50, 100, 200}, "Transportation", "T4"));
     std::shared_ptr<Tile> thirty7 = std::make_shared<Tile>("Chance", "Chance");
-    std::shared_ptr<Property> thirty8 = std::make_shared<Property>(new Property(350, {35, 175, 500, 1100, 1300, 1500}, blue, initialBuild, "Property", "P21"));
+    std::shared_ptr<Property> thirty8 = std::shared_ptr<Property >(new Property(350, {35, 175, 500, 1100, 1300, 1500}, blue, initialBuild, "Property", "P21"));
     std::shared_ptr<Tile> thirty9 = std::make_shared<Tile>("Luxury Tax", "Luxury Tax");
-    std::shared_ptr<Property> forty = std::make_shared<Property>(new Property(400, {50, 200, 600, 1400, 1700, 2000}, blue, initialBuild, "Property", "P22"));
+    std::shared_ptr<Property> forty = std::shared_ptr<Property >(new Property(400, {50, 200, 600, 1400, 1700, 2000}, blue, initialBuild, "Property", "P22"));
 
     utilities.emplace_back(teen3);
     utilities.emplace_back(twenty9);
@@ -469,7 +469,7 @@ void Board::trade(shared_ptr<Player> player){
             else{
                 tradeList.emplace_back(player->transportationNameAtIndex((int)inputChar-(player.getNumProperties() + player.getNumUtilities())-1));
             }
-        }  
+        }
     }
     cout<<"Select the player you want to trade with (enter their number):"<<endl;
     for(int p = 0 ; p < players.size() ; p++){
