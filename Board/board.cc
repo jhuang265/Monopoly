@@ -318,7 +318,7 @@ void Board::playTurn(){
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1){
-            printCurPlayerStatus();
+            print();
             cout<<"1) Play without trading (enter A)"<<endl;
             cout<<"2) Do you want to trade? (enter B)"<<endl;
             cout<<"3) Do you want to quit? (enter C)"<<endl;
@@ -327,20 +327,21 @@ void Board::playTurn(){
                 cin>>playerChoice;
             }
             if (playerChoice=='C'){
-                //implement quit
+                players.erase(i);
+                continue;
             }
             else if(playerChoice == 'B'){
-                trade();//needs to be done
+                trade(*i);
             }
 
             rollDiceAndAction();
             if(*i->getMoney() < 0){
-                i = players.erase(i);
+                players.erase(i);
                 continue;
             }
             while(*i->getDoubles() > 0 && *i->getDoubles() < 3){
                 if(*i->getMoney() < 0){
-                    i = players.erase(i);
+                    players.erase(i);
                     break;
                 }
                 rollDiceAndAction();
