@@ -22,7 +22,7 @@ class Property: public Tile{
         int getCanBuild();
         int getHouses();
         int getPrice();
-        int getRent();
+        int getRent() override;
         bool getIsOwned() override;
         int getOwnerIndex();
         void buy(std::shared_ptr<Player> );
