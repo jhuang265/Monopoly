@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "./Player/player.h"
-#include "./Property/property.h"
+#include "./../Player/player.h"
+#include "./../Tile/property.h"
 class Color{
     private:
         std::string color;

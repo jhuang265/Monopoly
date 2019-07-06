@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include "tile.h"
-#include "./Player/player.h"
+#include "./../Player/player.h"
 class Utility : public Tile{
     private:
         int cost;
@@ -21,3 +21,5 @@ class Utility : public Tile{
         void reset();
         ~Utility(){}
 };
+
+#endif

@@ -7,7 +7,7 @@
 #include "../Tile/utility.h"
 #include "../Tile/transportation.h"
 
-
+using namespace std;
 class Player {
   string name;
   const int index;
