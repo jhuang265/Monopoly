@@ -118,7 +118,7 @@ void Player::print() {
     cout << "Properties Owned: "<<endl;
     if(!properties.empty()) {
         for(auto & p : properties) {
-            if p == properties.back() {
+            if (p == properties.back()) {
                 cout << p->getName() <<endl;
                 break;
             }
@@ -129,7 +129,7 @@ void Player::print() {
     cout << "Utilities Owned: "<<endl;
     if(!utilities.empty()) {
         for(auto & u : utilities) {
-            if u == utilities.back() {
+            if (u == utilities.back()) {
                 cout << u->getName() <<endl;
                 break;
             }
@@ -140,7 +140,7 @@ void Player::print() {
     cout << "Transportations Owned: "<<endl;
     if(!transportations.empty()) {
         for(auto & t : transportations) {
-            if t == transportations.back() {
+            if (t == transportations.back()) {
                 cout << t->getName() <<endl;
                 break;
             }
