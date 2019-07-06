@@ -32,3 +32,7 @@ void Color::updateCanBuild(){
 void  Color:: attach(shared_ptr<Property> property){
     properties.emplace_back(property);
 }
+
+string Color:: getColor(){
+    return color;
+}
