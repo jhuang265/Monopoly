@@ -38,12 +38,14 @@ public:
   void move(int);
 
   int getDoubles();
+  void resetDoubles();
   void rolledDoubles();
   
   void goToJail();
   bool isInJail();
   void release();
-  void getTurnsInJail();
+  void addTurnInJail();
+  int getTurnsInJail();
   void setHasGOTJFCard();
   void clearHasGOTJFCard();
 

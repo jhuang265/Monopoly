@@ -74,6 +74,11 @@ int Player::getDoubles() {
     return numDoubles;
 }
 
+void Player::resetDoubles() {
+    numDoubles = 0;
+    return;
+}
+
 void Player::rolledDoubles() {
     ++numDoubles;
     return;
@@ -90,6 +95,11 @@ void Player::goToJail() {
     return;
 }
 
+void Player::addTurnInJail(){
+    turnsInJail++;
+    return;
+}
+
 bool Player::isInJail() {
     return isInJail;
 }
@@ -100,7 +110,7 @@ void Player::release() {
     return;
 }
 
-void Player::getTurnsInJail() { return turnsInJail; }
+int Player::getTurnsInJail() { return turnsInJail; }
 
 void Player::setHasGOTJFCard() {
     hasGOJFC = true;

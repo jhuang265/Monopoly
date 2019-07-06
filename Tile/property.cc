@@ -25,7 +25,7 @@ int Property:: getRent(){
 }
 
 
-bool Property:: getIsOwned(){
+bool Property:: getIsOwned() override{
     return isOwned;
 }
 

@@ -12,7 +12,7 @@ int Utility:: getUtilityRent(int dice){
     return rent[owner.getNumUtility()-1]* dice ;
 }
 
-bool Utility:: getIsOwned(){
+bool Utility:: getIsOwned() override{
     return isOwned;
 }
 

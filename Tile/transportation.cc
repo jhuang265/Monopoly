@@ -14,7 +14,7 @@ int Transportation:: getRent(){
     return owner.getNumTransportation()*25;
 }
 
-bool Transportation:: getIsOwned(){
+bool Transportation:: getIsOwned() override{
     return isOwned;
 }
 
