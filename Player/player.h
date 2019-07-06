@@ -42,7 +42,9 @@ public:
   void addUtility(shared_ptr<Utility>);
   void addTransportation(shared_ptr<Transportation>);
   void removeAsset(shared_ptr<Tile> tile);
-  shared_ptr<Tile> returnAsset(std::string);
+  shared_ptr<Property> returnProperty(std::string);
+  shared_ptr<Utility> returnUtility(std::string);
+  shared_ptr<Transportation> returnTransportation(std::string);
   int getNumUtilities();
   int getNumTransportations();
   int getNumProperties();
