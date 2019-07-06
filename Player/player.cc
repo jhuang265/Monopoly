@@ -109,7 +109,10 @@ int Player::getPos() { return pos; }
 
 void Player::move(int n) {
     int result = pos + n;
-    pos = (result <= 39 && result >= 0) ? result : result%40;
+    pos = (result <= 39 && result >= 0) ? result : result%40;g
+    if(result>39){
+        receiveMoney(200);
+    }
     return;
 }
 
