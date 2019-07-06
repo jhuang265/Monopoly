@@ -2,7 +2,8 @@
 #define UTILITY_H_
 #include <string>
 #include <memory>
-#include "Tile.h"
+#include "tile.h"
+#include "./Player/player.h"
 
 class Utility{
     private:
