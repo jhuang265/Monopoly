@@ -25,6 +25,9 @@ public:
   Player(std::string, int);
   string getName();
   int getIndex();
+  std::string propertyNameAtIndex(int);
+  std::string utilityNameAtIndex(int);
+  std::string transportationNameAtIndex(int);
 
   int getMoney();
   void receiveMoney(int);

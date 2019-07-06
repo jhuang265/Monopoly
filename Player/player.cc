@@ -15,6 +15,21 @@ string Player::getName() { return name; }
 
 int Player::getIndex() { return index; }
 
+string propertyNameAtIndex(int i) {
+    if(i < properties.size()) { return properties.at(i); }
+    return "";
+}
+
+string utilityNameAtIndex(int i) {
+    if(i < utilities.size()) { return utilities.at(i); }
+    return "";
+}
+
+string transportationNameAtIndex(int i) {
+    if(i < transportations.size()) { return transportations.at(i); }
+    return "";
+}
+
 int Player::getMoney() { return money; }
 
 void Player::receiveMoney(int moneyReceived) {
