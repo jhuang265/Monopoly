@@ -263,7 +263,7 @@ void Board::rollDiceAndAction(){
     loseMoneyCard c1{};
     getMoneyCard c2{};
     GOJFCard c3{};
-    GTJCARD c4{};
+    GTJCard c4{};
     moveCard c5{};
 
     for(int i = 0; i < 6; ++i){

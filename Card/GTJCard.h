@@ -2,11 +2,11 @@
 #define __GTJCARD_H__
 #include "card.h"
 
-class GTJCARD {
+class GTJCard {
  public:
-  GTJCARD();
+  GTJCard();
   void use(shared_ptr<Player>);
-  ~GTJCARD();
+  ~GTJCard();
 };
 
 #endif

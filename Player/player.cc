@@ -155,12 +155,12 @@ void Player::release() {
 
 int Player::getTurnsInJail() { return turnsInJail; }
 
-void Player::setHasGOTJFCard() {
+void Player::setHasGOJFCard() {
     hasGOJFC = true;
     return;
 }
 
-void Player::clearHasGOTJFCard() {
+void Player::clearHasGOJFCard() {
     hasGOJFC = false;
     return;
 }

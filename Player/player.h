@@ -59,8 +59,8 @@ public:
   void release();
   void addTurnInJail();
   int getTurnsInJail();
-  void setHasGOTJFCard();
-  void clearHasGOTJFCard();
+  void setHasGOJFCard();
+  void clearHasGOJFCard();
 
   void print();
   void printAsset();//needs to be written for giving trade options
