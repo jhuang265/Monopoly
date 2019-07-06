@@ -456,18 +456,18 @@ void Board::trade(shared_ptr<Player> player){
             }
             break;
         }
-        else if((int)inputChar > (getNumProperties + getNumUtilities + getNumTransportations)){
+        else if((int)inputChar > (player.getNumProperties() + player.getNumUtilities() + player.getNumTransportations())){
             continue;
         }
         else{
             if((int)inputChar<= getNumProperties){
-                tradeList.emblace_back(player->propertyNameAt((int)inputChar-1));
+                tradeList.emplace_back(player->propertyNameAtIndex((int)inputChar-1));
             }
             else if((int)inputChar < getNumProperties+getNumUtilities ){
-                tradeList.emblace_back(player->utilityNameAt((int)inputChar-getNumProperties-1));
+                tradeList.emplace_back(player->utilityNameAtIndex((int)inputChar-player.getNumProperties()-1));
             }
             else{
-                tradeList.emblace_back(player->transportationNameAt((int)inputChar-(getNumProperties + getNumUtilities)-1));
+                tradeList.emplace_back(player->transportationNameAtIndex((int)inputChar-(player.getNumProperties() + player.getNumUtilities())-1));
             }
         }  
     }
@@ -507,7 +507,7 @@ void Board::trade(shared_ptr<Player> player){
         player->payMoney(desiredMoney);
         targetPlayer->receiveMoney(desiredMoney);
         for(int x = 0; x < tradeList.size(); x++){
-            *(player).returnAsset(tradeList[x]).changeOwner(targetPlayer);
+            (player->returnAsset(tradeList[x]))->changeOwner(targetPlayer);
         }
         cout<< "Trade Successful"<<endl;
     }
