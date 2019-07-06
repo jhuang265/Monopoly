@@ -7,9 +7,6 @@
 class Game{
     private:
         std::unique_ptr<Board> b;
-        int type;
-        int players;
-
     public:
 
         // Construct the game

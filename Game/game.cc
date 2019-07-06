@@ -2,7 +2,7 @@
 #include "../Board/board.h"
 #include <memory>
 
-Game::Game(int type, int players): type{type}, players{players}{
+Game::Game(int type, int players){
     b = std::make_unique<Board>(type, players);
 }
 

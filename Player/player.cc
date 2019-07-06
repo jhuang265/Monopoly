@@ -3,12 +3,12 @@
 using namespace std;
 
 Player::Player(string name, const int index): name{name}, index{index} {
-    int money = 1500;
-    int pos = 0;
-    int numDoubles = 0;
-    int turnsInJail = 0;
-    bool inJail = false;
-    bool hasGOJFC = false;
+     money = 1500;
+     pos = 0;
+     numDoubles = 0;
+     turnsInJail = 0;
+     inJail = false;
+     hasGOJFC = false;
 }
 
 string Player::getName() { return name; }
@@ -96,6 +96,7 @@ shared_ptr<Tile> Player::returnAsset(string name) {
     for(auto &t : transportations) {
         if(t->getName() == name) return t;
     }
+    return nullptr;
 }
 
 int Player::getNumUtilities() { return utilities.size(); }
