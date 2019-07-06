@@ -473,6 +473,7 @@ void Board::rollDiceAndAction(){
 
 bool hasPlayerOnRow(int rowNum) {
     for(int i=65; i < 69; ++i) {
+        cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum: "<<rowNum<<endl;
         if(playerPos[i].first == rowNum) return true;
     }
     return false;
@@ -509,17 +510,21 @@ void Board::printBoard() {
     }
 
     //targetPos: Set resulting replace index on a row in the string
-    for(int i=0; i<4; ++i) {
-        int colNum = (playerPos[i].second)%10;
+    c = 65;
+    for(c; c<69; ++c) {
+        cerr <<"HEYYYYY: playerPos[i].first: "<<playerPos[c].first<<endl;
+        int colNum = (playerPos[c].second)%10 + 1;
         int targetColNum = colNum*12 - 8;
+        cerr<<"colNum: "<<colNum<<endl;
         if(playerPos.count(c)) {
-            while (targetPos.count(pair<int,int>(playerPos[i].first, targetColNum))) {
+            while (targetPos.count(pair<int,int>(playerPos[c].first, targetColNum))) {
                 ++targetColNum;
             }
-            int rowNum = playerPos[i].first;
+            int rowNum = playerPos[c].first;
+            cerr<<"targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
             targetPos.insert(pair<pair<int,int>,int> (pair<int,int>(rowNum, targetColNum), c));
             replacePos.insert(pair<int,int>(rowNum, targetColNum));
-            ++c;
+//            ++c;
         }
     }
 
@@ -530,16 +535,18 @@ void Board::printBoard() {
 
     //output board, x: rowNum; y: colNum (horizontal)
     cout << boarder;
-    for(int x = 0; x < 40; ++x) {
+    for(int x = 0; x <= 41; ++x) {
         if(x%4 == 1) {
             cerr << " Entered mod 4 = 1"<<endl;
             if(hasPlayerOnRow(x)) {
-                cerr << "Has Player on Row"<<endl;
                 int y = replacePos[x];
-                char playerIndex = char(targetPos[pair<int,int>(x,y)]);
+                int playerNum = targetPos[pair<int,int>(x,y)];
+                char playerIndex = char(playerNum);
+                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerIndex: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
                 string replacedLine = line;
                 replacedLine.at(y) = playerIndex;
                 cout << replacedLine;
+                cerr << "Has Player on Row: Replace "<<y<<endl;
             }
         } else if(x%4 == 3 && x!=39){
             cout << divider;
@@ -596,11 +603,11 @@ void Board::printBoard() {
    }
 
 void Board::playTurn(){
-    printBoard();
     char playerChoice;
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
+            printBoard();
             cout<< endl;
             cout<< "-------------------------------------------------" << endl;
             cout<< "Player "<< (*i)->getIndex() + 1<< "'s turn." << endl;
