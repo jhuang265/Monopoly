@@ -577,36 +577,52 @@ void Board::auction(std::shared_ptr<Tile> t){
         remaining.push_back(i);
     }
 
-    for(int i = currentPlayer; remaining.size() != 1; i++){
-        cout<< "Current Max Bid: " << maxBid <<endl;
-        cout<< "Current Max Bidder: " << maxPlayerIndex <<endl;
+    for(int i = currentPlayer; remaining.size() != 0; i++){
+        //cout << "Remaining bidders: " << remaining.size() << endl;
+        //cout << "Current Bidder Index: " << i << endl;
+
+        //cout<< "Current Max Bid: " << maxBid <<endl;
+        //cout<< "Current Max Bidder: " << maxPlayerIndex <<endl;
         int bid;
 
-        std::cout << "Player " << remaining[i] << " please enter your bid. (If you don't want to participate, enter -1): ";
+        std::cout << "Player " << remaining[i] << " please enter your bid. (If you want to stop bidding, enter -1): ";
         std::cin >> bid;
-        if(bid <= -1){
-            for(auto j = remaining.begin(); j != remaining.end(); j++){
-                if ((*j) == remaining[i]){
-                    remaining.erase(j);
-                }
-            }
-            //remaining.erase(i);
-            --i;
-        }
-        if(bid > players[currentPlayer]->getMoney()){
-            cout << "Invalid bid" << endl;
+
+        if(bid > players[i]->getMoney()){
+            cout << "Invalid bid. You don't have the money to make this." << endl;
         }
         else if(bid > maxBid){
             maxBid = bid;
             maxPlayerIndex = remaining[i];
         }
 
+        if(bid <= -1){
+            //cout << "Erasing User" << endl;
+            for(auto j = remaining.begin(); j != remaining.end();){
+                //cout << (*j) << endl;
+                if ((*j) == remaining[i]){
+                    //cout << "Found user to delete" << endl;
+                    j = remaining.erase(j);
+                }
+                else{
+                    j++;
+                }
+            }
+            //remaining.erase(i);
+            //cout << "Decreasing Index" << endl;
+            --i;
+            //cout << "Decreased Index" << endl;
+
+        }
+
         if(i == remaining.size()-1){
             i = -1;
         }
+        //cout << remaining.size() << endl;
     }
 
-    t->buy(players[remaining[0]]);
+    cout << "Sold to Player "<< maxPlayerIndex << " for " << maxBid <<"$."<<endl;
+    t->buy(players[maxPlayerIndex]);
 
     return;
 }
