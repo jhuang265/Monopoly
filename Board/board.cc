@@ -440,6 +440,7 @@ void Board::playTurn(){
     }
 }
 
+//needs to fix the number of player 
 void Board::trade(shared_ptr<Player> player){
     char inputChar;
     int desiredMoney;
@@ -473,11 +474,14 @@ void Board::trade(shared_ptr<Player> player){
     }
     cout<<"Select the player you want to trade with (enter their number):"<<endl;
     for(int p = 0 ; p < players.size() ; p++){
+        if(players[p]->getIndex() == player->getIndex()){
+            continue;
+        } 
         cout<<p+1<< " " << players[p]->getName()<<endl;
     }
     while (cin>>targetPlayerIndex){
         if(targetPlayerIndex> players.size()){
-            cout<<"Please re-enter player index: ";
+            cout<<"Please re-enter player number: ";
             continue;
         }
         break;
