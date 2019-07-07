@@ -12,15 +12,17 @@ void Color::updateCanBuild(){
         index = properties[0]->getOwnerIndex();
     }
 
-    int setBuild = properties[0]->getCanBuild();
+    bool originalBuild = properties[0]->getCanBuild();
+    bool setBuild = properties[0]->getCanBuild();
+    //cout << setBuild << endl;
 
-    if(setBuild){
+    //if(!setBuild){
         for(int i = 0; i < properties.size(); ++i){
-            //cout << properties[i]->getName() << endl;
-            //cout << properties[i]->getOwner()->getName() << endl;
             properties[i]->setCanBuild();
         }
-    }
+    //}
+
+    setBuild = true;
 
     for (int i = 1; i < properties.size(); ++i){
         if(!(properties[i]->getIsOwned()) || properties[i]->getOwnerIndex() != index){
@@ -28,9 +30,10 @@ void Color::updateCanBuild(){
         }
     }
 
-    if(setBuild){
+    if(originalBuild == setBuild){
         for(int i = 0; i < properties.size(); ++i){
             properties[i]->setCanBuild();
+            //cout << properties[i]->getCanBuild() << endl;
         }
     }
 }

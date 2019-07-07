@@ -88,22 +88,22 @@ void Player::removeAsset(shared_ptr<Tile> tile) {
 shared_ptr<Property> Player:: returnProperty(string name) {
     for(auto &p : properties) {
          if(p->getName() == name) return p;
-        
      }
+     return nullptr;
 }
 
 shared_ptr<Utility> Player:: returnUtility(string name) {
     for(auto &u : utilities) {
          if(u->getName() == name) return u;
-        
      }
+     return nullptr;
 }
 
 shared_ptr<Transportation> Player:: returnTransportation(string name) {
     for(auto &t : transportations) {
          if(t->getName() == name) return t;
-        
      }
+     return nullptr;
 }
 
 

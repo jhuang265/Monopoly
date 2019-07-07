@@ -7,7 +7,12 @@ Property:: Property(int cost_,vector<int> rent_, shared_ptr<Color> color_, int g
 }
 
 void Property:: buyHouse() {
-    houses++;
+    if(houses <= 4){
+        houses++;
+    }
+    else{
+        cout << "You have already purchased as many houses on this property as your can." << endl;
+    }
 }
 int Property:: getCanBuild() {
     return canBuild;
@@ -38,16 +43,16 @@ void Property::buy(shared_ptr<Player> player) {
     owner->payMoney(cost);
     owner->addProperty(shared_ptr<Property>(this));
     isOwned=true;
-    color->updateCanBuild();
+    if(canBuild == 0 || canBuild == 1) color->updateCanBuild();
 }
 void Property:: changeOwner(shared_ptr<Player> player) {
-   // cout<<"check 1"<<endl;
+    // cout<<"check 1"<<endl;
     owner->removeAsset(shared_ptr<Property>(this));
-   // cout<<"check 2"<<endl;
+    // cout<<"check 2"<<endl;
     owner = player;
     owner->addProperty(shared_ptr<Property>(this));
-   // cout<<"check 3"<<endl;
-    color->updateCanBuild();
+    // cout<<"check 3"<<endl;
+    if(canBuild == 0 || canBuild == 1) color->updateCanBuild();
 }
 
 void Property:: reset(){
