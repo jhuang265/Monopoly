@@ -209,11 +209,6 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     colors.emplace_back(red);
     colors.emplace_back(green);
     colors.emplace_back(blue);
-
-    properties[0]->buy(players[0]);
-
-    cout << properties[0]->getCanBuild() << endl;
-    cout << properties[1]->getCanBuild() << endl;
 }
 
 int Board::rollDice(){
@@ -295,7 +290,7 @@ void Board::rollDiceAndAction(){
     int pos = players[currentPlayer]->getPos();
 
     cout << '\n' << "New Position: " << pos << '\n' << endl;
-    //printBoard();
+    printBoard();
 
     int cardLocations[] = {2, 7, 17, 22, 33, 36};
     int transLocations[] = {5, 15, 25, 35};
@@ -327,7 +322,7 @@ void Board::rollDiceAndAction(){
     }
 
     pos = players[currentPlayer]->getPos();
-    pos = 1;
+
     switch(pos){
         case 0:
             break;
@@ -640,7 +635,7 @@ void Board::playTurn(){
     while(players.size() > 1){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
-            //printBoard();
+            printBoard();
             cout<< endl;
             cout<< "-------------------------------------------------" << endl;
             cout<< "Player "<< (*i)->getIndex()+1 << "'s turn." << endl;
