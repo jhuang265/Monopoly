@@ -17,19 +17,16 @@
 #include <random>
 #include <memory>
 #include <map>
-<<<<<<< Updated upstream
 using namespace std;
 map<int,int> boardPos; //pos, rowNum
 map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
 map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
-map<int,int> replacePos; //rowNum, colNum
-=======
+map<int,int> replacePos; //rowNum, colNum //playerNum, ColNum
 
 //map<int,int> boardPos; //pos, rowNum
 //map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
 //map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
 //map<int,int> replacePos; //rowNum, colNum
->>>>>>> Stashed changes
 
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
@@ -294,6 +291,7 @@ void Board::rollDiceAndAction(){
     int pos = players[currentPlayer]->getPos();
 
     cout << '\n' << "New Position: " << pos << '\n' << endl;
+    printBoard();
 
     int cardLocations[] = {2, 7, 17, 22, 33, 36};
     int transLocations[] = {5, 15, 25, 35};
@@ -513,26 +511,29 @@ void Board::printBoard() {
     // playerPos   playerNum : < rowNum, colNum(tileNum) >
     for(auto& p : players) {
         int rowNum = boardPos[p->getPos()];
+        cerr <<"C IS THIS: "<<c<<endl;
         playerPos.insert(pair<int,pair<int,int> >(c, pair<int,int>(rowNum, p->getPos())));
         ++c;
     }
 
     //targetPos: Set resulting replace index on a row in the string
     c = 65;
-    for(c; c<69; ++c) {
-//        cerr <<"HEYYYYY: playerPos[i].first: "<<playerPos[c].first<<endl;
+    for(int i=0;i<numPlayers; ++i) {
         int colNum = (playerPos[c].second)%10 + 1;
-        int targetColNum = colNum*12 - 8;
-//        cerr<<"colNum: "<<colNum<<endl;
+        int targetColNum = colNum*12; //-8 if L -> R
         if(playerPos.count(c)) {
+            //while loop is intended to get all players on this line right now
+            //but if we are only displaying one player at a time this may not be required
             while (targetPos.count(pair<int,int>(playerPos[c].first, targetColNum))) {
                 ++targetColNum;
+                cerr<<"while loop: Player: "<<c<<" targetColNum: "<<targetColNum<<endl;
             }
             int rowNum = playerPos[c].first;
-//            cerr<<"targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
+            cerr<<"Player "<<c<<"targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
             targetPos.insert(pair<pair<int,int>,int> (pair<int,int>(rowNum, targetColNum), c));
-            replacePos.insert(pair<int,int>(rowNum, targetColNum));
-//            ++c;
+            cerr << "replacePos: "<<c <<" "<<targetColNum<<endl;
+            replacePos.insert(pair<int,int>(c, targetColNum));
+            ++c;
         }
     }
 
@@ -546,24 +547,28 @@ void Board::printBoard() {
     cout << boarder;
     for(int x = 0; x <= 41; ++x) {
         if(x%4 == 1) {
-//            cerr << " Entered mod 4 = 1"<<endl;
-            bool hasPlayerOnRow = false;
-            for(int i=65; i < 69; ++i) {
+        //cerr<<"Currentplayer is "<<currentPlayer<<endl;
+            string playerIndex = "";
+            string line = "";
+//            for(int i=65; i < 69; ++i) {
 //                cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum(x): "<<x<<endl;
-                if(playerPos[i].first == x) hasPlayerOnRow = true;
-            }
-            if(hasPlayerOnRow) {
-                string line;
-                if(x > 39 || x < 3) { line = line2; }
-                else { line = line1; }
-                int y = replacePos[x];
-                int playerNum = targetPos[pair<int,int>(x,y)];
-                char playerIndex = char(playerNum);
-                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerIndex: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
+                if(playerPos[currentPlayer+65].first == x) {
+                    playerIndex += char(currentPlayer+65);
+                }
+//            }
+
+            if(x > 39 || x < 3) { line = line2; } else { line = line1; }
+            if(playerIndex != "") {
+                int y = replacePos[currentPlayer+65];
+                cerr<<"currentPlayer = "<<currentPlayer+65<<" int x = "<<x<<" int y = "<<y<<endl;
+                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerNum, colNum: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
                 string replacedLine = line;
-                replacedLine.at(y) = playerIndex;
+                if(x == 41) {
+                    int xPos = line.length()-y+4;
+                    replacedLine.replace(xPos,playerIndex.length(),playerIndex);
+                }
+                else {replacedLine.replace(playerIndex.length(),playerIndex.length(),playerIndex);}
                 cout << replacedLine;
-//                cerr << "Has Player on Row: Replace "<<y<<endl;
             }
         } else if(x == 3 || x == 39) { cout << boarder;}
         else if(x%4 == 3){
@@ -912,7 +917,6 @@ void Board::auction(std::shared_ptr<Tile> t){
     return;
 }
 
-<<<<<<< Updated upstream
 string Board::getAssetType( string name){
     for(int i = 0; i < properties.size(); i++) {
         if(properties[i]->getName() == name) {
