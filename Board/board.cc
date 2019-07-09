@@ -684,7 +684,7 @@ void Board::playTurn(){
                 trade(*i);
             }
             rollDiceAndAction();
-            cout << "Current Player's Money: "<<(*i)->getMoney()<< endl;
+            cout << "Your money: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
 
                 for(auto j = properties.begin(); j != properties.end(); j++){
