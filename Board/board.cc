@@ -352,17 +352,17 @@ void Board::rollDiceAndAction(){
             if(transportations[i]->getIsOwned()){
                 cout << "You have to pay rent for landing on owned transportation." << endl;
 
-                cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
                 players[currentPlayer]->payMoney(transportations[i]->getRent());
                 cout << "Rent: " << transportations[i]->getRent() << endl;
-                cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Money after paying rent: " << players[currentPlayer]->getMoney() << endl;
 
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == transportations[i]->getOwnerIndex()){
-                        cout << "Owner Money Before: " << (*j)->getMoney() << endl;
+                        //cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(transportations[i]->getRent());
-                        cout << "Owner Money After: " << (*j)->getMoney() << endl;
+                        //cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
 
@@ -374,10 +374,10 @@ void Board::rollDiceAndAction(){
                 std::cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
-                    cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << transportations[i]->getPrice() << endl;
                     transportations[i]->buy(players[currentPlayer]);
-                    cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
                     auction(transportations[i]);
@@ -392,17 +392,17 @@ void Board::rollDiceAndAction(){
             if(utilities[i]->getIsOwned() && players[currentPlayer]->getIndex() != utilities[i]->getOwnerIndex()){
                 cout << "You have to pay rent for landing on an owned utility." << endl;
 
-                cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
-                cout << "Rent: " << utilities[i]->getUtilityRent(firstRoll+secondRoll) << endl;
+                cout << "Money before rent: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Rent you had to pay: " << utilities[i]->getUtilityRent(firstRoll+secondRoll) << endl;
                 players[currentPlayer]->payMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
-                cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Money after rent: " << players[currentPlayer]->getMoney() << endl;
 
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == utilities[i]->getOwnerIndex()){
-                        cout << "Owner Money Before: " << (*j)->getMoney() << endl;
+                        //cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
-                        cout << "Owner Money After: " << (*j)->getMoney() << endl;
+                        //cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
 
@@ -415,10 +415,10 @@ void Board::rollDiceAndAction(){
                 std::cout << "You have landed on an unowned utility " << utilities[i]->getName() <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
-                    cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << utilities[i]->getPrice() << endl;
                     utilities[i]->buy(players[currentPlayer]);
-                    cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
                     auction(utilities[i]);
@@ -431,24 +431,25 @@ void Board::rollDiceAndAction(){
     for(int i = 0; i < 22; i++){
         if(pos == propertyLocations[i]){
             if(properties[i]->getIsOwned()){
+                if(players[currentPlayer]->getIndex() != properties[i]->getOwner()->getIndex()){
                 cout << "You have to pay rent for landing on owned property." << endl;
 
-                cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
-                cout << "Cost: " << properties[i]->getRent() << endl;
+                cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Rent to pay: " << properties[i]->getRent() << endl;
                 players[currentPlayer]->payMoney(properties[i]->getRent());
-                cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+                cout << "Money after paying rent: " << players[currentPlayer]->getMoney() << endl;
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == properties[i]->getOwnerIndex()){
-                        cout << "Owner Money Before: " << (*j)->getMoney() << endl;
+                        //cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(properties[i]->getRent());
-                        cout << "Owner Money After: " << (*j)->getMoney() << endl;
+                        //cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
-
+                }
                 //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getRent());
-
-                if(players[currentPlayer]->getIndex() == properties[i]->getOwner()->getIndex()){
+                else{
+                //if(players[currentPlayer]->getIndex() == properties[i]->getOwner()->getIndex()){
                     if(properties[i]->getCanBuild() != 0){
                         if((properties[i]->getHouses()+1) * 50 <= players[currentPlayer]->getMoney()){
                             char yn;
@@ -467,10 +468,10 @@ void Board::rollDiceAndAction(){
                 std::cout << "You have landed on an unowned property " << properties[i]->getName() <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= properties[i]->getPrice()){
-                    cout << "Money Before: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << properties[i]->getPrice() << endl;
                     properties[i]->buy(players[currentPlayer]);
-                    cout << "Money Left: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
                     auction(properties[i]);
