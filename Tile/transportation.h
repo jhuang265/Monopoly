@@ -5,14 +5,17 @@
 #include "tile.h"
 #include "./../Player/player.h"
 
-class Transportation: public Tile{
+class Transportation: public Tile, public std::enable_shared_from_this<Transportation>{
     private:
         int cost; //constant, initialized by constructor
         std::vector<int> rent; //constnat, initialized by constructor
-        std::weak_ptr<Player> owner; 
-        bool isOwned; 
+        Player* owner;
+        bool isOwned;
 
     public:
+        std::shared_ptr<Transportation> getptr() {
+                return shared_from_this();
+        }
         Transportation(int, std::vector<int> , std::string, std::string);
         int getPrice() override;
         int getRent() override;
@@ -22,7 +25,6 @@ class Transportation: public Tile{
         void changeOwner(std::shared_ptr<Player>) override;
         void reset();
         ~Transportation();
-        
 
 };
 

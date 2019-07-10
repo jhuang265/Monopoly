@@ -6,17 +6,21 @@
 #include "./../Color/color.h"
 #include "./../Player/player.h"
 
-class Property: public Tile{
+class Property: public Tile, public std::enable_shared_from_this<Property>{
     private:
         int cost;
         int gameType;
         int houses; //current num of houses
         std::vector<int> rent;
-        std::weak_ptr<Player> owner;
+        Player* owner;
         std::weak_ptr<Color> color; //constant, initilaized by contructor
         int canBuild; // if one can build house, only happens if owner has all colored sets
         bool isOwned;
+
     public:
+        std::shared_ptr<Property> getptr() {
+                return shared_from_this();
+        }
         Property(int, std::vector<int>, std::shared_ptr<Color>, int, std::string, std::string);
         void buyHouse() override;
         int getCanBuild() override;
@@ -26,7 +30,7 @@ class Property: public Tile{
         bool getIsOwned() override;
         int getOwnerIndex() override;
         void buy(std::shared_ptr<Player> ) override;
-        std::shared_ptr<Player> getOwner() override;
+        //std::shared_ptr<Player> getOwner() override;
         void reset();
         void changeOwner(std::shared_ptr<Player>) override;
         void setCanBuild();

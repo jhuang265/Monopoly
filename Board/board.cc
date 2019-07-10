@@ -302,7 +302,7 @@ void Board::rollDiceAndAction(){
     int pos = players[currentPlayer]->getPos();
 
     cout << '\n' << "New Position: " << pos << '\n' << endl;
-    printBoard();
+    //printBoard();
 
     // Set the location of cards, transportations, utilities and properties
     int cardLocations[] = {2, 7, 17, 22, 33, 36};
@@ -390,6 +390,7 @@ void Board::rollDiceAndAction(){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << transportations[i]->getPrice() << endl;
                     transportations[i]->buy(players[currentPlayer]);
+                    players[currentPlayer]->addProperty(transportations[i].getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
@@ -428,6 +429,7 @@ void Board::rollDiceAndAction(){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << utilities[i]->getPrice() << endl;
                     utilities[i]->buy(players[currentPlayer]);
+                    players[currentPlayer]->addProperty(utilities[i].getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
@@ -442,7 +444,7 @@ void Board::rollDiceAndAction(){
     for(int i = 0; i < 22; i++){
         if(pos == propertyLocations[i]){
             if(properties[i]->getIsOwned()){
-                if(players[currentPlayer]->getIndex() != properties[i]->getOwner()->getIndex()){
+                if(players[currentPlayer]->getIndex() != properties[i]->getOwnerIndex()){
                     cout << "You have to pay rent for landing on owned property." << endl;
 
                     cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
@@ -479,6 +481,7 @@ void Board::rollDiceAndAction(){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << properties[i]->getPrice() << endl;
                     properties[i]->buy(players[currentPlayer]);
+                    players[currentPlayer]->addProperty(properties[i].getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
@@ -650,7 +653,7 @@ void Board::playTurn(){
 
         // Keep playing as long as you haven't reached the end
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
-            printBoard();
+            //printBoard();
 
             // Prompt user to make a choice
             cout << endl;

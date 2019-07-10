@@ -2,15 +2,14 @@
 #include "tile.h"
 using namespace std;
 Utility:: Utility(int cost_, vector<int> rent_, string tileType_, string name_):
-                    cost(cost_), rent(rent_), isOwned(false), Tile(tileType_,name_){}
+                    cost(cost_), rent(rent_), isOwned(false), owner(nullptr), Tile(tileType_,name_){}
 
 int Utility:: getPrice() {
     return cost;
 }
 
 int Utility:: getUtilityRent(int dice) {
-    auto own = owner.lock();
-    return rent[(*own).getNumUtilities()-1]* dice ;
+    return rent[(*owner).getNumUtilities()-1]* dice ;
 }
 
 bool Utility:: getIsOwned() {
@@ -18,25 +17,20 @@ bool Utility:: getIsOwned() {
 }
 
 void Utility:: buy(shared_ptr<Player> player) {
-    owner = player;
-    auto own = owner.lock();
-    (*own).payMoney(cost);
-    (*own).addUtility(shared_ptr<Utility>(this));
+    owner = player.get();
+    (*owner).payMoney(cost);
+    //(*owner).addUtility(getptr());
     isOwned=true;
 }
 
 int Utility:: getOwnerIndex() {
-    auto own = owner.lock();
-    return (*own).getIndex();
+    return (*owner).getIndex();
 }
 
 void Utility:: changeOwner (shared_ptr<Player> player){
-    auto own = owner.lock();
-    (*own).removeAsset(shared_ptr<Tile>(this));
-    owner = player;
-
-    auto ownAfter = owner.lock();
-    (*ownAfter).addUtility(shared_ptr<Utility>(this));
+    (*owner).removeAsset(getptr());
+    owner = player.get();
+    (*owner).addUtility(getptr());
 }
 
 void Utility:: reset(){

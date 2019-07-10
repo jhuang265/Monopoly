@@ -21,9 +21,6 @@ class Tile{
         virtual bool getIsOwned(){
             return false;
         };
-        virtual std::shared_ptr<Player> getOwner(){
-            return nullptr;
-        };
         virtual int getCanBuild(){
             return 0;
         };
