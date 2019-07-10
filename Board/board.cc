@@ -243,6 +243,20 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     colors.emplace_back(red);
     colors.emplace_back(green);
     colors.emplace_back(blue);
+
+    /*
+    std::shared_ptr<loseMoneyCard> c1 = std::make_shared<loseMoneyCard>();
+    std::shared_ptr<getMoneyCard> c2 = std::make_shared<getMoneyCard>();
+    std::shared_ptr<GOJFCard> c3 = std::make_shared<GOJFCard>();
+    std::shared_ptr<GTJCard> c4 = std::make_shared<GTJCard>();
+    std::shared_ptr<moveCard> c5 = std::make_shared<moveCard>();
+
+    cards.emplace_back(c1);
+    cards.emplace_back(c2);
+    cards.emplace_back(c3);
+    cards.emplace_back(c4);
+    cards.emplace_back(c5);
+    */
 }
 
 int Board::rollDice(){
@@ -343,8 +357,8 @@ void Board::rollDiceAndAction(){
 
     loseMoneyCard c1{};
     getMoneyCard c2{};
-    GOJFCard c3{};
-    GTJCard c4{};
+    GTJCard c3{};
+    GOJFCard c4{};
     moveCard c5{};
 
     // If the player landed on a card, use it and return
@@ -352,6 +366,8 @@ void Board::rollDiceAndAction(){
         if(pos == cardLocations[i]){
             srand(time(0));
             int rNum = (rand()%5+1);
+
+            //cards[rNum]->use(players[currentPlayer]);
 
             if(rNum == 1) c1.use(players[currentPlayer]);
             else if(rNum == 2) c2.use(players[currentPlayer]);

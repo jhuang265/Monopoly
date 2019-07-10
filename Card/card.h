@@ -9,9 +9,9 @@
 #include "../Board/board.h"
 
 class Card {
- public:
-  virtual void use(std::shared_ptr<Player>)=0;
-  virtual ~Card() = 0;
+    public:
+        virtual void use(std::shared_ptr<Player>)=0;
+        virtual ~Card() = 0;
 };
 
 #endif
