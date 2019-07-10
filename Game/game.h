@@ -6,6 +6,7 @@
 
 class Game{
     private:
+        // Hold the board object
         std::unique_ptr<Board> b;
     public:
 
