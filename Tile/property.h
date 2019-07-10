@@ -12,8 +12,8 @@ class Property: public Tile{
         int gameType;
         int houses; //current num of houses
         std::vector<int> rent;
-        std::shared_ptr<Player> owner;
-        std::shared_ptr<Color> color; //constant, initilaized by contructor
+        std::weak_ptr<Player> owner;
+        std::weak_ptr<Color> color; //constant, initilaized by contructor
         int canBuild; // if one can build house, only happens if owner has all colored sets
         bool isOwned;
     public:

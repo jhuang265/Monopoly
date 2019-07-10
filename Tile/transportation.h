@@ -9,7 +9,7 @@ class Transportation: public Tile{
     private:
         int cost; //constant, initialized by constructor
         std::vector<int> rent; //constnat, initialized by constructor
-        std::shared_ptr<Player> owner; 
+        std::weak_ptr<Player> owner; 
         bool isOwned; 
 
     public:

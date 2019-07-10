@@ -3,7 +3,7 @@
 
 using namespace std;
 Property:: Property(int cost_,vector<int> rent_, shared_ptr<Color> color_, int gameType_,  string tileType_, string name_):
-            Tile(tileType_,name_), cost(cost_), gameType(gameType_),houses(0),rent(rent_), color(color_),canBuild(gameType_),isOwned(false){
+            Tile(tileType_,name_), cost(cost_), gameType(gameType_),houses(0),rent(rent_), color(color_), canBuild(gameType_),isOwned(false){
 }
 
 void Property:: buyHouse() {
@@ -34,21 +34,31 @@ bool Property:: getIsOwned() {
 }
 
 shared_ptr<Player> Property:: getOwner() {
-    return owner;
+    return owner.lock();
 }
 
 void Property::buy(shared_ptr<Player> player) {
     owner = player;
-    owner->payMoney(cost);
-    owner->addProperty(shared_ptr<Property>(this));
+
+    auto own = owner.lock();
+
+    (*own).payMoney(cost);
+    (*own).addProperty(shared_ptr<Property>(this));
     isOwned=true;
-    if(canBuild == 0 || canBuild == 1) color->updateCanBuild();
+
+    auto col = color.lock();
+    if(canBuild == 0 || canBuild == 1) (*col).updateCanBuild();
 }
 void Property:: changeOwner(shared_ptr<Player> player) {
-    owner->removeAsset(shared_ptr<Property>(this));
+    auto own = owner.lock();
+    (*own).removeAsset(shared_ptr<Property>(this));
     owner = player;
-    owner->addProperty(shared_ptr<Property>(this));
-    if(canBuild == 0 || canBuild == 1) color->updateCanBuild();
+
+    auto ownAfter = owner.lock();
+    (*own).addProperty(shared_ptr<Property>(this));
+
+    auto col = color.lock();
+    if(canBuild == 0 || canBuild == 1) (*col).updateCanBuild();
 }
 
 void Property:: reset(){
@@ -58,7 +68,8 @@ void Property:: reset(){
 }
 
 int Property:: getOwnerIndex() {
-    return owner->getIndex();
+    auto own = owner.lock();
+    return (*own).getIndex();
 }
 
 void Property:: setCanBuild(){
@@ -66,5 +77,6 @@ void Property:: setCanBuild(){
 }
 
 string Property:: getColor(){
-    return color->getColor();
+    auto col = color.lock();
+    return (*col).getColor();
 }

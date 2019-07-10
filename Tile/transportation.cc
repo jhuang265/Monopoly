@@ -11,7 +11,8 @@ int Transportation:: getPrice() {
 }
 
 int Transportation:: getRent() {
-    return owner->getNumTransportations()*25;
+    auto own = owner.lock();
+    return (*own).getNumTransportations()*25;
 }
 
 bool Transportation:: getIsOwned() {
@@ -19,24 +20,27 @@ bool Transportation:: getIsOwned() {
 }
 
 void Transportation:: buy(shared_ptr<Player> player) {
-    //cout << "Name: " << player->getName() << "\t Index: "  << player->getIndex() << endl;
     owner = player;
-    owner->payMoney(cost);
-    owner->addTransportation(shared_ptr<Transportation>(this));
+    auto own = owner.lock();
+    (*own).payMoney(cost);
+    (*own).addTransportation(shared_ptr<Transportation>(this));
     isOwned=true;
     cout << "Index: "  << this->getOwnerIndex() << endl;
-    //cout << "Name: " << owner->getName() << "\t Index: "  << owner->getIndex() << endl;
 }
 
 int Transportation:: getOwnerIndex() {
-    return owner->getIndex();
+    auto own = owner.lock();
+    return (*own).getIndex();
 }
 
 void Transportation:: changeOwner (shared_ptr<Player> player){
-    owner->removeAsset(shared_ptr<Transportation>(this));
+    auto own = owner.lock();
+    (*own).removeAsset(shared_ptr<Transportation>(this));
+    
     owner = player;
-    owner->addTransportation(shared_ptr<Transportation>(this));
-
+    
+    auto ownAfter = owner.lock();
+    (*ownAfter).addTransportation(shared_ptr<Transportation>(this));
 }
 
 void Transportation:: reset(){

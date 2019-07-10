@@ -30,7 +30,7 @@ map<int,int> replacePos; //rowNum, colNum //playerNum, ColNum
 
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
-    
+
     // Get all the user's names
     for(int i = 0; i < numPlayers; i++){
         std::cout << "Enter the name for Player " << (i+1) << ": ";
@@ -654,10 +654,10 @@ void Board::playTurn(){
             // Prompt user to make a choice
             cout << endl;
             cout << "-------------------------------------------------" << endl;
-            cout << "Player "<< (*i)->getIndex()+1 << "'s turn." << endl;
+            cout << (*i)->getName() << "'s turn." << endl;
             (*i)->print();//prints status of cur player
             cout << endl;
-            
+
             cout << "What would you like to do?" << endl;
             cout << "1) Play without trading (enter A)" << endl;
             cout << "2) Do you want to trade? (enter B)" << endl;
@@ -775,7 +775,7 @@ void Board::playTurn(){
     }
 
     // If the game is over, name the winner.
-    cout << "The winner is Player "<< players[0]->getIndex() << endl;
+    cout << "The winner is "<< players[0]->getName() << endl;
     return;
 }
 
@@ -897,12 +897,11 @@ void Board::auction(std::shared_ptr<Tile> t){
         //cout<< "Current Max Bidder: " << maxPlayerIndex <<endl;
         int bid;
 
-        std::cout << "Player " << remaining[i] << " please enter your bid. (If you want to stop bidding, enter -1): ";
+        std::cout << "Player " << players[remaining[i]]->getName() << " please enter your bid. (If you want to stop bidding, enter -1): ";
         std::cin >> bid;
         if (!cin.good()){
             bid = 0;
             std::cin.clear(); //clear bad input flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             //i = i-1;
             //continue;
             cout << "Invalid bid. Please wait your turn to bid again." << endl;

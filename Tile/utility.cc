@@ -9,7 +9,8 @@ int Utility:: getPrice() {
 }
 
 int Utility:: getUtilityRent(int dice) {
-    return rent[owner->getNumUtilities()-1]* dice ;
+    auto own = owner.lock();
+    return rent[(*own).getNumUtilities()-1]* dice ;
 }
 
 bool Utility:: getIsOwned() {
@@ -17,22 +18,25 @@ bool Utility:: getIsOwned() {
 }
 
 void Utility:: buy(shared_ptr<Player> player) {
-    //cout << "Name: " << player->getName() << "\t Index: "  << player->getIndex() << endl;
     owner = player;
-    owner->payMoney(cost);
-    owner->addUtility(shared_ptr<Utility>(this));
+    auto own = owner.lock();
+    (*own).payMoney(cost);
+    (*own).addUtility(shared_ptr<Utility>(this));
     isOwned=true;
-    //cout << "Name: " << owner->getName() << "\t Index: "  << owner->getIndex() << endl;
 }
 
 int Utility:: getOwnerIndex() {
-    return owner->getIndex();
+    auto own = owner.lock();
+    return (*own).getIndex();
 }
 
 void Utility:: changeOwner (shared_ptr<Player> player){
-    owner->removeAsset(shared_ptr<Tile>(this));
+    auto own = owner.lock();
+    (*own).removeAsset(shared_ptr<Tile>(this));
     owner = player;
-    owner->addUtility(shared_ptr<Utility>(this));
+     
+    auto ownAfter = owner.lock();
+    (*ownAfter).addUtility(shared_ptr<Utility>(this));
 }
 
 void Utility:: reset(){
