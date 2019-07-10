@@ -30,7 +30,8 @@ map<int,int> replacePos; //rowNum, colNum //playerNum, ColNum
 
 Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
-
+    
+    // Get all the user's names
     for(int i = 0; i < numPlayers; i++){
         std::cout << "Enter the name for Player " << (i+1) << ": ";
         std::cin >> name;
@@ -38,6 +39,7 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
         players.emplace_back(std::make_shared<Player>(name, i));
     }
 
+    // Set up the board and all the tiles
     int initialBuild = (type == 1)? 0: -1;
 
     std::shared_ptr<Color> brown = std::make_shared<Color>();
