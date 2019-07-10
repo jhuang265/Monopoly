@@ -36,9 +36,9 @@ int Transportation:: getOwnerIndex() {
 void Transportation:: changeOwner (shared_ptr<Player> player){
     auto own = owner.lock();
     (*own).removeAsset(shared_ptr<Transportation>(this));
-    
+
     owner = player;
-    
+
     auto ownAfter = owner.lock();
     (*ownAfter).addTransportation(shared_ptr<Transportation>(this));
 }

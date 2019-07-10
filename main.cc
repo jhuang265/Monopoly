@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
+#include <limits>
 #include "./Game/game.h"
 
 int main(){
     char s;
-    
+
     // We allow the game logic to loop as long as someone wishes to play
     while(true){
         // Ask user if they want to play a game
@@ -24,7 +25,7 @@ int main(){
                 std::cout << "Please enter a valid number of players: ";
                 std::cin >> numPlayers;
             }
-            
+
             std::cout << std::endl;
             std::cout << "We offer two types of games to play. The first requires collecting all properties" << endl;
             std::cout << "of an individual color before you can build houses on them, while the second type" << endl;
@@ -37,7 +38,7 @@ int main(){
                 std::cout << "Please enter a valid type of game to play: ";
                 std::cin >> type;
             }
-            
+
             // Create the game and let the users play
             Game g{type, numPlayers};
             g.playGame();
