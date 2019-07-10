@@ -4,7 +4,7 @@
 using namespace std;
 
 Transportation:: Transportation(int cost_, vector<int> rent_, string tileType_, string name_):
-                    cost(cost_),rent(rent_),Tile(tileType_,name_){}
+                    cost(cost_), rent(rent_), isOwned(false), Tile(tileType_,name_){}
 
 int Transportation:: getPrice() {
     return cost;
