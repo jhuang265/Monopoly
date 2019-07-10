@@ -15,6 +15,7 @@
 #include <iostream>
 #include <ctime>
 #include <random>
+#include <limits>
 #include <memory>
 #include <map>
 using namespace std;
@@ -902,6 +903,7 @@ void Board::auction(std::shared_ptr<Tile> t){
         if (!cin.good()){
             bid = 0;
             std::cin.clear(); //clear bad input flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             //i = i-1;
             //continue;
             cout << "Invalid bid. Please wait your turn to bid again." << endl;

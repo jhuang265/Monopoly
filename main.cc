@@ -22,6 +22,7 @@ int main(){
 
             while (!cin.good() || numPlayers > 4 || numPlayers < 2){
                 std::cin.clear(); //clear bad input flag
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cout << "Please enter a valid number of players: ";
                 std::cin >> numPlayers;
             }
@@ -35,6 +36,7 @@ int main(){
 
             while (!cin.good() || type > 2 || type <= 0){
                 std::cin.clear(); //clear bad input flag
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cout << "Please enter a valid type of game to play: ";
                 std::cin >> type;
             }
