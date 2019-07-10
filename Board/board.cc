@@ -214,8 +214,8 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
 }
 
 int Board::rollDice(){
-    //srand(time(NULL));
-    //return (rand()%6) + 1;
+
+    // Use a uniform distribution to get two random dice roll numbers
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> dis(1, 6);
@@ -287,7 +287,6 @@ void Board::rollDiceAndAction(){
     }
 
     players[currentPlayer]->move(firstRoll+secondRoll);
-    //players[currentPlayer]->move(1);
 
     int pos = players[currentPlayer]->getPos();
 
@@ -316,15 +315,13 @@ void Board::rollDiceAndAction(){
             else if(rNum == 4) c4.use(players[currentPlayer]);
             else if(rNum == 5) c5.use(players[currentPlayer]);
 
-            /*
-            cards[]->use(players[currentPlayer]);
-            */
             return;
         }
     }
 
     pos = players[currentPlayer]->getPos();
 
+    // For some predefined tiles, these are the actions that they should perform.
     switch(pos){
         case 0:
             break;

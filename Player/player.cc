@@ -116,9 +116,14 @@ int Player::getNumProperties() { return properties.size(); }
 int Player::getPos() { return pos; }
 
 void Player::move(int n) {
+    // Calculate the new position
     int result = pos + n;
-    pos = (result <= 39 && result >= 0) ? result : result%40;
-    if(result>39){
+
+    // Move the player to their new position
+    pos = (result <= 39 && result >= 0) ? result : result % 40;
+
+    // Give them 200$ if they passed 'GO'
+    if(result > 39){
         receiveMoney(200);
     }
     return;
