@@ -29,7 +29,7 @@ map<int,int> replacePos; //rowNum, colNum //playerNum, ColNum
 //map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
 //map<int,int> replacePos; //rowNum, colNum
 
-Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, currentPlayer{0}{
+Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
 
     // Get all the user's names
@@ -180,7 +180,7 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     properties.emplace_back(thirty5);
     properties.emplace_back(thirty8);
     properties.emplace_back(forty);
-
+/*
     tiles.emplace_back(teen3);
     tiles.emplace_back(twenty9);
 
@@ -211,7 +211,7 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     tiles.emplace_back(thirty5);
     tiles.emplace_back(thirty8);
     tiles.emplace_back(forty);
-
+*/
     brown->attach(d2);
     brown->attach(d4);
     lblue->attach(d7);
@@ -243,8 +243,7 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     colors.emplace_back(red);
     colors.emplace_back(green);
     colors.emplace_back(blue);
-
-    /*
+/*
     std::shared_ptr<loseMoneyCard> c1 = std::make_shared<loseMoneyCard>();
     std::shared_ptr<getMoneyCard> c2 = std::make_shared<getMoneyCard>();
     std::shared_ptr<GOJFCard> c3 = std::make_shared<GOJFCard>();
@@ -256,7 +255,7 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     cards.emplace_back(c3);
     cards.emplace_back(c4);
     cards.emplace_back(c5);
-    */
+*/
 }
 
 int Board::rollDice(){
@@ -269,17 +268,17 @@ int Board::rollDice(){
 }
 
 void Board::checkOwnership(){
-    for(int i = 0; i < utilities.size(); i++){
+    for(size_t i = 0; i < utilities.size(); i++){
         if(utilities[i]->getIsOwned()){
             cout << utilities[i]->getName() << ": " << utilities[i]->getOwnerIndex() << endl;
         }
     }
-    for(int i = 0; i < transportations.size(); i++){
+    for(size_t i = 0; i < transportations.size(); i++){
         if(transportations[i]->getIsOwned()){
             cout << transportations[i]->getName() << ": " << transportations[i]->getOwnerIndex() << endl;
         }
     }
-    for(int i = 0; i < properties.size(); i++){
+    for(size_t i = 0; i < properties.size(); i++){
         if(properties[i]->getIsOwned()){
             cout << properties[i]->getName() << ": " << properties[i]->getOwnerIndex() << endl;
         }
@@ -362,7 +361,7 @@ void Board::rollDiceAndAction(){
     moveCard c5{};
 
     // If the player landed on a card, use it and return
-    for(int i = 0; i < 6; i++){
+    for(size_t i = 0; i < 6; i++){
         if(pos == cardLocations[i]){
             srand(time(0));
             int rNum = (rand()%5+1);
@@ -405,12 +404,11 @@ void Board::rollDiceAndAction(){
             break;
     }
 
-
     // Check if the player landed on a transportation
-    for(int i = 0; i < 4; i++){
+    for(size_t i = 0; i < 4; i++){
         if(pos == transLocations[i]){
             // If owned, pay rent
-            if(transportations[i]->getIsOwned()){
+            if(transportations[i]->getIsOwned() && players[currentPlayer]->getIndex() != transportations[i]->getOwnerIndex()){
                 cout << "You have to pay rent for landing on owned transportation." << endl;
 
                 cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
@@ -449,7 +447,7 @@ void Board::rollDiceAndAction(){
     }
 
     // Do the same for utilities
-    for(int i = 0; i < 2; i++){
+    for(size_t i = 0; i < 2; i++){
         if(pos == utilLocations[i]){
             if(utilities[i]->getIsOwned() && players[currentPlayer]->getIndex() != utilities[i]->getOwnerIndex()){
                 cout << "You have to pay rent for landing on an owned utility." << endl;
@@ -488,7 +486,7 @@ void Board::rollDiceAndAction(){
     }
 
     // Same for properties
-    for(int i = 0; i < 22; i++){
+    for(size_t i = 0; i < 22; i++){
         if(pos == propertyLocations[i]){
             if(properties[i]->getIsOwned()){
                 if(players[currentPlayer]->getIndex() != properties[i]->getOwnerIndex()){
@@ -558,7 +556,7 @@ void Board::printBoard() {
     int countLine = 5;
 
     //boardPos Insertion
-    for(int i=0; i < 20; i++) {
+    for(int i = 0; i < 20; i++) {
         if(i <= 10) {
             boardPos.insert(pair<int,int>(i, 41));
             boardPos.insert(pair<int,int>(30-i, 1));
@@ -581,7 +579,7 @@ void Board::printBoard() {
 
     //targetPos: Set resulting replace index on a row in the string
     c = 65;
-    for(int i=0;i<numPlayers; ++i) {
+    for(int i=0;i < numPlayers; ++i) {
         int colNum = (playerPos[c].second)%10 + 1;
         int targetColNum = colNum*12; //-8 if L -> R
         if(playerPos.count(c)) {
@@ -609,7 +607,7 @@ void Board::printBoard() {
     //output board, x: rowNum; y: colNum (horizontal)
     cout << boarder;
     for(int x = 0; x <= 41; ++x) {
-        if(x%4 == 1) {
+        if(x % 4 == 1) {
         //cerr<<"Currentplayer is "<<currentPlayer<<endl;
             string playerIndex = "";
             string line = "";
@@ -634,7 +632,7 @@ void Board::printBoard() {
                 cout << replacedLine;
             }
         } else if(x == 3 || x == 39) { cout << boarder;}
-        else if(x%4 == 3){
+        else if(x % 4 == 3){
             cout << divider;
         } else if(x > 39 || x < 3) { cout << line2; }
         else { cout << line1; }
@@ -870,7 +868,7 @@ void Board::trade(shared_ptr<Player> player){
     }
     cout<<"Select the player you want to trade with (enter their number):"<<endl;
     cout<<"size of players "<< players.size()<<endl;
-    for(int p = 0 ; p < players.size() ; p++){
+    for(size_t p = 0 ; p < players.size() ; p++){
         if(players[p]->getIndex() == player->getIndex()){
             continue;
         }
@@ -907,7 +905,7 @@ void Board::trade(shared_ptr<Player> player){
 
         player->receiveMoney(desiredMoney);
         targetPlayer->payMoney(desiredMoney);
-        for(int x = 0; x < tradeList.size(); x++){
+        for(size_t x = 0; x < tradeList.size(); x++){
             if(getAssetType(tradeList[x]) == "Transportation"){
               //  cout<< "trade"<< tradeList[x]<<endl;
               //  cout<< "property name"<< (player->returnTransportation(tradeList[x]))->getName()<<endl;
@@ -936,7 +934,7 @@ void Board::auction(std::shared_ptr<Tile> t){
     int maxBid = 0;
     int maxPlayerIndex = currentPlayer;
     vector <int> remaining;
-    for(int i = 0; i < players.size(); i++){
+    for(size_t i = 0; i < players.size(); i++){
         remaining.push_back(i);
     }
 
@@ -1005,23 +1003,24 @@ void Board::auction(std::shared_ptr<Tile> t){
 }
 
 string Board::getAssetType( string name){
-    for(int i = 0; i < properties.size(); i++) {
+    for(size_t i = 0; i < properties.size(); i++) {
         if(properties[i]->getName() == name) {
             return properties[i]->getType();
         }
     }
 
-    for(int i = 0; i < utilities.size(); i++) {
+    for(size_t i = 0; i < utilities.size(); i++) {
         if(utilities[i]->getName() == name) {
             return utilities[i]->getType();
         }
     }
 
-    for(int i = 0; i < transportations.size(); i++) {
+    for(size_t i = 0; i < transportations.size(); i++) {
         if(transportations[i]->getName() == name) {
             return transportations[i]->getType();
         }
     }
+    return "Invalid Type";
 }
 
 Board::~Board(){}

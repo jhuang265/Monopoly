@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <memory>
-#include "board.h"
 #include <vector>
+#include "board.h"
 #include "./../Player/player.h"
 #include "./../Tile/tile.h"
 #include "./../Tile/property.h"
@@ -22,7 +22,6 @@ class Board{
         std::vector<std::shared_ptr<Utility>> utilities;
         std::vector<std::shared_ptr<Transportation>> transportations;
         // Game type and number of players
-        int type;
         int numPlayers;
         // Keeping track of whose turn it is
         int currentPlayer;
@@ -30,6 +29,7 @@ class Board{
         std::vector<std::shared_ptr<Player>> players;
         //std::vector<shared_ptr<Card>> cards;
     public:
+
         Board(int type, int players);
         //void printCurPlayerStatus();
         // Trading function
