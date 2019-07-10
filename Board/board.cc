@@ -181,6 +181,37 @@ Board::Board(int type, int numPlayers): type{type}, numPlayers{numPlayers}, curr
     properties.emplace_back(thirty8);
     properties.emplace_back(forty);
 
+    tiles.emplace_back(teen3);
+    tiles.emplace_back(twenty9);
+
+    tiles.emplace_back(d6);
+    tiles.emplace_back(teen6);
+    tiles.emplace_back(twenty6);
+    tiles.emplace_back(thirty6);
+
+    tiles.emplace_back(d2);
+    tiles.emplace_back(d4);
+    tiles.emplace_back(d7);
+    tiles.emplace_back(d9);
+    tiles.emplace_back(teen);
+    tiles.emplace_back(teen2);
+    tiles.emplace_back(teen4);
+    tiles.emplace_back(teen5);
+    tiles.emplace_back(teen7);
+    tiles.emplace_back(teen9);
+    tiles.emplace_back(twenty);
+    tiles.emplace_back(twenty2);
+    tiles.emplace_back(twenty4);
+    tiles.emplace_back(twenty5);
+    tiles.emplace_back(twenty7);
+    tiles.emplace_back(twenty8);
+    tiles.emplace_back(thirty);
+    tiles.emplace_back(thirty2);
+    tiles.emplace_back(thirty3);
+    tiles.emplace_back(thirty5);
+    tiles.emplace_back(thirty8);
+    tiles.emplace_back(forty);
+
     brown->attach(d2);
     brown->attach(d4);
     lblue->attach(d7);
@@ -390,7 +421,7 @@ void Board::rollDiceAndAction(){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << transportations[i]->getPrice() << endl;
                     transportations[i]->buy(players[currentPlayer]);
-                    players[currentPlayer]->addProperty(transportations[i].getptr());
+                    players[currentPlayer]->addTransportation(transportations[i]->getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
@@ -429,7 +460,7 @@ void Board::rollDiceAndAction(){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << utilities[i]->getPrice() << endl;
                     utilities[i]->buy(players[currentPlayer]);
-                    players[currentPlayer]->addProperty(utilities[i].getptr());
+                    players[currentPlayer]->addUtility(utilities[i]->getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
@@ -481,7 +512,7 @@ void Board::rollDiceAndAction(){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << properties[i]->getPrice() << endl;
                     properties[i]->buy(players[currentPlayer]);
-                    players[currentPlayer]->addProperty(properties[i].getptr());
+                    players[currentPlayer]->addProperty(properties[i]->getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
                 }
                 else{
