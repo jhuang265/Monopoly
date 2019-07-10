@@ -6,7 +6,7 @@ using namespace std;
 GOJFCard::GOJFCard() {}
 
 void GOJFCard::use(shared_ptr<Player> p) {
-    cout << "You recevied a Go To Jail Free Card!" << endl;
+    cout << "You recevied a Get Out Of Jail Free Card!" << endl;
     p->setHasGOJFCard();
 }
 

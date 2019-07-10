@@ -5,8 +5,8 @@
 using namespace std;
 
 getMoneyCard::getMoneyCard() {
-    desc.emplace_back("It's My Birthday!");
-    desc.emplace_back("Yon won a lottery!");
+    desc.emplace_back("It's My Birthday! ");
+    desc.emplace_back("Yon won a lottery! ");
     desc.emplace_back("Here's a gift from Mr. Goose. ");
 }
 
@@ -17,7 +17,7 @@ void getMoneyCard::use(shared_ptr<Player> p) {
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> dis(1, 2000);
     int bonus = dis(gen);
-    cout << desc.at(i) << " $"<<to_string(bonus) << " will go into your account :)"<<endl;
+    cout << desc.at(i) << "$"<<to_string(bonus) << " will go into your account :)"<<endl;
     p->receiveMoney(bonus);
 }
 
