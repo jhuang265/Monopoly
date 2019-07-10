@@ -242,10 +242,12 @@ void Board::checkOwnership(){
 }
 
 void Board::rollDiceAndAction(){
+    // If the player has been in jail for 3 turns, free them and let them play their turn
     if(players[currentPlayer]->getTurnsInJail() == 3){
         players[currentPlayer]->release();
     }
 
+    // If they still are in jail, ask if they want to pay their way out.
     if(players[currentPlayer]->isInJail()){
         char yn;
         std::cout << "You are in jail. Would you like to pay your way out? (Y/N): ";
@@ -255,18 +257,24 @@ void Board::rollDiceAndAction(){
             players[currentPlayer]->release();
             std::cout << "You are now out of jail." << std::endl;
         }
+        else{
+            std::cout << "You have to say in jail." << std::endl;
+        }
     }
 
+    // Roll the dice twice and show the user
     int firstRoll = rollDice();
     int secondRoll = rollDice();
     cout << "You rolled: " << firstRoll << " and " << secondRoll << endl;
 
+    // If it wasn't a double and the user is still in jail, they have to stay in jail for a turn
     if(firstRoll != secondRoll && players[currentPlayer]->isInJail()){
         std::cout << "You did not roll a double, so you're stuck in jail." << std::endl;
         players[currentPlayer]->addTurnInJail();
         std::cout << "Turns you have been in jail: "<< players[currentPlayer]->getTurnsInJail() << std::endl;
         return;
     }
+    // If they rolled a double, then free the player if they are in jail and increase the number of doubles they have rolled
     else if(firstRoll == secondRoll && players[currentPlayer]->isInJail()){
         std::cout << "You rolled a double so you're out of jail now." << std::endl;
         players[currentPlayer]->release();
@@ -280,12 +288,14 @@ void Board::rollDiceAndAction(){
         players[currentPlayer]->resetDoubles();
     }
 
+    // If the player has rolled 3 doubles in a row, send them to jail.
     if(players[currentPlayer]->getDoubles() == 3){
         players[currentPlayer]->goToJail();
         players[currentPlayer]->resetDoubles();
         return;
     }
 
+    // Move the player and get their new position
     players[currentPlayer]->move(firstRoll+secondRoll);
 
     int pos = players[currentPlayer]->getPos();
@@ -293,6 +303,7 @@ void Board::rollDiceAndAction(){
     cout << '\n' << "New Position: " << pos << '\n' << endl;
     printBoard();
 
+    // Set the location of cards, transportations, utilities and properties
     int cardLocations[] = {2, 7, 17, 22, 33, 36};
     int transLocations[] = {5, 15, 25, 35};
     int utilLocations[] = {12, 28};
@@ -304,6 +315,7 @@ void Board::rollDiceAndAction(){
     GTJCard c4{};
     moveCard c5{};
 
+    // If the player landed on a card, use it and return
     for(int i = 0; i < 6; i++){
         if(pos == cardLocations[i]){
             srand(time(0));
@@ -346,8 +358,10 @@ void Board::rollDiceAndAction(){
     }
 
 
+    // Check if the player landed on a transportation
     for(int i = 0; i < 4; i++){
         if(pos == transLocations[i]){
+            // If owned, pay rent
             if(transportations[i]->getIsOwned()){
                 cout << "You have to pay rent for landing on owned transportation." << endl;
 
@@ -359,19 +373,18 @@ void Board::rollDiceAndAction(){
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == transportations[i]->getOwnerIndex()){
-                        //cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(transportations[i]->getRent());
-                        //cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
 
-                //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getRent());
                 return;
             }
+            // Otherwise ask if the player wants to buy it
             else{
                 char yn;
                 std::cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
+                // See if the user can buy it without needing to go through an auction
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << transportations[i]->getPrice() << endl;
@@ -386,6 +399,7 @@ void Board::rollDiceAndAction(){
         }
     }
 
+    // Do the same for utilities
     for(int i = 0; i < 2; i++){
         if(pos == utilLocations[i]){
             if(utilities[i]->getIsOwned() && players[currentPlayer]->getIndex() != utilities[i]->getOwnerIndex()){
@@ -423,10 +437,11 @@ void Board::rollDiceAndAction(){
         }
     }
 
+    // Same for properties
     for(int i = 0; i < 22; i++){
         if(pos == propertyLocations[i]){
             if(properties[i]->getIsOwned()){
-                    if(players[currentPlayer]->getIndex() != properties[i]->getOwner()->getIndex()){
+                if(players[currentPlayer]->getIndex() != properties[i]->getOwner()->getIndex()){
                     cout << "You have to pay rent for landing on owned property." << endl;
 
                     cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
@@ -440,6 +455,7 @@ void Board::rollDiceAndAction(){
                         }
                     }
                 }
+                // If you are the property owner and you can build houses, then you are allowed to buy
                 else{
                     if(properties[i]->getCanBuild() != 0){
                         if((properties[i]->getHouses()+1) * 50 <= players[currentPlayer]->getMoney()){
@@ -623,11 +639,19 @@ void Board::printBoard() {
    }
 
 void Board::playTurn(){
+    // Character to allow user to make a decision
     char playerChoice;
+
+    // Keep playing as long as there exist multiple players
     while(players.size() > 1){
+        // Start with the first player
         currentPlayer = 0;
+
+        // Keep playing as long as you haven't reached the end
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
             printBoard();
+
+            // Prompt user to make a choice
             cout << endl;
             cout << "-------------------------------------------------" << endl;
             cout << "Player "<< (*i)->getIndex()+1 << "'s turn." << endl;
@@ -645,10 +669,13 @@ void Board::playTurn(){
             checkOwnership();
             cout << '\n';
 
-            while(playerChoice!= 'A' && playerChoice!= 'B' && playerChoice!= 'C'){
+            // Make user enter valid choide
+            while(playerChoice != 'A' && playerChoice != 'B' && playerChoice != 'C'){
                 cout << "Please enter a valid action: ";
                 cin >> playerChoice;
             }
+
+            // If they want to quit, then free all their assets and remove them from the players
             if (playerChoice=='C'){
 
                 for(auto j = properties.begin(); j != properties.end(); j++){
@@ -675,7 +702,13 @@ void Board::playTurn(){
             else if(playerChoice == 'B'){
                 trade(*i);
             }
+
+            // Once they have made a trade, or chose to roll directly, play their turn
+
+            // Roll dice and move
             rollDiceAndAction();
+
+            // If the current player's money is negative, free their assets
             cout << "Your money: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
 
@@ -700,10 +733,14 @@ void Board::playTurn(){
                 i = players.erase(i);
                 continue;
             }
+
+            // If the user rolled a double, let them roll again
             while((*i)->getDoubles() > 0 && (*i)->getDoubles() < 3){
                 cout << "You get an extra roll for rolling a double." << endl;
                 cout << '\n';
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
+
+                // We must check again if they have no more money and if so, free their assets
                 if((*i)->getMoney() < 0){
 
                     for(auto j = properties.begin(); j != properties.end(); j++){
@@ -729,6 +766,7 @@ void Board::playTurn(){
                 }
                 rollDiceAndAction();
             }
+            // Move to the next player
             ++i;
             cout << "-------------------------------------------------" << endl;
             currentPlayer = (currentPlayer+1) % players.size();
