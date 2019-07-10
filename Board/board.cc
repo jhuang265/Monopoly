@@ -400,14 +400,10 @@ void Board::rollDiceAndAction(){
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == utilities[i]->getOwnerIndex()){
-                        //cout << "Owner Money Before: " << (*j)->getMoney() << endl;
                         (*j)->receiveMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
-                        //cout << "Owner Money After: " << (*j)->getMoney() << endl;
                     }
                 }
 
-                //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getRent());
-                //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getUtilityRent(firstRoll+secondRoll));
                 return;
             }
             else{
@@ -431,25 +427,21 @@ void Board::rollDiceAndAction(){
     for(int i = 0; i < 22; i++){
         if(pos == propertyLocations[i]){
             if(properties[i]->getIsOwned()){
-                if(players[currentPlayer]->getIndex() != properties[i]->getOwner()->getIndex()){
-                cout << "You have to pay rent for landing on owned property." << endl;
+                    if(players[currentPlayer]->getIndex() != properties[i]->getOwner()->getIndex()){
+                    cout << "You have to pay rent for landing on owned property." << endl;
 
-                cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
-                cout << "Rent to pay: " << properties[i]->getRent() << endl;
-                players[currentPlayer]->payMoney(properties[i]->getRent());
-                cout << "Money after paying rent: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "Rent to pay: " << properties[i]->getRent() << endl;
+                    players[currentPlayer]->payMoney(properties[i]->getRent());
+                    cout << "Money after paying rent: " << players[currentPlayer]->getMoney() << endl;
 
-                for(auto j = players.begin(); j != players.end(); j++){
-                    if((*j)->getIndex() == properties[i]->getOwnerIndex()){
-                        //cout << "Owner Money Before: " << (*j)->getMoney() << endl;
-                        (*j)->receiveMoney(properties[i]->getRent());
-                        //cout << "Owner Money After: " << (*j)->getMoney() << endl;
+                    for(auto j = players.begin(); j != players.end(); j++){
+                        if((*j)->getIndex() == properties[i]->getOwnerIndex()){
+                            (*j)->receiveMoney(properties[i]->getRent());
+                        }
                     }
                 }
-                }
-                //players[tiles[pos]->getOwnerIndex()]->receiveMoney(tiles[pos]->getRent());
                 else{
-                //if(players[currentPlayer]->getIndex() == properties[i]->getOwner()->getIndex()){
                     if(properties[i]->getCanBuild() != 0){
                         if((properties[i]->getHouses()+1) * 50 <= players[currentPlayer]->getMoney()){
                             char yn;
@@ -637,25 +629,26 @@ void Board::playTurn(){
         currentPlayer = 0;
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
             printBoard();
-            cout<< endl;
-            cout<< "-------------------------------------------------" << endl;
-            cout<< "Player "<< (*i)->getIndex()+1 << "'s turn." << endl;
+            cout << endl;
+            cout << "-------------------------------------------------" << endl;
+            cout << "Player "<< (*i)->getIndex()+1 << "'s turn." << endl;
             (*i)->print();//prints status of cur player
-            cout<<endl;
-
-            cout<<"1) Play without trading (enter A)"<<endl;
-            cout<<"2) Do you want to trade? (enter B)"<<endl;
-            cout<<"3) Do you want to quit? (enter C)"<<endl;
-            cout<<"Enter your choice: ";
-            cin>>playerChoice;
+            cout << endl;
+            
+            cout << "What would you like to do?" << endl;
+            cout << "1) Play without trading (enter A)" << endl;
+            cout << "2) Do you want to trade? (enter B)" << endl;
+            cout << "3) Do you want to quit? (enter C)" << endl;
+            cout << "Enter your choice: ";
+            cin >> playerChoice;
 
             cout << '\n';
             checkOwnership();
             cout << '\n';
 
             while(playerChoice!= 'A' && playerChoice!= 'B' && playerChoice!= 'C'){
-                cout<<"Please enter a valid action: ";
-                cin>>playerChoice;
+                cout << "Please enter a valid action: ";
+                cin >> playerChoice;
             }
             if (playerChoice=='C'){
 
@@ -738,12 +731,13 @@ void Board::playTurn(){
                 rollDiceAndAction();
             }
             ++i;
-            cout<< "-------------------------------------------------" << endl;
+            cout << "-------------------------------------------------" << endl;
             currentPlayer = (currentPlayer+1) % players.size();
 
         }
     }
 
+    // If the game is over, name the winner.
     cout << "The winner is Player "<< players[0]->getIndex() << endl;
     return;
 }
