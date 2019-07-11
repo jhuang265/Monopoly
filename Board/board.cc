@@ -759,6 +759,7 @@ void Board::playTurn(){
                 //cout << '\n' << endl;
                 cout << "-------------------------------------------------" << endl;
                 cout << "You get an extra roll for rolling a double. (Press ENTER to Continue)";
+                cin.ignore();
                 getline(std::cin, temp);
                 cout << "-------------------------------------------------" << endl;
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
@@ -899,7 +900,7 @@ void Board::trade(shared_ptr<Player> player){
     cout<< "The updated amount of of money Player "<<player->getName()<<" has: " << player->getMoney()<<endl;
     cout<< "The updated amount of of money Player "<<targetPlayer->getName()<<" has: " << targetPlayer->getMoney()<<endl;
     cout << "-------------------------------------------------" << endl;
-    cout<< "Press ENTER to continue to your dice roll "<<endl;
+    cout<< "Press ENTER to continue to your dice roll ";
     cin.ignore();
     getline(std::cin, temp);
     cout << "-------------------------------------------------" << endl;
