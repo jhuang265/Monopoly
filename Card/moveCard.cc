@@ -13,7 +13,9 @@ void moveCard::use(shared_ptr<Player> p) {
     std::uniform_int_distribution<> dis(0, 39);
     int newpos = dis(gen);
     p->move(newpos);
-    cout << "You moved to position " << newpos << "on the board." << endl;
+    cout << "You were teleported by a fairy to position " << newpos << " on the board." << endl;
+    cout << "PSA: Don't do drugs." << endl;
+    cout << endl;
 }
 
 moveCard::~moveCard() {}

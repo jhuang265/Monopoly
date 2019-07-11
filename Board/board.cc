@@ -425,6 +425,9 @@ void Board::rollDiceAndAction(){
 
                 return;
             }
+            else if (transportations[i]->getIsOwned()){
+                return;
+            }
             // Otherwise ask if the player wants to buy it
             else{
                 char yn;
@@ -464,6 +467,9 @@ void Board::rollDiceAndAction(){
                     }
                 }
 
+                return;
+            }
+            else if (utilities[i]->getIsOwned()){
                 return;
             }
             else{
@@ -714,7 +720,6 @@ void Board::playTurn(){
             cout << "Enter your choice: ";
             cin >> playerChoice;
 
-            cout << '\n';
             checkOwnership();
             cout << '\n';
 
@@ -739,7 +744,7 @@ void Board::playTurn(){
             rollDiceAndAction();
 
             // If the current player's money is negative, free their assets and remove player
-            cout << "Money at end of turn: "<<(*i)->getMoney()<< endl;
+            //cout << "Money at end of turn: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
                 i = players.erase(i);
                 continue;
@@ -747,7 +752,7 @@ void Board::playTurn(){
 
             // If the user rolled a double, let them roll again
             while((*i)->getDoubles() > 0 && (*i)->getDoubles() < 3){
-                cout << '\n' << endl;
+                //cout << '\n' << endl;
                 cout << "You get an extra roll for rolling a double." << endl;
                 cout << '\n';
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
@@ -942,8 +947,10 @@ void Board::auction(std::shared_ptr<Tile> t){
     }
 
     // Otherwise state who bought the asset
-    std::cout << "Sold to Player " << maxPlayerIndex << " for " << maxBid << "$."<< std::endl;
+    std::cout << "Sold to Player " << players[maxPlayerIndex]->getName() << " for " << maxBid << "$."<< std::endl;
     t->buy(players[maxPlayerIndex]);
+    players[maxPlayerIndex]->receiveMoney(t->getPrice());
+    players[maxPlayerIndex]->payMoney(maxBid);
     std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << '\n' << std::endl;
 
     return;
