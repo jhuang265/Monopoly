@@ -757,8 +757,10 @@ void Board::playTurn(){
             // If the user rolled a double, let them roll again
             while((*i)->getDoubles() > 0 && (*i)->getDoubles() < 3){
                 //cout << '\n' << endl;
-                cout << "You get an extra roll for rolling a double." << endl;
-                cout << '\n';
+                cout << "-------------------------------------------------" << endl;
+                cout << "You get an extra roll for rolling a double. (Press ENTER to Continue)";
+                getline(std::cin, temp);
+                cout << "-------------------------------------------------" << endl;
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
 
                 // We must check again if they have no more money and if so, free their assets
