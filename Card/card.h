@@ -10,8 +10,8 @@
 
 class Card {
     public:
-        Card() {}
-        virtual void use(std::shared_ptr<Player>);
+        Card();
+        virtual void use(std::shared_ptr<Player>) = 0;
         virtual ~Card() = 0;
 };
 

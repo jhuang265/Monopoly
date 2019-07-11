@@ -726,25 +726,6 @@ void Board::playTurn(){
 
             // If they want to quit, then free all their assets and remove them from the players
             if (playerChoice=='C'){
-
-                for(auto j = properties.begin(); j != properties.end(); j++){
-                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                        (*j)->reset();
-                    }
-                }
-
-                for(auto j = utilities.begin(); j != utilities.end(); j++){
-                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                        (*j)->reset();
-                    }
-                }
-
-                for(auto j = transportations.begin(); j != transportations.end(); j++){
-                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                        (*j)->reset();
-                    }
-                }
-
                 i = players.erase(i);
                 continue;
             }
@@ -760,25 +741,6 @@ void Board::playTurn(){
             // If the current player's money is negative, free their assets
             cout << "Your money: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
-
-                for(auto j = properties.begin(); j != properties.end(); j++){
-                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                        (*j)->reset();
-                    }
-                }
-
-                for(auto j = utilities.begin(); j != utilities.end(); j++){
-                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                        (*j)->reset();
-                    }
-                }
-
-                for(auto j = transportations.begin(); j != transportations.end(); j++){
-                    if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                        (*j)->reset();
-                    }
-                }
-
                 i = players.erase(i);
                 continue;
             }
@@ -791,25 +753,6 @@ void Board::playTurn(){
 
                 // We must check again if they have no more money and if so, free their assets
                 if((*i)->getMoney() < 0){
-
-                    for(auto j = properties.begin(); j != properties.end(); j++){
-                        if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                            (*j)->reset();
-                        }
-                    }
-
-                    for(auto j = utilities.begin(); j != utilities.end(); j++){
-                        if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                            (*j)->reset();
-                        }
-                    }
-
-                    for(auto j = transportations.begin(); j != transportations.end(); j++){
-                        if((*j)->getIsOwned() && (*j)->getOwnerIndex() == (*i)->getIndex()){
-                            (*j)->reset();
-                        }
-                    }
-
                     i = players.erase(i);
                     break;
                 }
