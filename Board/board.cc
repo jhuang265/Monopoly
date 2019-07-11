@@ -807,7 +807,7 @@ void Board::trade(shared_ptr<Player> player){
     }
     //cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
     //player->printAsset();
-    cout<<"Enter the assets you want to trade by corresponding number and and e to end: "<<endl;
+    cout<<"Enter the assets you want to trade by corresponding number and press e to end: "<<endl;
     cin>>inputChar;
     while(inputChar!='e'){
     //   cout<<"firstreads in "<< inputChar<<endl;
@@ -818,8 +818,8 @@ void Board::trade(shared_ptr<Player> player){
             if((int)inputChar-48<= player->getNumProperties()){
                 tradeList.emplace_back(player->propertyNameAtIndex((int)inputChar-48-1));
             }
-            else if((int)inputChar-48 < player->getNumProperties()+player->getNumUtilities() ){
-                tradeList.emplace_back(player->utilityNameAtIndex((int)inputChar-48-player->getNumProperties()-1));
+            else if((int)inputChar-48 <= player->getNumProperties()+player->getNumUtilities() ){
+                tradeList.emplace_back(player->utilityNameAtIndex((int)inputChar-48-player->getNumProperties()-1));             
             }
             else{
                 tradeList.emplace_back(player->transportationNameAtIndex((int)inputChar-48-(player->getNumProperties() + player->getNumUtilities())-1));
