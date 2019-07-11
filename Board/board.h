@@ -33,7 +33,8 @@ class Board{
         Board(int type, int players);
         //void printCurPlayerStatus();
         // Trading function
-        void trade(shared_ptr<Player>);
+        void tradeAssetForMoney(shared_ptr<Player>);
+        void tradeAssetForAsset(shared_ptr<Player>);
         // Playing turn
         int rollDice();
         void rollDiceAndAction();
