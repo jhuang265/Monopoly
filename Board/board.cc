@@ -724,7 +724,7 @@ void Board::playTurn(){
             cout << "Enter your choice: ";
             cin >> playerChoice;
 
-            checkOwnership();
+            //checkOwnership();
             cout << '\n';
 
             // Make user enter valid choide
