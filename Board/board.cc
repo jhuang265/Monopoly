@@ -431,7 +431,8 @@ void Board::rollDiceAndAction(){
             // Otherwise ask if the player wants to buy it
             else{
                 char yn;
-                std::cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<". Would you like to buy it? (Y/N): ";
+                std::cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<" that costs $"<<
+                                transportations[i]->getPrice()<<    ". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 // See if the user can buy it without needing to go through an auction
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
@@ -474,7 +475,8 @@ void Board::rollDiceAndAction(){
             }
             else{
                 char yn;
-                std::cout << "You have landed on an unowned utility " << utilities[i]->getName() <<". Would you like to buy it? (Y/N): ";
+                std::cout << "You have landed on an unowned utility " << utilities[i]->getName() <<" that costs $"<<
+                                            utilities[i]->getPrice()<<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
@@ -526,7 +528,8 @@ void Board::rollDiceAndAction(){
             }
             else{
                 char yn;
-                std::cout << "You have landed on an unowned property " << properties[i]->getName() <<". Would you like to buy it? (Y/N): ";
+                std::cout << "You have landed on an unowned property " << properties[i]->getName() <<" that costs $"<< 
+                                                            properties[i]->getPrice()    <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= properties[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
@@ -696,6 +699,7 @@ void Board::printBoard() {
 void Board::playTurn(){
     // Character to allow user to make a decision
     char playerChoice;
+    string temp;
 
     // Keep playing as long as there exist multiple players
     while(players.size() > 1){
@@ -767,6 +771,9 @@ void Board::playTurn(){
             // Move to the next player
             ++i;
             cout << "-------------------------------------------------" << endl;
+            cout << "Press ENTER to continue to next Player's turn ";
+            cin.ignore();
+            getline(std::cin, temp);
             currentPlayer = (currentPlayer+1) % players.size();
 
         }
@@ -781,12 +788,18 @@ void Board::playTurn(){
 
 void Board::trade(shared_ptr<Player> player){
     char inputChar;
+    string temp;
     int desiredMoney;
     int targetPlayerIndex;
     shared_ptr<Player> targetPlayer;
     vector<string> tradeList;
+    cout << "-------------------------------------------------" << endl;
     if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
-        cout<<"Oops! You have no assets to trade. Your dice is now rolled"<<endl;
+        cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
+        cout<< "Press ENTER to continue to roll your dice ";
+        cin.ignore();
+        getline(std::cin, temp);
+        cout << "-------------------------------------------------" << endl;
         return;
     }
     //cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
@@ -813,15 +826,21 @@ void Board::trade(shared_ptr<Player> player){
         cin>>inputChar;
     }
     if(tradeList.size()==0){
+        cout<<"None of the property index you entered is valid. You're returned to your dice roll."<<endl;
+        cout<< "Press ENTER to continue to roll your dice ";
+        cin.ignore();
+        getline(std::cin, temp);
+        cout << "-------------------------------------------------" << endl;
         return;
     }
-    cout<<"Select the player you want to trade with (enter their number):"<<endl;
-    cout<<"size of players "<< players.size()<<endl;
+    cout << "-------------------------------------------------" << endl;
+    cout<<"Select a player from the folliwng list you want to trade with (enter their number):"<<endl;
+//    cout<<"size of players "<< players.size()<<endl;
     for(size_t p = 0 ; p < players.size() ; p++){
         if(players[p]->getIndex() == player->getIndex()){
             continue;
         }
-        cout<<p+1<< ") " << players[p]->getName()<<endl;
+        cout<< "Player " << players[p]->getName()<<"("<<"Number "<< p+1<<")"<<endl;
     }
     cin>>targetPlayerIndex;
     while (targetPlayerIndex > players.size() ){
@@ -831,7 +850,8 @@ void Board::trade(shared_ptr<Player> player){
     }
     --targetPlayerIndex;
     targetPlayer = players[targetPlayerIndex];
-    cout<<"Enter the money you want to get from " << targetPlayer->getName()<<": "<<endl;
+    cout << "-------------------------------------------------" << endl;
+    cout<<"Enter the money you want to get from Player " << targetPlayer->getName()<<": "<<endl;
     while(cin>>desiredMoney){
         if(desiredMoney > targetPlayer->getMoney()){
             cout<<targetPlayer->getName() <<" does not have this amount to trade. Please re-enter a valid value: ";
@@ -841,13 +861,19 @@ void Board::trade(shared_ptr<Player> player){
 
     }
 
-    cout<<"Player "<< targetPlayer->getName()<< ", do you agree to change "<< desiredMoney << "with "<< player->getName()<<" (Y/N) "<<endl;
+    cout << "-------------------------------------------------" << endl;
+    cout<<"Player "<< targetPlayer->getName()<< ", do you agree to change $"<< desiredMoney << " with Player "<< player->getName()<<" (Y/N) "<<endl;
     cin>>inputChar;
     while(inputChar!='Y' && inputChar!= 'N'){
         cout<<"Invalid input, please re-enter: ";
         cin>>inputChar;
     }
     if(inputChar=='N'){
+        cout<<"Player "<<targetPlayer->getName()<<"does not want to trade with you. "<<endl;
+        cout<< "Press ENTER to continue to your dice roll ";
+        cin.ignore();
+        getline(std::cin, temp);
+        cout << "-------------------------------------------------" << endl;
         return;
     }
     else{
@@ -856,24 +882,25 @@ void Board::trade(shared_ptr<Player> player){
         targetPlayer->payMoney(desiredMoney);
         for(size_t x = 0; x < tradeList.size(); x++){
             if(getAssetType(tradeList[x]) == "Transportation"){
-              //  cout<< "trade"<< tradeList[x]<<endl;
-              //  cout<< "property name"<< (player->returnTransportation(tradeList[x]))->getName()<<endl;
                 (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);
             }
             else if(getAssetType(tradeList[x]) == "Property" ){
-            //    cout<< "trade"<< tradeList[x]<<endl;
-            //    cout<< "property name"<< (player->returnProperty(tradeList[x]))->getName()<<endl;
                 (player->returnProperty(tradeList[x]))->changeOwner(targetPlayer);
             }
             else{
-                // cout<< "trade"<< tradeList[x]<<endl;
-                // cout<< "property name"<< (player->returnUtility(tradeList[x]))->getName()<<endl;
                 (player->returnUtility(tradeList[x]))->changeOwner(targetPlayer);
             }
         }
     }
 
     cout<< "Trade Successful"<<endl;
+    cout<< "The updated amount of of money Player "<<player->getName()<<" has: " << player->getMoney()<<endl;
+    cout<< "The updated amount of of money Player "<<targetPlayer->getName()<<" has: " << targetPlayer->getMoney()<<endl;
+    cout << "-------------------------------------------------" << endl;
+    cout<< "Press ENTER to continue to your dice roll "<<endl;
+    cin.ignore();
+    getline(std::cin, temp);
+    cout << "-------------------------------------------------" << endl;
 }
 
 void Board::auction(std::shared_ptr<Tile> t){
