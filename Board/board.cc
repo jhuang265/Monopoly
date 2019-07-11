@@ -738,8 +738,8 @@ void Board::playTurn(){
             // Roll dice and move
             rollDiceAndAction();
 
-            // If the current player's money is negative, free their assets
-            cout << "Your money: "<<(*i)->getMoney()<< endl;
+            // If the current player's money is negative, free their assets and remove player
+            cout << "Money at end of turn: "<<(*i)->getMoney()<< endl;
             if((*i)->getMoney() < 0){
                 i = players.erase(i);
                 continue;
@@ -747,6 +747,7 @@ void Board::playTurn(){
 
             // If the user rolled a double, let them roll again
             while((*i)->getDoubles() > 0 && (*i)->getDoubles() < 3){
+                cout << '\n' << endl;
                 cout << "You get an extra roll for rolling a double." << endl;
                 cout << '\n';
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
@@ -872,23 +873,27 @@ void Board::trade(shared_ptr<Player> player){
 
 void Board::auction(std::shared_ptr<Tile> t){
 
-    cout << "Entered an auction phase" << endl;
+    std::cout << '\n';
+    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
+    std::cout << "Entered an auction phase" << endl;
 
+    // Set the current bid to 0
     int maxBid = 0;
     int maxPlayerIndex = currentPlayer;
+
     vector <int> remaining;
+
+    // Enable all players to be allowed to bid
     for(size_t i = 0; i < players.size(); i++){
         remaining.push_back(i);
     }
 
+    // Allow current player first chance to make a bid
     for(int i = currentPlayer; remaining.size() != 0; i++){
-        //cout << "Remaining bidders: " << remaining.size() << endl;
-        //cout << "Current Bidder Index: " << i << endl;
-
-        //cout<< "Current Max Bid: " << maxBid <<endl;
-        //cout<< "Current Max Bidder: " << maxPlayerIndex <<endl;
         int bid;
 
+        // Allow player to enter their bid. If the bid is negative, it means they want to stop bidding.
+        std::cout << '\n';
         std::cout << "Player " << players[remaining[i]]->getName() << " please enter your bid. (If you want to stop bidding, enter -1): ";
         std::cin >> bid;
         if (!cin.good()){
@@ -897,24 +902,23 @@ void Board::auction(std::shared_ptr<Tile> t){
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             //i = i-1;
             //continue;
-            cout << "Invalid bid. Please wait your turn to bid again." << endl;
+            std::cout << "Invalid bid. Please wait your turn to bid again." << std::endl;
         }
 
+        // Make sure player has enough money to make bid. If not, skip this turn but allow them to keep bidding
         if(bid > players[i]->getMoney()){
-            cout << "Invalid bid. You don't have the money to make this." << endl;
+            std::cout << "Invalid bid. You don't have the money to make this." << std::endl;
         }
+        // Change the maximum bid if the bid is greater
         else if(bid > maxBid){
             maxBid = bid;
             maxPlayerIndex = remaining[i];
         }
 
-        //cout << remaining.size() << endl;
+        // Remove player from bidding process if negative bid
         if(bid <= -1){
-            //cout << "Erasing User" << endl;
             for(auto j = remaining.begin(); j != remaining.end();){
-                //cout << (*j) << endl;
                 if ((*j) == remaining[i]){
-                    //cout << "Found user to delete" << endl;
                     j = remaining.erase(j);
                     break;
                 }
@@ -922,25 +926,25 @@ void Board::auction(std::shared_ptr<Tile> t){
                     j++;
                 }
             }
-            //remaining.erase(i);
-            //cout << "Decreasing Index" << endl;
             --i;
-            //cout << "Decreased Index" << endl;
-
         }
 
+        // Cycle through the list of remaining players repeatedly until only none are left wanting to bid
         if(i == remaining.size()-1){
             i = -1;
         }
-        //cout << remaining.size() << endl;
     }
 
+    // If the bid is still 0, it means nobody wanted to buy the asset.
     if(maxBid == 0){
-        cout << "The asset could not be auctioned off."<<endl;
+        std::cout << "The asset could not be auctioned off."<< std::endl;
         return;
     }
-    cout << "Sold to Player "<< maxPlayerIndex << " for " << maxBid <<"$."<<endl;
+
+    // Otherwise state who bought the asset
+    std::cout << "Sold to Player " << maxPlayerIndex << " for " << maxBid << "$."<< std::endl;
     t->buy(players[maxPlayerIndex]);
+    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << '\n' << std::endl;
 
     return;
 }

@@ -41,6 +41,7 @@ int main(){
                 std::cin >> type;
             }
 
+            std::cout << std::endl;
             // Create the game and let the users play
             Game g{type, numPlayers};
             g.playGame();
