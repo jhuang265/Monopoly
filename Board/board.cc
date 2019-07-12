@@ -769,7 +769,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     shared_ptr<Player> targetPlayer;
     vector<string> targetTradeList;
     vector<string> tradeList;
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     //if player has no asset to trade
     if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
         cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
@@ -808,7 +808,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "************************************************" << endl;
         return;
     }
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     cout<<"Select a player from the folliwng list you want to trade with (enter their number):"<<endl;
     //print out the available players to trade with
     for(size_t p = 0 ; p < players.size() ; p++){
@@ -827,7 +827,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     --targetPlayerIndex;//subtract the input index by one to get the actual matching index of the player in the game
     targetPlayer = players[targetPlayerIndex];
     if(targetPlayer->getNumProperties() + targetPlayer->getNumUtilities() + targetPlayer->getNumTransportations() == 0){
-        cout << "-------------------------------------------------" << endl;
+        cout << "************************************************" << endl;
         cout<<"Oops! This player has no asset, you are returned to dice roll"<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
@@ -883,7 +883,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         }
         break;
     }
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     cout << "Player " << targetPlayer->getName() << ", do you agree to change the following assets and money with Player " << player->getName()<<"? " << endl;
     cout << endl;
 
@@ -953,7 +953,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     shared_ptr<Player> targetPlayer;
     vector<string> tradeList;
 
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     //if the player has no asset to trade, kick him out
     if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
         cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
@@ -993,7 +993,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         cout << "************************************************" << endl;
         return;
     }
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     cout<<"Select a player from the following list whom you want to trade with (enter their number):"<<endl;
 
     //prints out the avaliable players to trade
@@ -1014,7 +1014,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     }
     --targetPlayerIndex;//subtract the input index by one to get the actual matching index of the player in the game
     targetPlayer = players[targetPlayerIndex];
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     cout<<"Enter the money you would like to exchange from Player " << targetPlayer->getName()<<": "<<endl;
 
     //takes in valid money value limited by the target player's amount
@@ -1026,7 +1026,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         break;
     }
 
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     cout<<"Player "<< targetPlayer->getName()<< ", do you agree to change $"<< desiredMoney << " with Player "<< player->getName()<<" (Y/N) "<<endl;
     cin>>inputChar;
 
