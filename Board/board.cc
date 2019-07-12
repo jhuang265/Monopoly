@@ -349,7 +349,7 @@ void Board::rollDiceAndAction(){
     cout << '\n' << "New Position: " << pos << '\n' << endl;
 
     // Set the location of cards, transportations, utilities and properties
-    int cardLocations[] = {2, 7, 17, 22, 33, 36};
+    int cardLocations[] = {4, 7, 17, 22, 33, 36};
     int transLocations[] = {5, 15, 25, 35};
     int utilLocations[] = {12, 28};
     int propertyLocations[] = {1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39};
