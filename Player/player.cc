@@ -208,7 +208,7 @@ void Player::clearHasGOJFCard() {
 // Show all asset a player owns as well as their money
 void Player::print() {
     cout << "Name: "<<name<<endl;
-    cout << "Account Balance: "<<money<<endl;
+    cout << "Account Balance: $"<<money<<endl;
     cout << "Properties Owned: ";
     if(hasGOJFC) { cout << "*You have 1 Get Out Of Jail Free Card*" << endl;}
     int cnt=1;
