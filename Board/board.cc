@@ -921,7 +921,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     for(int x =0 ;x<targetTradeList.size();x++){
         cout << targetTradeList[x] << endl;
     }
-
+    cout << "Money to exchange: $" << desiredMoney << endl;
     //ask the target player if he agrees to trade
     cout<<"Enter Y/N: ";
     cin>>inputChar;
