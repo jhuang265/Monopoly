@@ -904,7 +904,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
 
     int desiredMoney;
 
-    cout << "Enter the money you would like to exchange from Player " << targetPlayer->getName() << ": " << endl;
+    cout << "Enter the money you would like to recieve from Player " << targetPlayer->getName() << " (Enter negative amount to pay money to other party): " << endl;
 
     while(cin >> desiredMoney){
         if(desiredMoney <= 0 && (desiredMoney + targetPlayer->getMoney()) < 0){
@@ -1049,7 +1049,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     --targetPlayerIndex;
     targetPlayer = players[targetPlayerIndex];
     cout << "************************************************" << endl;
-    cout << "Enter the money you would like to exchange from Player " << targetPlayer->getName() << ": " << endl;
+    cout << "Enter the money you would like to recieve from Player " << targetPlayer->getName() << ": " << endl;
 
     while(cin>>desiredMoney){
         if(desiredMoney > targetPlayer->getMoney()){
