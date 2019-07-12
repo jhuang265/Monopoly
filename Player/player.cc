@@ -10,27 +10,39 @@ Player::Player(string name, const int index): name{name}, index{index} {
      hasGOJFC = false;
 }
 
-string Player::getName() { return name; }
+string Player::getName() {
+    return name;
+}
 
-int Player::getIndex() { return index; }
+int Player::getIndex() {
+    return index;
+}
 
+// Print out the names of assets at a specific index
 string Player::propertyNameAtIndex(int i) {
-    if(i < properties.size()) { return properties.at(i)->getName(); }
+    if(i < properties.size()) {
+        return properties.at(i)->getName();
+    }
     return "";
 }
 
 string Player::utilityNameAtIndex(int i) {
-    if(i < utilities.size()) { return utilities.at(i)->getName(); }
+    if(i < utilities.size()) {
+        return utilities.at(i)->getName();
+    }
     return "";
 }
 
 string Player::transportationNameAtIndex(int i) {
-    if(i < transportations.size()) { return transportations.at(i)->getName(); }
+    if(i < transportations.size()) {
+        return transportations.at(i)->getName();
+    }
     return "";
 }
 
 int Player::getMoney() { return money; }
 
+// Pay and recieve money
 void Player::receiveMoney(int moneyReceived) {
     money += moneyReceived;
     return;
@@ -41,6 +53,7 @@ void Player::payMoney(int payment) {
     return;
 }
 
+// Add an asset to the things a player owns
 void Player::addProperty(shared_ptr<Property> p) {
     properties.emplace_back(p);
     return;
@@ -56,6 +69,7 @@ void Player::addTransportation(shared_ptr<Transportation> t) {
     return;
 }
 
+// Get rid of an asset
 void Player::removeAsset(shared_ptr<Tile> tile) {
     string type = tile->getType();
     string name = tile->getName();
@@ -85,6 +99,7 @@ void Player::removeAsset(shared_ptr<Tile> tile) {
     return;
 }
 
+// Get the specific asset at an index
 shared_ptr<Property> Player:: returnProperty(string name) {
     for(auto &p : properties) {
          if(p->getName() == name) return p;
@@ -107,6 +122,7 @@ shared_ptr<Transportation> Player:: returnTransportation(string name) {
 }
 
 
+// Get how many of each asset type is owned
 int Player::getNumUtilities() { return utilities.size(); }
 
 int Player::getNumTransportations() { return transportations.size(); }
@@ -115,6 +131,7 @@ int Player::getNumProperties() { return properties.size(); }
 
 int Player::getPos() { return pos; }
 
+// Move a player's position
 void Player::move(int n) {
     // Calculate the new position
     int result = pos + n;
@@ -129,6 +146,7 @@ void Player::move(int n) {
     return;
 }
 
+// Handle the number of consecutive doubles a player has rolled
 int Player::getDoubles() {
     return numDoubles;
 }
@@ -143,6 +161,7 @@ void Player::rolledDoubles() {
     return;
 }
 
+// Send a player to jail
 void Player::goToJail() {
     if(hasGOJFC == false) {
         inJail = true;
@@ -155,6 +174,7 @@ void Player::goToJail() {
     return;
 }
 
+// Handle a player when they're in jail
 void Player::addTurnInJail(){
     turnsInJail++;
     return;
@@ -170,7 +190,9 @@ void Player::release() {
     return;
 }
 
-int Player::getTurnsInJail() { return turnsInJail; }
+int Player::getTurnsInJail() {
+    return turnsInJail;
+}
 
 void Player::setHasGOJFCard() {
     hasGOJFC = true;
@@ -182,6 +204,7 @@ void Player::clearHasGOJFCard() {
     return;
 }
 
+// Show all asset a player owns as well as their money
 void Player::print() {
     cout << "Name: "<<name<<endl;
     cout << "Account Balance: "<<money<<endl;
@@ -226,6 +249,7 @@ void Player::print() {
     }
 }
 
+// Player has lost, clear all their assets
 Player::~Player() {
     for(auto& p : properties) {
         p->reset();
