@@ -810,14 +810,14 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     vector<string> targetTradeList;
     vector<string> tradeList;
     
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     
     if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
         cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
         getline(std::cin, temp);
-        cout << "-------------------------------------------------" << endl;
+        cout << "************************************************" << endl;
         return;
     }
     
@@ -846,11 +846,11 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
         getline(std::cin, temp);
-        cout << "-------------------------------------------------" << endl;
+        cout << "************************************************" << endl;
         return;
     }
-    
-    cout << "-------------------------------------------------" << endl;
+
+    cout << "************************************************" << endl;
     cout << "Select a player from the following list who you want to trade with (enter their number):" << endl;
     
     for(size_t p = 0 ; p < players.size() ; p++){
@@ -867,7 +867,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     }
     --targetPlayerIndex;
     targetPlayer = players[targetPlayerIndex];
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     cout << "Here is the status and assets of  " << targetPlayer->getName()<<endl;
     targetPlayer->print();
     cout << endl;
@@ -895,12 +895,11 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "Press ENTER to continue to roll your dice ";
         cin.ignore();
         getline(std::cin, temp);
-        cout << "-------------------------------------------------" << endl;
+        cout << "************************************************" << endl;
         return;
     }
-    
-    cout << "-------------------------------------------------" << endl;
-    cout <<"Player "<< targetPlayer->getName()<< ", do you agree to change the following assets" << " with Player "<< player->getName()<<"? " << endl;
+    cout << "************************************************" << endl;
+    cout << "Player " << targetPlayer->getName() << ", do you agree to change the following assets" << " with Player " << player->getName()<<"? " << endl;
     cout << endl;
     
     for(int x =0 ;x<targetTradeList.size();x++){
@@ -920,8 +919,8 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout<<"Player "<<targetPlayer->getName()<<" does not want to trade with you. "<<endl;
         cout<< "Press ENTER to continue to your dice roll ";
         cin.ignore();
-        getline(std::cin, temp);
-        cout << "-------------------------------------------------" << endl;
+        getline(std::cin, temp); 
+        cout << "************************************************" << endl;
         return;
     }
     
@@ -950,11 +949,11 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     }
 
     cout<< "Trade Successful"<<endl;
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
     cout<< "Press ENTER to continue to your dice roll ";
     cin.ignore();
     getline(std::cin, temp);
-    cout << "-------------------------------------------------" << endl;
+    cout << "************************************************" << endl;
 }
 
 
