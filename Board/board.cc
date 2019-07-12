@@ -550,12 +550,12 @@ void Board::printBoard() {
     int countRow = 5;
 
     //boardPos Insertion: tileNumber and rowNum
-    for(int i = 0; i < 20; i++) {
+    for(int i = 0; i < 21; i++) {
         if(i <= 10) {
             boardPos.insert(pair<int,int>(i, 41));
             boardPos.insert(pair<int,int>(30-i, 1));
         }
-        else if(i > 10 && i < 20) {
+        else if(i > 10 && i < 21) {
             boardPos.insert(pair<int,int>(i, 42-countRow));
             boardPos.insert(pair<int,int>(50-i, 42-countRow));
             countRow += 4;
@@ -573,7 +573,9 @@ void Board::printBoard() {
     //targetPos: Set resulting replace index on a row in the string
     c = 65;
     for(int i=0;i < numPlayers; ++i) {
-        int colNum = (playerPos[c].second)%10 + 1;
+        int colNum = (playerPos[c].second)%10 + 1;;
+//        if(playerPos[c].second == 0 || playerPos[c].second == 41) {colNum = (playerPos[c].second)%10 + 1;}
+//        else colNum = (playerPos[c].second)%10;
         int targetColNum = colNum*12; //-8 if L -> R
         if(playerPos.count(c)) {
             //while loop is intended to get all players on this line right now
@@ -592,10 +594,10 @@ void Board::printBoard() {
     }
 
     c = 65;
-    string boarder = " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n";
-    string line1 = " |            |                                                                                                       |            |\n";
-    string line2 = " |            |            |            |            |            |            |            |            |            |            |\n";
-    string divider = " |++++++++++++|                                                                                                       |++++++++++++|\n";
+    string boarder = " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|\n";
+    string line1 =   " |            |                                                                                                                    |            |\n";
+    string line2 =   " |            |            |            |            |            |            |            |            |            |            |            |\n";
+    string divider = " |++++++++++++|                                                                                                                    |++++++++++++|\n";
     int pos = players[currentPlayer]->getPos();
 
     //output board, x: rowNum; y: colNum (horizontal)
@@ -623,8 +625,9 @@ void Board::printBoard() {
 //                cerr<<"currentPlayer = "<<currentPlayer+65<<" int x = "<<x<<" int y = "<<y<<endl;
 //                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerNum, colNum: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
                 string replacedLine = line;
-                if(x == 41 && pos != 10 && pos != 20) {
-                    yPos = line.length()-y+4;
+                if(x == 41 && pos != 10 && pos != 0) {
+//                    yPos = line.length()-y-8; //line.length - 12 equal to 132 spaces
+                    yPos = line.length() - 12*++pos;
                     if(replacedLine.at(yPos) == '|') {yPos++;}
                     replacedLine.replace(yPos,playerIndex.length(),playerIndex);
                 } else if(x == 1) {
@@ -633,7 +636,7 @@ void Board::printBoard() {
                 }
                 else {
                     if (pos >= 10 && pos <= 20) { yPos = 6; }
-                    else if (pos > 30 && pos < 40) { yPos = 120; }
+                    else if ((pos > 30 && pos < 41) || pos == 0) { yPos = 136; }
                 }
                 replacedLine.replace(yPos,playerIndex.length(),playerIndex); //+(numPlayers-1) for displaying multiple players
                 cout << replacedLine;
