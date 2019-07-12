@@ -3,7 +3,7 @@
 
 using namespace std;
 Property:: Property(int cost_,vector<int> rent_, shared_ptr<Color> color_, int gameType_,  string tileType_, string name_):
-            Tile(tileType_,name_), cost(cost_), gameType(gameType_),houses(0),rent(rent_), color(color_), owner(nullptr), canBuild(gameType_),isOwned(false){
+            Tile(tileType_,name_), cost(cost_), gameType(gameType_),houses(0),rent(rent_), owner(nullptr), color(color_),  canBuild(gameType_),isOwned(false){
 }
 
 void Property:: buyHouse() {

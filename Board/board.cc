@@ -6,11 +6,11 @@
 #include "./../Tile/tile.h"
 #include "./../Color/color.h"
 #include "./../Card/card.h"
-#include "./../Card/getMoneyCard.h"
+#include "./../Card/GetMoneyCard.h"
 #include "./../Card/GOJFCard.h"
 #include "./../Card/GTJCard.h"
-#include "./../Card/moveCard.h"
-#include "./../Card/loseMoneyCard.h"
+#include "./../Card/MoveCard.h"
+#include "./../Card/LoseMoneyCard.h"
 #include <vector>
 #include <iostream>
 #include <ctime>

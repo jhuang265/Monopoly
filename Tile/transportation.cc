@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Transportation:: Transportation(int cost_, vector<int> rent_, string tileType_, string name_):
-                    cost(cost_), rent(rent_), isOwned(false), owner(nullptr), Tile(tileType_,name_){}
+Transportation:: Transportation(int cost_, vector<int> rent_, string tileType_, string name_): Tile(tileType_,name_),
+                    cost(cost_), rent(rent_), owner(nullptr),  isOwned(false){}
 
 int Transportation:: getPrice() {
     return cost;
