@@ -17,10 +17,10 @@ int main(){
             // Set the number of players and the game type
             int type, numPlayers;
             std::cout << std::endl;
-            std::cout << "How many players would you like to play with? (Please enter a number between 2 and 4): ";
+            std::cout << "How many players would you like to play with? (Please enter a number between 2 and 6): ";
             std::cin >> numPlayers;
 
-            while (!cin.good() || numPlayers > 4 || numPlayers < 2){
+            while (!cin.good() || numPlayers > 6 || numPlayers < 2){
                 std::cin.clear(); //clear bad input flag
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cout << "Please enter a valid number of players: ";
