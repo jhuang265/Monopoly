@@ -809,7 +809,9 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     shared_ptr<Player> targetPlayer;
     vector<string> targetTradeList;
     vector<string> tradeList;
-        cout << "-------------------------------------------------" << endl;
+    
+    cout << "-------------------------------------------------" << endl;
+    
     if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
         cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
@@ -818,14 +820,11 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "-------------------------------------------------" << endl;
         return;
     }
-    //cout<<"Here is the list of properties/utilities/transportations you can trade: "<<endl;
-    //player->printAsset();
+    
     cout<<"Enter the assets you want to trade by corresponding number and press e to end: "<<endl;
     cin>>inputChar;
+    
     while(inputChar!='e'){
-    //   cout<<"firstreads in "<< inputChar<<endl;
-     //  cout<< "propert total: "<< player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations()<<endl;
-      // cout<<(int)inputChar*4<< endl;
         if((int)inputChar-48 <= (player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations())){
 
             if((int)inputChar-48<= player->getNumProperties()){
@@ -841,6 +840,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
 
         cin>>inputChar;
     }
+    
     if(tradeList.size()==0){
         cout<<"None of the property index you entered is valid. You're returned to your dice roll."<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
@@ -849,29 +849,30 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "-------------------------------------------------" << endl;
         return;
     }
+    
     cout << "-------------------------------------------------" << endl;
-    cout<<"Select a player from the folliwng list you want to trade with (enter their number):"<<endl;
-//    cout<<"size of players "<< players.size()<<endl;
+    cout << "Select a player from the following list who you want to trade with (enter their number):" << endl;
+    
     for(size_t p = 0 ; p < players.size() ; p++){
         if(players[p]->getIndex() == player->getIndex()){
             continue;
         }
-        cout<< "Player " << players[p]->getName()<<"("<<"Number "<< p+1<<")"<<endl;
+        cout<< "Player " << players[p]->getName()<<" ("<<"Number "<< p+1<<")"<<endl;
     }
-    cin>>targetPlayerIndex;
+    cin >> targetPlayerIndex;
     while (targetPlayerIndex > players.size() ){
-        cout<<"Please re-enter player number: ";
-        cin>>targetPlayerIndex;
+        cout << "Please re-enter player number: ";
+        cin >> targetPlayerIndex;
 
     }
     --targetPlayerIndex;
     targetPlayer = players[targetPlayerIndex];
     cout << "-------------------------------------------------" << endl;
-    cout<< "Here is the status and assets of  "<< targetPlayer->getName()<<endl;
+    cout << "Here is the status and assets of  " << targetPlayer->getName()<<endl;
     targetPlayer->print();
-    cout<<endl;
-    cout<<"Enter the assets you want from this player and press e to end: "<<endl;
-    cin>>inputChar;
+    cout << endl;
+    cout << "Enter the numbers of the assets you want from this player and press \'e\' to end your selection: "<<endl;
+    cin >> inputChar;
 
     while(inputChar!='e'){
         if((int)inputChar-48 <= (targetPlayer->getNumProperties() + targetPlayer->getNumUtilities() + targetPlayer->getNumTransportations())){
@@ -886,28 +887,35 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
                 targetTradeList.emplace_back(targetPlayer->transportationNameAtIndex((int)inputChar-48-(targetPlayer->getNumProperties() + targetPlayer->getNumUtilities())-1));
             }
         }
-
-        cin>>inputChar;
+        cin >> inputChar;
     }
+
     if(targetTradeList.size()==0){
-        cout<<"None of the property index you entered is valid. You're returned to your dice roll."<<endl;
-        cout<< "Press ENTER to continue to roll your dice ";
+        cout << "None of the property indices you entered are valid. Return to your dice roll." << endl;
+        cout << "Press ENTER to continue to roll your dice ";
         cin.ignore();
         getline(std::cin, temp);
         cout << "-------------------------------------------------" << endl;
         return;
     }
+    
     cout << "-------------------------------------------------" << endl;
-    cout<<"Player "<< targetPlayer->getName()<< ", do you agree to change the following assets" << " with Player "<< player->getName()<<"? "<<endl;
+    cout <<"Player "<< targetPlayer->getName()<< ", do you agree to change the following assets" << " with Player "<< player->getName()<<"? " << endl;
+    cout << endl;
+    
     for(int x =0 ;x<targetTradeList.size();x++){
         cout<<targetTradeList[x]<<endl;
     }
+    
+    cout << endl;
     cout<<"Enter Y/N: ";
     cin>>inputChar;
+    
     while(inputChar!='Y' && inputChar!= 'N'){
         cout<<"Invalid input, please re-enter: ";
         cin>>inputChar;
     }
+    
     if(inputChar=='N'){
         cout<<"Player "<<targetPlayer->getName()<<" does not want to trade with you. "<<endl;
         cout<< "Press ENTER to continue to your dice roll ";
@@ -916,6 +924,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "-------------------------------------------------" << endl;
         return;
     }
+    
     for(size_t x = 0; x < tradeList.size(); x++){
         if(getAssetType(tradeList[x]) == "Transportation"){
             (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);
@@ -927,6 +936,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
             (player->returnUtility(tradeList[x]))->changeOwner(targetPlayer);
         }
     }
+    
     for(size_t x = 0; x < targetTradeList.size(); x++){
         if(getAssetType(targetTradeList[x]) == "Transportation"){
             (targetPlayer->returnTransportation(targetTradeList[x]))->changeOwner(player);
