@@ -1029,7 +1029,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         return;
     }
     cout << "************************************************" << endl;
-    cout<<"Select a player from the following list whom you want to trade with (enter their number):"<<endl;
+    cout << "Select a player from the following list with whom you want to trade with (enter their number):" << endl;
 
     for(size_t p = 0 ; p < players.size() ; p++){
         if(players[p]->getIndex() == player->getIndex()){
@@ -1038,11 +1038,11 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         cout<< "Player " << players[p]->getName()<<" ("<<"Number "<< p+1<<")"<<endl;
     }
     cout << '\n' << "Enter player you would like to trade with: " << endl;
-    cin>>targetPlayerIndex;
+    cin >> targetPlayerIndex;
 
     while (targetPlayerIndex > players.size() ){
-        cout<<"Please re-enter player number: ";
-        cin>>targetPlayerIndex;
+        cout << "Please re-enter player number: ";
+        cin >> targetPlayerIndex;
 
     }
 
@@ -1051,9 +1051,9 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     cout << "************************************************" << endl;
     cout << "Enter the money you would like to recieve from Player " << targetPlayer->getName() << ": " << endl;
 
-    while(cin>>desiredMoney){
+    while(cin >> desiredMoney){
         if(desiredMoney > targetPlayer->getMoney()){
-            cout<<targetPlayer->getName() <<" does not have this amount to trade. Please re-enter a valid value: ";
+            cout << targetPlayer->getName() <<" does not have this amount to trade. Please re-enter a valid value: ";
             continue;
         }
         break;
@@ -1064,12 +1064,12 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     cin >> inputChar;
 
     while(inputChar!='Y' && inputChar!= 'N'){
-        cout<<"Invalid input, please re-enter: ";
-        cin>>inputChar;
+        cout << "Invalid input, please re-enter: ";
+        cin >> inputChar;
     }
-    if(inputChar=='N'){
-        cout<<"Player "<<targetPlayer->getName()<<"does not want to trade with you. "<<endl;
-        cout<< "Press ENTER to continue to your dice roll ";
+    if(inputChar == 'N'){
+        cout << "Player "<<targetPlayer->getName()<<"does not want to trade with you. " << endl;
+        cout << "Press ENTER to continue to your dice roll ";
         cin.ignore();
         getline(std::cin, temp);
         cout << "************************************************" << endl;
