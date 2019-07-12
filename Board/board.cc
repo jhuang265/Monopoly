@@ -601,7 +601,7 @@ void Board::printBoard() {
     //output board, x: rowNum; y: colNum (horizontal)
     //yPos also refers to position in x direction
     cout << boarder;
-    for(int x = 0; x <= 41; ++x) {
+    for(int x = 0; x <= 42; ++x) {
         if(x % 4 == 1) {
         //cerr<<"Currentplayer is "<<currentPlayer<<endl;
             string playerIndex = "";
