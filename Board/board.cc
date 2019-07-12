@@ -172,35 +172,45 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     properties.emplace_back(thirty8);
     properties.emplace_back(forty);
 
-    tiles.emplace_back(teen3);
-    tiles.emplace_back(twenty9);
-
-    tiles.emplace_back(d6);
-    tiles.emplace_back(teen6);
-    tiles.emplace_back(twenty6);
-    tiles.emplace_back(thirty6);
-
+    tiles.emplace_back(d1);
     tiles.emplace_back(d2);
+    tiles.emplace_back(d3); 
     tiles.emplace_back(d4);
+    tiles.emplace_back(d5);
+    tiles.emplace_back(d6);
     tiles.emplace_back(d7);
+    tiles.emplace_back(d8);
     tiles.emplace_back(d9);
     tiles.emplace_back(teen);
+    tiles.emplace_back(teen1);
     tiles.emplace_back(teen2);
+    tiles.emplace_back(teen3);
     tiles.emplace_back(teen4);
     tiles.emplace_back(teen5);
+    tiles.emplace_back(teen6);
     tiles.emplace_back(teen7);
+    tiles.emplace_back(teen8);
     tiles.emplace_back(teen9);
     tiles.emplace_back(twenty);
+    tiles.emplace_back(twenty1);
     tiles.emplace_back(twenty2);
+    tiles.emplace_back(twenty3);
     tiles.emplace_back(twenty4);
     tiles.emplace_back(twenty5);
+    tiles.emplace_back(twenty6);
     tiles.emplace_back(twenty7);
     tiles.emplace_back(twenty8);
+    tiles.emplace_back(twenty9)
     tiles.emplace_back(thirty);
+    tiles.emplace_back(thirty1);
     tiles.emplace_back(thirty2);
     tiles.emplace_back(thirty3);
+    tiles.emplace_back(thirty4)
     tiles.emplace_back(thirty5);
+    tiles.emplace_back(thirty6);
+    tiles.emplace_back(thirty7);
     tiles.emplace_back(thirty8);
+    tiles.emplace_back(thirty9);
     tiles.emplace_back(forty);
 
     brown->attach(d2);
