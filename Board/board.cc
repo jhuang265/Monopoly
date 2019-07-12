@@ -171,7 +171,7 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     properties.emplace_back(thirty5);
     properties.emplace_back(thirty8);
     properties.emplace_back(forty);
-/*
+
     tiles.emplace_back(teen3);
     tiles.emplace_back(twenty9);
 
@@ -202,7 +202,7 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     tiles.emplace_back(thirty5);
     tiles.emplace_back(thirty8);
     tiles.emplace_back(forty);
-*/
+
     brown->attach(d2);
     brown->attach(d4);
     lblue->attach(d7);
@@ -338,9 +338,6 @@ void Board::rollDiceAndAction(){
 
     cout << '\n' << "New Position: " << pos << '\n' << endl;
 
- //   cout<<"You landed on "<< tiles[pos]->getName()<<endl;
-    printBoard();
-
     // Set the location of cards, transportations, utilities and properties
     int cardLocations[] = {2, 7, 17, 22, 33, 36};
     int transLocations[] = {5, 15, 25, 35};
@@ -372,7 +369,7 @@ void Board::rollDiceAndAction(){
     }
 
     pos = players[currentPlayer]->getPos();
-    
+
     // For some predefined tiles, these are the actions that they should perform.
     switch(pos){
         case 0:
@@ -427,6 +424,7 @@ void Board::rollDiceAndAction(){
                 std::cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<" that costs $"<<
                                 transportations[i]->getPrice()<<    ". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
+
                 // See if the user can buy it without needing to go through an auction
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
@@ -471,6 +469,7 @@ void Board::rollDiceAndAction(){
                 std::cout << "You have landed on an unowned utility " << utilities[i]->getName() <<" that costs $"<<
                                             utilities[i]->getPrice()<<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
+
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << utilities[i]->getPrice() << endl;
@@ -524,6 +523,7 @@ void Board::rollDiceAndAction(){
                 std::cout << "You have landed on an unowned property " << properties[i]->getName() <<" that costs $"<<
                                                             properties[i]->getPrice()    <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
+
                 if(yn == 'Y' && players[currentPlayer]->getMoney() >= properties[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << properties[i]->getPrice() << endl;
@@ -661,7 +661,10 @@ void Board::playTurn(){
 
         // Keep playing as long as you haven't reached the end
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
+
+            cout << endl;
             printBoard();
+            cout << endl;
 
             // Prompt user to make a choice
             cout << endl;
@@ -903,7 +906,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         return;
     }
 
-    //trade the properties 
+    //trade the properties
     for(size_t x = 0; x < tradeList.size(); x++){
         if(getAssetType(tradeList[x]) == "Transportation"){
             (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);//get transportation ptr from its name, then change owner
@@ -997,7 +1000,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         }
         cout<< "Player " << players[p]->getName()<<" ("<<"Number "<< p+1<<")"<<endl;
     }
-    cout << '\n' << "Enter player you would like to trade with: " << endl; 
+    cout << '\n' << "Enter player you would like to trade with: " << endl;
     cin>>targetPlayerIndex;
 
     //checks if the index entered is a valid player
