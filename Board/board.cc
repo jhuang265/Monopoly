@@ -200,12 +200,12 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     tiles.emplace_back(twenty6);
     tiles.emplace_back(twenty7);
     tiles.emplace_back(twenty8);
-    tiles.emplace_back(twenty9)
+    tiles.emplace_back(twenty9);
     tiles.emplace_back(thirty);
     tiles.emplace_back(thirty1);
     tiles.emplace_back(thirty2);
     tiles.emplace_back(thirty3);
-    tiles.emplace_back(thirty4)
+    tiles.emplace_back(thirty4);
     tiles.emplace_back(thirty5);
     tiles.emplace_back(thirty6);
     tiles.emplace_back(thirty7);
@@ -347,6 +347,8 @@ void Board::rollDiceAndAction(){
     int pos = players[currentPlayer]->getPos();
 
     cout << '\n' << "New Position: " << pos << '\n' << endl;
+    cout<<endl;
+    printBoard();
 
     // Set the location of cards, transportations, utilities and properties
     int cardLocations[] = {4, 7, 17, 22, 33, 36};
@@ -372,7 +374,10 @@ void Board::rollDiceAndAction(){
             else if(rNum == 2) c2.use(players[currentPlayer]);
             else if(rNum == 3) c3.use(players[currentPlayer]);
             else if(rNum == 4) c4.use(players[currentPlayer]);
-            else if(rNum == 5) c5.use(players[currentPlayer]);
+            else if(rNum == 5) {
+                c5.use(players[currentPlayer]);
+                printBoard();
+            }
 
             return;
         }
@@ -397,6 +402,7 @@ void Board::rollDiceAndAction(){
         case 30:
             cout << "You are sent to jail." << endl;
             players[currentPlayer]->goToJail();
+            printBoard();
             break;
         case 38:
             cout << "You had to pay 150$ in luxury tax." << endl;
@@ -556,9 +562,28 @@ void Board::printBoard() {
     map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
     map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
     map<int,int> replacePos; //rowNum, colNum
+    map<int,int> tilesPos; //rowNum, left tileNum
+//    vector<string> tileNames;
 
     int countRow = 5;
 
+    //get names for tiles
+//    for(int i = 0; i < tiles.size(); ++i) {
+//        string tileNames = tiles.at(i)->getName();
+//        while(tileNames.length() < 12) {
+//            tileNames += " ";
+//        }
+//        cerr<<"tileNames: "<<tileNames<<"|"<<endl;
+//    }
+    int tileRow = 36;
+    for(int i = 11; i < 20; ++i) {
+        tilesPos.insert(pair<int,int>(tileRow, i));
+        tileRow -= 4;
+    }
+
+    for(auto & t:tilesPos){
+        cerr<<t.first<<" "<<t.second<<endl;
+    }
     //boardPos Insertion: tileNumber and rowNum
     for(int i = 0; i < 21; i++) {
         if(i <= 10) {
@@ -614,7 +639,58 @@ void Board::printBoard() {
     //yPos also refers to position in x direction
     cout << boarder;
     for(int x = 0; x <= 42; ++x) {
-        if(x % 4 == 1) {
+        if(x % 4 == 0) {
+            string tileNameLine = " |";
+            if(x == 0) {
+                for(int i = 20; i <= 30; ++i) {
+                    string tileName = "";
+                    tileName = tiles.at(i)->getName();
+                    if(tileName == "Community Chest") {tileName = "Chest"; }
+                    while(tileName.length() < 12) {
+                        tileName += " ";
+                    }
+                    tileNameLine += tileName;
+                    tileNameLine += "|";
+                }
+            } else if(x == 40) {
+                for(int i = 10; i >= 0; --i) {
+                    string tileName = "";
+                    tileName = tiles.at(i)->getName();
+                    if(tileName == "Community Chest") {tileName = "Chest";}
+                    else if(tileName == "Jail/Visiting") {tileName = "Jail"; }
+                    while(tileName.length() < 12) {
+                        tileName += " ";
+                    }
+                    tileNameLine += tileName;
+                    tileNameLine += "|";
+                }
+            } else {
+                int tileNum = tilesPos[x];
+                string leftTile = tiles.at(tileNum)->getName();
+                if(leftTile == "Community Chest") {leftTile = "Chest";}
+                string rightTile = tiles.at(50-tileNum)->getName();
+                if(rightTile == "Community Chest") {rightTile = "Chest";}
+
+                while(leftTile.length() < 12) {
+                    leftTile += " ";
+                }
+                leftTile += "|";
+
+                while(rightTile.length() < 12) {
+                    rightTile += " ";
+                }
+                rightTile += "|";
+
+                tileNameLine += leftTile;
+                while(tileNameLine.length() <= 130) {
+                    tileNameLine += " ";
+                }
+                tileNameLine += "|";
+                tileNameLine += rightTile;
+            }
+            cout << tileNameLine<<endl;
+        }
+        else if(x % 4 == 1) {
         //cerr<<"Currentplayer is "<<currentPlayer<<endl;
             string playerIndex = "";
             string line = "";
@@ -632,6 +708,7 @@ void Board::printBoard() {
             if(playerIndex != "") {
                 int yPos = -1;
                 int y = replacePos[currentPlayer+65];
+//                cerr<< "Pos: "<<pos<<endl;
 //                cerr<<"currentPlayer = "<<currentPlayer+65<<" int x = "<<x<<" int y = "<<y<<endl;
 //                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerNum, colNum: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
                 string replacedLine = line;
@@ -730,7 +807,6 @@ void Board::playTurn(){
 
             // Roll dice and move
             rollDiceAndAction();
-            printBoard();
 
             // If the current player's money is negative, free their assets and remove player
             //cout << "Money at end of turn: "<<(*i)->getMoney()<< endl;
