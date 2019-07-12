@@ -21,14 +21,23 @@
 using namespace std;
 
 Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}{
+    map<int,string> playerEmojiInit;
     std::string name;
-
+    playerEmojiInit.insert(pair<int,string>(0,"\U0001F914"));
+    playerEmojiInit.insert(pair<int,string>(1,"\U0001F60E"));
+    playerEmojiInit.insert(pair<int,string>(2,"\U0001F608"));
+    playerEmojiInit.insert(pair<int,string>(3,"\U0001F951"));
+    playerEmojiInit.insert(pair<int,string>(4,"\U0001F47B"));
+    playerEmojiInit.insert(pair<int,string>(5,"\U0001F984"));
     // Get all the user's names
     for(int i = 0; i < numPlayers; i++){
-        std::cout << "Enter the name for Player " << (i+1) << ": ";
+        std::cout << playerEmojiInit[i] <<" Enter the name for Player "<< (i+1) << ": ";
         std::cin >> name;
-
-        players.emplace_back(std::make_shared<Player>(name, i));
+        auto player = std::make_shared<Player>(name, i);
+        if(find(players.begin(), players.end(), player) != players.end()) {
+            std::cout << "~ Please enter a different name ~"<<endl;
+            i--;
+        } else {players.emplace_back(player);}
     }
 
     // Set up the board and all the tiles
@@ -563,27 +572,26 @@ void Board::printBoard() {
     map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
     map<int,int> replacePos; //rowNum, colNum
     map<int,int> tilesPos; //rowNum, left tileNum
+    map<int, string> playerEmoji;
 //    vector<string> tileNames;
 
     int countRow = 5;
 
-    //get names for tiles
-//    for(int i = 0; i < tiles.size(); ++i) {
-//        string tileNames = tiles.at(i)->getName();
-//        while(tileNames.length() < 12) {
-//            tileNames += " ";
-//        }
-//        cerr<<"tileNames: "<<tileNames<<"|"<<endl;
-//    }
+    //Insert tile names
     int tileRow = 36;
     for(int i = 11; i < 20; ++i) {
         tilesPos.insert(pair<int,int>(tileRow, i));
         tileRow -= 4;
     }
 
-    for(auto & t:tilesPos){
-        cerr<<t.first<<" "<<t.second<<endl;
-    }
+    //Insert player emojis
+    playerEmoji.insert(pair<int,string>(65,"\U0001F914"));
+    playerEmoji.insert(pair<int,string>(66,"\U0001F60E"));
+    playerEmoji.insert(pair<int,string>(67,"\U0001F608"));
+    playerEmoji.insert(pair<int,string>(68,"\U0001F951"));
+    playerEmoji.insert(pair<int,string>(69,"\U0001F47B"));
+    playerEmoji.insert(pair<int,string>(70,"\U0001F984"));
+
     //boardPos Insertion: tileNumber and rowNum
     for(int i = 0; i < 21; i++) {
         if(i <= 10) {
@@ -701,6 +709,8 @@ void Board::printBoard() {
 //                }
             //Display one player at one time
             if (playerPos[currentPlayer+65].first == x) {
+                string playerSymbol = playerEmoji[currentPlayer+65];
+                playerIndex += playerSymbol;
                 playerIndex += char(currentPlayer+65);
             }
 
@@ -716,7 +726,7 @@ void Board::printBoard() {
 //                    yPos = line.length()-y-8; //line.length - 12 equal to 132 spaces
                     yPos = line.length() - 12*++pos;
                     if(replacedLine.at(yPos) == '|') {yPos++;}
-                    replacedLine.replace(yPos,playerIndex.length(),playerIndex);
+                    replacedLine.replace(yPos,3,playerIndex);
                 } else if(x == 1) {
                     yPos = y-4;
                     if(replacedLine.at(yPos) == '|') {yPos++;}
@@ -725,7 +735,7 @@ void Board::printBoard() {
                     if (pos >= 10 && pos <= 20) { yPos = 6; }
                     else if ((pos > 30 && pos < 41) || pos == 0) { yPos = 136; }
                 }
-                replacedLine.replace(yPos,playerIndex.length(),playerIndex); //+(numPlayers-1) for displaying multiple players
+                replacedLine.replace(yPos,3,playerIndex); //+(numPlayers-1) for displaying multiple players
                 cout << replacedLine;
             } else {cout << line; }
         }
