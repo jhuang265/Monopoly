@@ -167,6 +167,7 @@ void Player::goToJail() {
         inJail = true;
         turnsInJail = 0;
         numDoubles = 0;
+        pos = 10;
     } else {
         hasGOJFC = false;
         cout << "You've used your Go To Jail Free Card and you are free to go!"<<endl;
@@ -209,6 +210,7 @@ void Player::print() {
     cout << "Name: "<<name<<endl;
     cout << "Account Balance: "<<money<<endl;
     cout << "Properties Owned: "<<endl;
+    if(hasGOJFC) { cout << "*You have 1 Get Out Of Jail Free Card*" << endl;}
     int cnt=1;
     if(!properties.empty()) {
         for(auto & p : properties) {

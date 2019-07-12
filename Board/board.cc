@@ -19,15 +19,6 @@
 #include <memory>
 #include <map>
 using namespace std;
-map<int,int> boardPos; //pos, rowNum
-map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
-map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
-map<int,int> replacePos; //rowNum, colNum //playerNum, ColNum
-
-//map<int,int> boardPos; //pos, rowNum
-//map<char,pair<int,int> >playerPos; // playerNum : < rowNum, colNum(tileNum) >
-//map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
-//map<int,int> replacePos; //rowNum, colNum
 
 Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}{
     std::string name;
@@ -346,8 +337,9 @@ void Board::rollDiceAndAction(){
     int pos = players[currentPlayer]->getPos();
 
     cout << '\n' << "New Position: " << pos << '\n' << endl;
+
  //   cout<<"You landed on "<< tiles[pos]->getName()<<endl;
-    //printBoard();
+    printBoard();
 
     // Set the location of cards, transportations, utilities and properties
     int cardLocations[] = {2, 7, 17, 22, 33, 36};
@@ -548,14 +540,6 @@ void Board::rollDiceAndAction(){
     }
 }
 
-//bool hasPlayerOnRow(int rowNum) {
-//    for(int i=65; i < 69; ++i) {
-//        cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum: "<<rowNum<<endl;
-//        if(playerPos[i].first == rowNum) return true;
-//    }
-//    return false;
-//}
-
 //every tile has width  12 and height 4
 void Board::printBoard() {
     map<int,int> boardPos; //pos, rowNum
@@ -563,26 +547,25 @@ void Board::printBoard() {
     map<pair<int,int>,int> targetPos; // rowNum:ColNum, playerNum
     map<int,int> replacePos; //rowNum, colNum
 
-    int countLine = 5;
+    int countRow = 5;
 
-    //boardPos Insertion
+    //boardPos Insertion: tileNumber and rowNum
     for(int i = 0; i < 20; i++) {
         if(i <= 10) {
             boardPos.insert(pair<int,int>(i, 41));
             boardPos.insert(pair<int,int>(30-i, 1));
         }
         else if(i > 10 && i < 20) {
-            boardPos.insert(pair<int,int>(i, countLine));
-            boardPos.insert(pair<int,int>(50-i, countLine));
+            boardPos.insert(pair<int,int>(i, 42-countRow));
+            boardPos.insert(pair<int,int>(50-i, 42-countRow));
+            countRow += 4;
         }
     }
-
     //playerPos Insertion
     int c = 65;
-    // playerPos   playerNum : < rowNum, colNum(tileNum) >
+    // playerPos   playerLetter : < rowNum, colNum(tileNum) >
     for(auto& p : players) {
         int rowNum = boardPos[p->getPos()];
-        cerr <<"C IS THIS: "<<c<<endl;
         playerPos.insert(pair<int,pair<int,int> >(c, pair<int,int>(rowNum, p->getPos())));
         ++c;
     }
@@ -597,12 +580,12 @@ void Board::printBoard() {
             //but if we are only displaying one player at a time this may not be required
             while (targetPos.count(pair<int,int>(playerPos[c].first, targetColNum))) {
                 ++targetColNum;
-                cerr<<"while loop: Player: "<<c<<" targetColNum: "<<targetColNum<<endl;
+//                cerr<<"while loop: Player: "<<c<<" targetColNum: "<<targetColNum<<endl;
             }
             int rowNum = playerPos[c].first;
-            cerr<<"Player "<<c<<"targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
+//            cerr<<"Player "<<c<<" tile: "<<playerPos[c].second<<" targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
             targetPos.insert(pair<pair<int,int>,int> (pair<int,int>(rowNum, targetColNum), c));
-            cerr << "replacePos: "<<c <<" "<<targetColNum<<endl;
+//            cerr << "replacePos: "<<c <<" "<<targetColNum<<endl;
             replacePos.insert(pair<int,int>(c, targetColNum));
             ++c;
         }
@@ -613,88 +596,57 @@ void Board::printBoard() {
     string line1 = " |            |                                                                                                       |            |\n";
     string line2 = " |            |            |            |            |            |            |            |            |            |            |\n";
     string divider = " |++++++++++++|                                                                                                       |++++++++++++|\n";
+    int pos = players[currentPlayer]->getPos();
 
     //output board, x: rowNum; y: colNum (horizontal)
+    //yPos also refers to position in x direction
     cout << boarder;
     for(int x = 0; x <= 41; ++x) {
         if(x % 4 == 1) {
         //cerr<<"Currentplayer is "<<currentPlayer<<endl;
             string playerIndex = "";
             string line = "";
-//            for(int i=65; i < 69; ++i) {
-//                cerr <<"playerPos[i].first: "<<playerPos[i].first<<" rowNum(x): "<<x<<endl;
-                if(playerPos[currentPlayer+65].first == x) {
-                    playerIndex += char(currentPlayer+65);
-                }
-//            }
+            // The following attempts to display all players at one time
+//                while (playerPos[c].first == x && (c-65) < numPlayers) {
+//                    playerIndex += char(c);
+//                    c++;
+//                }
+            //Display one player at one time
+            if (playerPos[currentPlayer+65].first == x) {
+                playerIndex += char(currentPlayer+65);
+            }
 
             if(x > 39 || x < 3) { line = line2; } else { line = line1; }
             if(playerIndex != "") {
+                int yPos = -1;
                 int y = replacePos[currentPlayer+65];
-                cerr<<"currentPlayer = "<<currentPlayer+65<<" int x = "<<x<<" int y = "<<y<<endl;
-                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerNum, colNum: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
+//                cerr<<"currentPlayer = "<<currentPlayer+65<<" int x = "<<x<<" int y = "<<y<<endl;
+//                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerNum, colNum: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
                 string replacedLine = line;
-                if(x == 41) {
-                    int xPos = line.length()-y+4;
-                    replacedLine.replace(xPos,playerIndex.length(),playerIndex);
+                if(x == 41 && pos != 10 && pos != 20) {
+                    yPos = line.length()-y+4;
+                    if(replacedLine.at(yPos) == '|') {yPos++;}
+                    replacedLine.replace(yPos,playerIndex.length(),playerIndex);
+                } else if(x == 1) {
+                    yPos = y-4;
+                    if(replacedLine.at(yPos) == '|') {yPos++;}
                 }
-                else {replacedLine.replace(playerIndex.length(),playerIndex.length(),playerIndex);}
+                else {
+                    if (pos >= 10 && pos <= 20) { yPos = 6; }
+                    else if (pos > 30 && pos < 40) { yPos = 120; }
+                }
+                replacedLine.replace(yPos,playerIndex.length(),playerIndex); //+(numPlayers-1) for displaying multiple players
                 cout << replacedLine;
-            }
-        } else if(x == 3 || x == 39) { cout << boarder;}
+            } else {cout << line; }
+        }
+        else if(x == 3 || x == 39) { cout << boarder;}
         else if(x % 4 == 3){
             cout << divider;
-        } else if(x > 39 || x < 3) { cout << line2; }
+        }
+        else if(x > 39 || x < 3) { cout << line2; }
         else { cout << line1; }
     }
     cout << boarder;
-
-  /*  cout << " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
-            " |            |            |            |            |            |            |            |            |            |            |\n"
-           1 " |            |            |            |            |            |            |            |            |            |            |\n"
-            " |            |            |            |            |            |            |            |            |            |            |\n"
-          3  " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-            5" |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-         7   " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-          9  " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-          11  " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-        13    " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-         17   " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-         21   " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-        25    " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-     29       " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-        33    " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|                                                                                                       |++++++++++++|\n"
-            " |            |                                                                                                       |            |\n"
-       37     " |            |                                                                                                       |            |\n"
-            " |            |                                                                                                       |            |\n"
-            " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n"
-            " |            |            |            |            |            |            |            |            |            |            |\n"
-       41     " |            |            |            |            |            |            |            |            |            |            |\n"
-            " |            |            |            |            |            |            |            |            |            |            |\n"
-            " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|++++++++++++|\n";
-*/
    }
 
 void Board::playTurn(){
@@ -709,7 +661,7 @@ void Board::playTurn(){
 
         // Keep playing as long as you haven't reached the end
         for(auto i = players.begin(); i != players.end() && players.size() > 1; ){
-            //printBoard();
+            printBoard();
 
             // Prompt user to make a choice
             cout << endl;
@@ -762,6 +714,7 @@ void Board::playTurn(){
 
             // Roll dice and move
             rollDiceAndAction();
+            printBoard();
 
             // If the current player's money is negative, free their assets and remove player
             //cout << "Money at end of turn: "<<(*i)->getMoney()<< endl;
