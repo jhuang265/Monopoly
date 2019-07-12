@@ -779,7 +779,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "************************************************" << endl;
         return;
     }
-    cout<<"Enter the assets you want to trade by corresponding number and press e to end: "<<endl;
+    cout<<"Enter the assets you want to trade by corresponding number and enter 'e' to end: "<<endl;
     cin>>inputChar;
 
     //push back the vector while the player enters the assets he want to trade
@@ -843,7 +843,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     cout << "Here is the status and assets of  " << targetPlayer->getName()<<endl;
     targetPlayer->print();
     cout<<endl;
-    cout<<"Enter the assets you want from this player and press e to end: "<<endl;
+    cout<<"Enter the assets you want from this player and enter 'e' to end: "<<endl;
 
     //push back the desired assets of the target player according to the input 
     cin>>inputChar;

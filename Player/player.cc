@@ -209,13 +209,13 @@ void Player::clearHasGOJFCard() {
 void Player::print() {
     cout << "Name: "<<name<<endl;
     cout << "Account Balance: "<<money<<endl;
-    cout << "Properties Owned: "<<endl;
+    cout << "Properties Owned: ";
     if(hasGOJFC) { cout << "*You have 1 Get Out Of Jail Free Card*" << endl;}
     int cnt=1;
     if(!properties.empty()) {
         for(auto & p : properties) {
             if (p == properties.back()) {
-                cout << "("<< cnt<< ")"<<p->getName() <<endl;
+                cout << "("<< cnt<< ")"<<p->getName();
                 cnt++;
                 break;
             }
@@ -223,12 +223,12 @@ void Player::print() {
             cnt++;
         }
     }
-
-    cout << "Utilities Owned: "<<endl;
+    cout<<"\n";
+    cout << "Utilities Owned: ";
     if(!utilities.empty()) {
         for(auto & u : utilities) {
             if (u == utilities.back()) {
-                cout <<"("<< cnt<< ")"<< u->getName() <<endl;
+                cout <<"("<< cnt<< ")"<< u->getName();
                 cnt++;
                 break;
             }
@@ -236,12 +236,12 @@ void Player::print() {
             cnt++;
         }
     }
-
-    cout << "Transportations Owned: "<<endl;
+    cout<<"\n";
+    cout << "Transportations Owned: ";
     if(!transportations.empty()) {
         for(auto & t : transportations) {
             if (t == transportations.back()) {
-                cout << "("<< cnt<< ")"<<t->getName() <<endl;
+                cout << "("<< cnt<< ")"<<t->getName();
                 cnt++;
                 break;
             }
@@ -249,6 +249,7 @@ void Player::print() {
             cnt++;
         }
     }
+    cout<<"\n";
 }
 
 // Player has lost, clear all their assets
