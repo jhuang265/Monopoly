@@ -346,6 +346,7 @@ void Board::rollDiceAndAction(){
     int pos = players[currentPlayer]->getPos();
 
     cout << '\n' << "New Position: " << pos << '\n' << endl;
+ //   cout<<"You landed on "<< tiles[pos]->getName()<<endl;
     //printBoard();
 
     // Set the location of cards, transportations, utilities and properties
@@ -379,7 +380,7 @@ void Board::rollDiceAndAction(){
     }
 
     pos = players[currentPlayer]->getPos();
-
+    
     // For some predefined tiles, these are the actions that they should perform.
     switch(pos){
         case 0:
@@ -867,6 +868,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     --targetPlayerIndex;//subtract the input index by one to get the actual matching index of the player in the game
     targetPlayer = players[targetPlayerIndex];
     if(targetPlayer->getNumProperties() + targetPlayer->getNumUtilities() + targetPlayer->getNumTransportations() == 0){
+        cout << "-------------------------------------------------" << endl;
         cout<<"Oops! This player has no asset, you are returned to dice roll"<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
