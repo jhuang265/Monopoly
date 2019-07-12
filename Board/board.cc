@@ -866,6 +866,14 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     }
     --targetPlayerIndex;//subtract the input index by one to get the actual matching index of the player in the game
     targetPlayer = players[targetPlayerIndex];
+    if(targetPlayer->getNumProperties() + targetPlayer->getNumUtilities() + targetPlayer->getNumTransportations() == 0){
+        cout<<"Oops! This player has no asset, you are returned to dice roll"<<endl;
+        cout<< "Press ENTER to continue to roll your dice ";
+        cin.ignore();
+        getline(std::cin, temp);
+        cout << "************************************************" << endl;
+        return;
+    }
     cout << "************************************************" << endl;
     cout << "Here is the status and assets of  " << targetPlayer->getName()<<endl;
     targetPlayer->print();
@@ -914,7 +922,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         }
         break;
     }
-
+    cout << "-------------------------------------------------" << endl;
     cout << "Player " << targetPlayer->getName() << ", do you agree to change the following assets and money with Player " << player->getName()<<"? " << endl;
     cout << endl;
 
