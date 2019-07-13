@@ -31,10 +31,11 @@ class Board{
     public:
 
         Board(int type, int players);
-        //void printCurPlayerStatus();
+        
         // Trading function
         void tradeAssetForMoney(shared_ptr<Player>);
         void tradeAssetForAsset(shared_ptr<Player>);
+        
         // Playing turn
         int rollDice();
         void rollDiceAndAction();
@@ -43,6 +44,8 @@ class Board{
 
         // Auction function
         void auction(std::shared_ptr<Tile>);
+
+        //returns the type of the asset, given its name (ex property, transportation, or utility)
         std::string getAssetType(std::string);
 
         // Display board to user
