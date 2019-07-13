@@ -37,9 +37,14 @@ class Tile{
         Tile(std::string, std::string);
         std::string getType();
         std::string getName();
+
+        //This function is callled when player wants to buy an asset
+        //hence an amount of money is deducted from the player and owner is changed to player pointer
         virtual void buy(std::shared_ptr<Player> p){
             return;
         };
+
+        //Changes the owner of an asset, the new owner will be passed in as an argument
         virtual void changeOwner(std::shared_ptr<Player> p){
             return;
         };

@@ -40,6 +40,7 @@ void Property::buy(shared_ptr<Player> player) {
     isOwned=true;
 
     auto col = color.lock();
+    //Since the property now has a new owner, we need to check if this owner owns all the properties of the same color
     if(canBuild == 0 || canBuild == 1) (*col).updateCanBuild();
 }
 void Property:: changeOwner(shared_ptr<Player> player) {
@@ -49,6 +50,7 @@ void Property:: changeOwner(shared_ptr<Player> player) {
     (*owner).addProperty(getptr());
 
     auto col = color.lock();
+    //Since the property now has a new owner, we need to check if this owner owns all the properties of the same color
     if(canBuild == 0 || canBuild == 1) (*col).updateCanBuild();
 }
 

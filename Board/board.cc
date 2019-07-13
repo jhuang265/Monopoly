@@ -917,7 +917,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
 
     }
     --targetPlayerIndex;//subtract the input index by one to get the actual matching index of the player in the game
-    targetPlayer = players[targetPlayerIndex];
+    targetPlayer = players[targetPlayerIndex];//gets the target player from the the players vector
 
     //if the player that the current player wants to trade with does not have any assset, then return
     if(targetPlayer->getNumProperties() + targetPlayer->getNumUtilities() + targetPlayer->getNumTransportations() == 0){
@@ -1046,8 +1046,8 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     int targetPlayerIndex;
     shared_ptr<Player> targetPlayer;
     vector<string> tradeList;
-
     cout << "************************************************" << endl;
+
     //if the player has no asset to trade, kick him out
     if(player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations() == 0){
         cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
@@ -1061,14 +1061,12 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     cout << "Here is your status and all your assets:" << endl;
     player->print();
     cout << endl;
-
     cout << "Enter the assets you want to trade by corresponding number. Then enter \'e\' when you have entered all the properties you wish to trade: "<<endl;
     cin >> inputChar;
 
     //accepts the index of the asset and emplace back the name of the asset to the vector tradeList
     while(inputChar!='e'){
         if((int)inputChar-48 <= (player->getNumProperties() + player->getNumUtilities() + player->getNumTransportations())){
-
             if((int)inputChar-48<= player->getNumProperties()){
                 tradeList.emplace_back(player->propertyNameAtIndex((int)inputChar-48-1));
             }
@@ -1168,7 +1166,6 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
 }
 
 void Board::auction(std::shared_ptr<Tile> t){
-
     std::cout << '\n';
     std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
     std::cout << "Entered an auction phase" << endl;
@@ -1243,11 +1240,12 @@ void Board::auction(std::shared_ptr<Tile> t){
     players[maxPlayerIndex]->receiveMoney(t->getPrice());
     players[maxPlayerIndex]->payMoney(maxBid);
     std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << '\n' << std::endl;
-
     return;
 }
 
 string Board::getAssetType( string name){
+    //Given the name of a propety, it loops through the vectors of each type of asset and return type of the asset.
+    //This method is guarenteed to get a valid argument passed in
     for(size_t i = 0; i < properties.size(); i++) {
         if(properties[i]->getName() == name) {
             return properties[i]->getType();
