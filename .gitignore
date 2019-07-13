@@ -32,4 +32,6 @@
 *.app
 *monopoly
 
+
+*.pdf
 *.DS_Store
