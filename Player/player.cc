@@ -75,21 +75,21 @@ void Player::removeAsset(shared_ptr<Tile> tile) {
     string name = tile->getName();
     vector<shared_ptr<Tile> > asset;
     if(type == "Property") {
-        for(int i = 0; i < properties.size(); ++i) {
+        for(size_t i = 0; i < properties.size(); ++i) {
             if(properties[i]->getName() == name) {
                 properties.erase(properties.begin()+i);
                 break;
             }
         }
     } else if(type == "Utility") {
-        for(int i = 0; i < utilities.size(); ++i) {
+        for(size_t i = 0; i < utilities.size(); ++i) {
             if(utilities[i]->getName() == name) {
                 utilities.erase(utilities.begin()+i);
                 break;
             }
         }
     } else if(type == "Transportation") {
-        for(int i = 0; i < transportations.size(); ++i) {
+        for(size_t i = 0; i < transportations.size(); ++i) {
             if(transportations[i]->getName() == name) {
                 transportations.erase(transportations.begin()+i);
                 break;
@@ -100,6 +100,19 @@ void Player::removeAsset(shared_ptr<Tile> tile) {
 }
 
 // Get the specific asset at an index
+shared_ptr<Tile> Player:: returnAsset(string name) {
+    for(auto &p : properties) {
+         if(p->getName() == name) return p;
+     }
+    for(auto &u : utilities) {
+         if(u->getName() == name) return u;
+     }
+    for(auto &t : transportations) {
+         if(t->getName() == name) return t;
+     }
+     return nullptr;
+}
+/*
 shared_ptr<Property> Player:: returnProperty(string name) {
     for(auto &p : properties) {
          if(p->getName() == name) return p;
@@ -120,7 +133,7 @@ shared_ptr<Transportation> Player:: returnTransportation(string name) {
      }
      return nullptr;
 }
-
+*/
 
 // Get how many of each asset type is owned
 int Player::getNumUtilities() { return utilities.size(); }
