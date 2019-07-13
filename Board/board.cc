@@ -34,10 +34,15 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
         std::cout << playerEmojiInit[i] <<" Enter the name for Player "<< (i+1) << ": ";
         std::cin >> name;
         auto player = std::make_shared<Player>(name, i);
+        players.emplace_back(player);
+        /*
         if(find(players.begin(), players.end(), player) != players.end()) {
             std::cout << "~ Please enter a different name ~"<<endl;
             i--;
-        } else {players.emplace_back(player);}
+        } else {
+            players.emplace_back(player);
+        }
+        */
     }
 
     // Set up the board and all the tiles
@@ -183,7 +188,7 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
 
     tiles.emplace_back(d1);
     tiles.emplace_back(d2);
-    tiles.emplace_back(d3); 
+    tiles.emplace_back(d3);
     tiles.emplace_back(d4);
     tiles.emplace_back(d5);
     tiles.emplace_back(d6);
@@ -615,7 +620,7 @@ void Board::printBoard() {
 
     //targetPos: Set resulting replace index on a row in the string
     c = 65;
-    for(int i=0;i < numPlayers; ++i) {
+    for(int i=0; i < numPlayers; ++i) {
         int colNum = (playerPos[c].second)%10 + 1;;
         int targetColNum = colNum*12; //-8 if L -> R
         if(playerPos.count(c)) {
@@ -766,7 +771,7 @@ void Board::playTurn(){
             // Prompt user to make a choice
             cout << endl;
             cout << "-------------------------------------------------" << endl;
-            cout << (*i)->getName() << "'s turn." << endl;
+            cout << "Player " << (*i)->getIndex()+1 << "'s turn." << endl;
             (*i)->print();//prints status of cur player
             cout << endl;
 
@@ -797,6 +802,7 @@ void Board::playTurn(){
                 cout << "You have two options for trade: " << endl;
                 cout << "1)Trade your current assets for money of another player (Enter 1)" << endl;
                 cout << "2)Trade your current assets and money with another player (Enter 2)" << endl;
+                cout << "Enter the type of trade you would like to conduct: ";
                 cin >> choice;
                 while(choice != '1' && choice != '2' ){
                     cout << "Please enter a valid choice: ";
@@ -872,6 +878,10 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "************************************************" << endl;
         return;
     }
+    cout << endl;
+    cout << "Here is your status and all your assets:" << endl;
+    player->print();
+    cout << endl;
     cout<<"Enter the assets you want to trade by corresponding number and enter 'e' to end: "<<endl;
     cin>>inputChar;
 
@@ -903,7 +913,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         return;
     }
     cout << "************************************************" << endl;
-    cout<<"Select a player from the folliwng list you want to trade with (enter their number):"<<endl;
+    cout<<"Select a player from the following list you want to trade with (enter their number):"<<endl;
     //print out the available players to trade with
     for(size_t p = 0 ; p < players.size() ; p++){
         if(players[p]->getIndex() == player->getIndex()){
@@ -938,7 +948,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     cout<<endl;
     cout<<"Enter the assets you want from this player and enter 'e' to end: "<<endl;
 
-    //push back the desired assets of the target player according to the input 
+    //push back the desired assets of the target player according to the input
     cin>>inputChar;
     while(inputChar!='e'){
         if((int)inputChar-48 <= (targetPlayer->getNumProperties() + targetPlayer->getNumUtilities() + targetPlayer->getNumTransportations())){
@@ -981,16 +991,27 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         break;
     }
 
-    //asks the target player if he agrees to trade 
+    //asks the target player if he agrees to trade
     cout << "************************************************" << endl;
     cout << "Player " << targetPlayer->getName() << ", do you agree to change the following assets and money with Player " << player->getName()<<"? " << endl;
     cout << endl;
 
-    //prints the assets and money being traded 
-    for(int x =0 ;x<targetTradeList.size();x++){
+    //prints the assets and money being traded
+    cout << "You give up:";
+    for(size_t x = 0; x < targetTradeList.size(); x++){
         cout << targetTradeList[x] << endl;
     }
-    cout << "Money to exchange: $" << desiredMoney << endl;
+    if(desiredMoney > 0){
+        cout << "Money you give: $" << desiredMoney << endl;
+    }
+    cout << endl;
+    cout << "You get:";
+    for(size_t x = 0; x < tradeList.size(); x++){
+        cout << tradeList[x] << endl;
+    }
+    if(desiredMoney < 0){
+        cout << "Money you get: $" << desiredMoney << endl;
+    }
 
     //ask the target player if he agrees to trade
     cout<<"Enter Y/N: ";
@@ -1012,6 +1033,8 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
 
     //trade the properties between the two players by looping the two vectors, and call changeOwner method for each property
     for(size_t x = 0; x < tradeList.size(); x++){
+        (player->returnAsset(tradeList[x]))->changeOwner(targetPlayer);
+        /*
         if(getAssetType(tradeList[x]) == "Transportation"){
             (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);//get transportation ptr from its name, then change owner
         }
@@ -1021,9 +1044,12 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         else{
             (player->returnUtility(tradeList[x]))->changeOwner(targetPlayer);//get utility ptr from its name, then change owner
         }
+        */
     }
 
     for(size_t x = 0; x < targetTradeList.size(); x++){
+        (targetPlayer->returnAsset(targetTradeList[x]))->changeOwner(player);
+        /*
         if(getAssetType(targetTradeList[x]) == "Transportation"){
             (targetPlayer->returnTransportation(targetTradeList[x]))->changeOwner(player);//get transportation ptr from its name, then change owner
         }
@@ -1033,6 +1059,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         else{
             (targetPlayer->returnUtility(targetTradeList[x]))->changeOwner(player);//get utility ptr from its name, then change owner
         }
+        */
     }
 
     //trade the money that was being agreed upon
@@ -1065,8 +1092,13 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         cout << "************************************************" << endl;
         return;
     }
-    cout<<"Enter the assets you want to trade by corresponding number. Then enter \'e\' when you have entered all the properties you wish to trade: "<<endl;
-    cin>>inputChar;
+    cout << endl;
+    cout << "Here is your status and all your assets:" << endl;
+    player->print();
+    cout << endl;
+
+    cout << "Enter the assets you want to trade by corresponding number. Then enter \'e\' when you have entered all the properties you wish to trade: "<<endl;
+    cin >> inputChar;
 
     //accepts the index of the asset and emplace back the name of the asset to the vector tradeList
     while(inputChar!='e'){
@@ -1151,6 +1183,8 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         player->receiveMoney(desiredMoney);
         targetPlayer->payMoney(desiredMoney);
         for(size_t x = 0; x < tradeList.size(); x++){
+            (player->returnAsset(tradeList[x]))->changeOwner(targetPlayer);
+            /*
             if(getAssetType(tradeList[x]) == "Transportation"){
                 (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);//get transportation ptr from its name, then change owner
             }
@@ -1160,6 +1194,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
             else{
                 (player->returnUtility(tradeList[x]))->changeOwner(targetPlayer);//get utility ptr from its name, then change owner
             }
+            */
         }
     }
 

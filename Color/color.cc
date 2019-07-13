@@ -8,7 +8,7 @@ Color::Color(){}
 void Color::updateCanBuild(){
     int index = -1;
 
-    // We first need to check that all properties are owned. If not, then we don't need to check any further 
+    // We first need to check that all properties are owned. If not, then we don't need to check any further
     if(properties[0]->getIsOwned()) {
         // Get the owner of the first property
         index = properties[0]->getOwnerIndex();
@@ -22,20 +22,20 @@ void Color::updateCanBuild(){
     bool setBuild = properties[0]->getCanBuild();
 
     // First switch the status of each property
-    for(int i = 0; i < properties.size(); ++i){
+    for(size_t i = 0; i < properties.size(); ++i){
         properties[i]->setCanBuild();
     }
 
     // Now, if the owners are different, then we set a flag to false
     setBuild = true;
 
-    for (int i = 1; i < properties.size(); ++i){
+    for (size_t i = 1; i < properties.size(); ++i){
         if(!(properties[i]->getIsOwned()) || properties[i]->getOwnerIndex() != index){
             setBuild = false;
         }
     }
 
-    // Now compare the flag with the original status. 
+    // Now compare the flag with the original status.
     // If the owners are different and the buildings originally couldn't be built on, then we revert the state
     // If they are the same but we originally couldn't build, now we can
     // If we could originally build and the owners are still the same, then we revert to the can build state
