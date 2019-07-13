@@ -758,7 +758,7 @@ void Board::playTurn(){
             // Prompt user to make a choice
             cout << endl;
             cout << "-------------------------------------------------" << endl;
-            cout << "Player " << (*i)->getIndex()+1 << "'s turn." << endl;
+            cout << "Player " << (char)((*i)->getIndex()+65) << "'s turn." << endl;
             (*i)->print();//prints status of cur player
             cout << endl;
 
