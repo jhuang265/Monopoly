@@ -415,15 +415,17 @@ void Board::rollDiceAndAction(){
             if(transportations[i]->getIsOwned() && players[currentPlayer]->getIndex() != transportations[i]->getOwnerIndex()){
                 cout << "You have to pay rent for landing on owned transportation." << endl;
 
+                int rent = (players[currentPlayer]->getMoney() > transportations[i]->getRent())? transportations[i]->getRent(): players[currentPlayer]->getMoney();
+
                 cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
-                players[currentPlayer]->payMoney(transportations[i]->getRent());
+                players[currentPlayer]->payMoney(rent);
                 cout << "Rent: " << transportations[i]->getRent() << endl;
                 cout << "Money after paying rent: " << players[currentPlayer]->getMoney() << endl;
 
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == transportations[i]->getOwnerIndex()){
-                        (*j)->receiveMoney(transportations[i]->getRent());
+                        (*j)->receiveMoney(rent);
                     }
                 }
 
@@ -461,15 +463,17 @@ void Board::rollDiceAndAction(){
             if(utilities[i]->getIsOwned() && players[currentPlayer]->getIndex() != utilities[i]->getOwnerIndex()){
                 cout << "You have to pay rent for landing on an owned utility." << endl;
 
+                int rent = (players[currentPlayer]->getMoney() > utilities[i]->getUtilityRent(firstRoll+secondRoll))? utilities[i]->getUtilityRent(firstRoll+secondRoll): players[currentPlayer]->getMoney();
+
                 cout << "Money before rent: " << players[currentPlayer]->getMoney() << endl;
-                cout << "Rent you had to pay: " << utilities[i]->getUtilityRent(firstRoll+secondRoll) << endl;
-                players[currentPlayer]->payMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
+                cout << "Rent you had to pay: " << rent << endl;
+                players[currentPlayer]->payMoney(rent);
                 cout << "Money after rent: " << players[currentPlayer]->getMoney() << endl;
 
 
                 for(auto j = players.begin(); j != players.end(); j++){
                     if((*j)->getIndex() == utilities[i]->getOwnerIndex()){
-                        (*j)->receiveMoney(utilities[i]->getUtilityRent(firstRoll+secondRoll));
+                        (*j)->receiveMoney(rent);
                     }
                 }
 
@@ -506,14 +510,16 @@ void Board::rollDiceAndAction(){
                 if(players[currentPlayer]->getIndex() != properties[i]->getOwnerIndex()){
                     cout << "You have to pay rent for landing on owned property." << endl;
 
+                    int rent = (players[currentPlayer]->getMoney() > properties[i]->getRent())? properties[i]->getRent(): players[currentPlayer]->getMoney();
+
                     cout << "Money before paying rent: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Rent to pay: " << properties[i]->getRent() << endl;
-                    players[currentPlayer]->payMoney(properties[i]->getRent());
+                    players[currentPlayer]->payMoney(rent);
                     cout << "Money after paying rent: " << players[currentPlayer]->getMoney() << endl;
 
                     for(auto j = players.begin(); j != players.end(); j++){
                         if((*j)->getIndex() == properties[i]->getOwnerIndex()){
-                            (*j)->receiveMoney(properties[i]->getRent());
+                            (*j)->receiveMoney(rent);
                         }
                     }
                 }
