@@ -984,7 +984,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     cout << endl;
 
     //prints the assets and money being traded
-    cout << "You give up:";
+    cout << "You give up:" << endl;
     for(size_t x = 0; x < targetTradeList.size(); x++){
         cout << targetTradeList[x] << endl;
     }
@@ -992,7 +992,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "Money you give: $" << desiredMoney << endl;
     }
     cout << endl;
-    cout << "You get:";
+    cout << "You get:" << endl;
     for(size_t x = 0; x < tradeList.size(); x++){
         cout << tradeList[x] << endl;
     }
@@ -1126,7 +1126,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     cout << "************************************************" << endl;
     cout << "Player "<< targetPlayer->getName()<< ", do you agree to change $"<< desiredMoney << " with Player "<< player->getName()<<"? (Y/N)"<<endl;
     cout << endl;
-    cout << "You get:";
+    cout << "You get:" << endl;
     for(size_t x = 0; x < tradeList.size(); x++){
         cout << tradeList[x] << endl;
     }
