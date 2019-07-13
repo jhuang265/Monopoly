@@ -258,19 +258,6 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     colors.emplace_back(red);
     colors.emplace_back(green);
     colors.emplace_back(blue);
-/*
-    std::shared_ptr<loseMoneyCard> c1 = std::make_shared<loseMoneyCard>();
-    std::shared_ptr<getMoneyCard> c2 = std::make_shared<getMoneyCard>();
-    std::shared_ptr<GOJFCard> c3 = std::make_shared<GOJFCard>();
-    std::shared_ptr<GTJCard> c4 = std::make_shared<GTJCard>();
-    std::shared_ptr<moveCard> c5 = std::make_shared<moveCard>();
-
-    cards.emplace_back(c1);
-    cards.emplace_back(c2);
-    cards.emplace_back(c3);
-    cards.emplace_back(c4);
-    cards.emplace_back(c5);
-*/
 }
 
 int Board::rollDice(){
@@ -1034,32 +1021,10 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     //trade the properties between the two players by looping the two vectors, and call changeOwner method for each property
     for(size_t x = 0; x < tradeList.size(); x++){
         (player->returnAsset(tradeList[x]))->changeOwner(targetPlayer);
-        /*
-        if(getAssetType(tradeList[x]) == "Transportation"){
-            (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);//get transportation ptr from its name, then change owner
-        }
-        else if(getAssetType(tradeList[x]) == "Property" ){
-            (player->returnProperty(tradeList[x]))->changeOwner(targetPlayer);//get property ptr from its name, then change owner
-        }
-        else{
-            (player->returnUtility(tradeList[x]))->changeOwner(targetPlayer);//get utility ptr from its name, then change owner
-        }
-        */
     }
 
     for(size_t x = 0; x < targetTradeList.size(); x++){
         (targetPlayer->returnAsset(targetTradeList[x]))->changeOwner(player);
-        /*
-        if(getAssetType(targetTradeList[x]) == "Transportation"){
-            (targetPlayer->returnTransportation(targetTradeList[x]))->changeOwner(player);//get transportation ptr from its name, then change owner
-        }
-        else if(getAssetType(targetTradeList[x]) == "Property" ){
-            (targetPlayer->returnProperty(targetTradeList[x]))->changeOwner(player);//get property ptr from its name, then change owner
-        }
-        else{
-            (targetPlayer->returnUtility(targetTradeList[x]))->changeOwner(player);//get utility ptr from its name, then change owner
-        }
-        */
     }
 
     //trade the money that was being agreed upon
@@ -1161,8 +1126,13 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     }
 
     cout << "************************************************" << endl;
-    cout<<"Player "<< targetPlayer->getName()<< ", do you agree to change $"<< desiredMoney << " with Player "<< player->getName()<<" (Y/N) "<<endl;
-    cin>>inputChar;
+    cout << "Player "<< targetPlayer->getName()<< ", do you agree to change $"<< desiredMoney << " with Player "<< player->getName()<<"? (Y/N)"<<endl;
+    cout << endl;
+    cout << "You get:";
+    for(size_t x = 0; x < tradeList.size(); x++){
+        cout << tradeList[x] << endl;
+    }
+    cin >> inputChar;
 
     //must input valid choice
     while(inputChar!='Y' && inputChar!= 'N'){
@@ -1184,17 +1154,6 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         targetPlayer->payMoney(desiredMoney);
         for(size_t x = 0; x < tradeList.size(); x++){
             (player->returnAsset(tradeList[x]))->changeOwner(targetPlayer);
-            /*
-            if(getAssetType(tradeList[x]) == "Transportation"){
-                (player->returnTransportation(tradeList[x]))->changeOwner(targetPlayer);//get transportation ptr from its name, then change owner
-            }
-            else if(getAssetType(tradeList[x]) == "Property" ){
-                (player->returnProperty(tradeList[x]))->changeOwner(targetPlayer);//get property ptr from its name, then change owner
-            }
-            else{
-                (player->returnUtility(tradeList[x]))->changeOwner(targetPlayer);//get utility ptr from its name, then change owner
-            }
-            */
         }
     }
 

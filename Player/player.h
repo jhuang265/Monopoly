@@ -43,11 +43,7 @@ class Player {
         void addTransportation(shared_ptr<Transportation>);
         void removeAsset(shared_ptr<Tile> tile);
         std::shared_ptr<Tile> returnAsset(std::string);
-        /*
-        std::shared_ptr<Property> returnProperty(std::string);
-        std::shared_ptr<Utility> returnUtility(std::string);
-        std::shared_ptr<Transportation> returnTransportation(std::string);
-        */
+
         int getNumUtilities();
         int getNumTransportations();
         int getNumProperties();

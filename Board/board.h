@@ -27,15 +27,14 @@ class Board{
         int currentPlayer;
         // Keep track of active players
         std::vector<std::shared_ptr<Player>> players;
-        //std::vector<shared_ptr<Card>> cards;
     public:
 
         Board(int type, int players);
-        
+
         // Trading function
         void tradeAssetForMoney(shared_ptr<Player>);
         void tradeAssetForAsset(shared_ptr<Player>);
-        
+
         // Playing turn
         int rollDice();
         void rollDiceAndAction();
