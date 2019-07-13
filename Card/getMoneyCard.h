@@ -2,13 +2,13 @@
 #define __getMoneyCard_H__
 #include "card.h"
 
-class getMoneyCard: public Card {
+class GetMoneyCard: public Card {
     vector<string> desc;
 
     public:
-        getMoneyCard();
+        GetMoneyCard();
         void use(std::shared_ptr<Player>);
-        ~getMoneyCard();
+        ~GetMoneyCard();
 };
 
 #endif

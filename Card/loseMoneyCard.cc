@@ -4,7 +4,7 @@
 
 using namespace std;
 
-loseMoneyCard::loseMoneyCard() {
+LoseMoneyCard::LoseMoneyCard() {
     desc.emplace_back("You got involved with a loan shark: ");
     desc.emplace_back("Spent too much money buying chicken wraps: ");
     desc.emplace_back("Mr. Goose got mad! ");
@@ -13,7 +13,7 @@ loseMoneyCard::loseMoneyCard() {
     desc.emplace_back("You got catfished: ");
 }
 
-void loseMoneyCard::use(shared_ptr<Player> p) {
+void LoseMoneyCard::use(shared_ptr<Player> p) {
     //int debt = (rand()%1000) + 100;
     //int i = rand()%2; //2 for now since only 3 cards
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
@@ -26,5 +26,5 @@ void loseMoneyCard::use(shared_ptr<Player> p) {
     p->payMoney(debt);
 }
 
-loseMoneyCard::~loseMoneyCard() {}
+LoseMoneyCard::~LoseMoneyCard() {}
 

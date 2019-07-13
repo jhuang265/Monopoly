@@ -27,6 +27,7 @@ class Board{
         int currentPlayer;
         // Keep track of active players
         std::vector<std::shared_ptr<Player>> players;
+
     public:
 
         Board(int type, int players);

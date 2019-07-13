@@ -2,13 +2,12 @@
 #define __loseMoneyCard_H__
 #include "card.h"
 
-class loseMoneyCard {
- vector<string> desc;
-
- public:
-  loseMoneyCard();
-  void use(shared_ptr<Player>);
-  ~loseMoneyCard();
+class LoseMoneyCard {
+        vector<string> desc;
+    public:
+        LoseMoneyCard();
+        void use(shared_ptr<Player>);
+        ~LoseMoneyCard();
 };
 
 #endif

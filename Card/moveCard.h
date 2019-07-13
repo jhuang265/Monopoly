@@ -2,11 +2,11 @@
 #define __moveCard_H__
 #include "card.h"
 
-class moveCard: public Card {
+class MoveCard: public Card {
     public:
-        moveCard();
+        MoveCard();
         void use(shared_ptr<Player>);
-        ~moveCard();
+        ~MoveCard();
 };
 
 #endif

@@ -6,8 +6,9 @@ using namespace std;
 
 //check in Board what the play's position has been changed to
 
-moveCard::moveCard() {}
-void moveCard::use(shared_ptr<Player> p) {
+MoveCard::MoveCard() {}
+
+void MoveCard::use(shared_ptr<Player> p) {
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> dis(0, 39);
@@ -18,5 +19,4 @@ void moveCard::use(shared_ptr<Player> p) {
     cout << endl;
 }
 
-moveCard::~moveCard() {}
-
+MoveCard::~MoveCard() {}

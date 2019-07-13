@@ -19,7 +19,6 @@ bool Utility:: getIsOwned() {
 void Utility:: buy(shared_ptr<Player> player) {
     owner = player.get();
     (*owner).payMoney(cost);
-    //(*owner).addUtility(getptr());
     isOwned=true;
 }
 

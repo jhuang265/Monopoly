@@ -4,7 +4,7 @@
 
 using namespace std;
 
-getMoneyCard::getMoneyCard() {
+GetMoneyCard::GetMoneyCard() {
     desc.emplace_back("It's My Birthday! ");
     desc.emplace_back("Yon won a lottery! ");
     desc.emplace_back("Here's a gift from Mr. Goose. ");
@@ -12,7 +12,7 @@ getMoneyCard::getMoneyCard() {
     desc.emplace_back("You successfully blackmailed your dad for having an affair. ");
 }
 
-void getMoneyCard::use(shared_ptr<Player> p) {
+void GetMoneyCard::use(shared_ptr<Player> p) {
     //int bonus = (rand()%1000) + 100;
     //int i = rand()%2; //2 for now since only 3 cards
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
@@ -25,5 +25,5 @@ void getMoneyCard::use(shared_ptr<Player> p) {
     p->receiveMoney(bonus);
 }
 
-getMoneyCard::~getMoneyCard() {}
+GetMoneyCard::~GetMoneyCard() {}
 

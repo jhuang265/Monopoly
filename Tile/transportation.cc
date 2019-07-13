@@ -21,7 +21,6 @@ bool Transportation:: getIsOwned() {
 void Transportation:: buy(shared_ptr<Player> player) {
     owner = player.get();
     (*owner).payMoney(cost);
-    //(*owner).addTransportation(getptr());
     isOwned=true;
 }
 

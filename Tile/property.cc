@@ -32,16 +32,11 @@ int Property:: getRent() {
 bool Property:: getIsOwned() {
     return isOwned;
 }
-/*
-shared_ptr<Player> Property:: getOwner() {
-    return owner.lock();
-}
-*/
+
 void Property::buy(shared_ptr<Player> player) {
     owner = player.get();
 
     (*owner).payMoney(cost);
-    //(*owner).addProperty(getptr());
     isOwned=true;
 
     auto col = color.lock();

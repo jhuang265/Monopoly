@@ -357,11 +357,11 @@ void Board::rollDiceAndAction(){
     int utilLocations[] = {12, 28};
     int propertyLocations[] = {1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39};
 
-    loseMoneyCard c1{};
-    getMoneyCard c2{};
+    LoseMoneyCard c1{};
+    GetMoneyCard c2{};
     GTJCard c3{};
     GOJFCard c4{};
-    moveCard c5{};
+    MoveCard c5{};
 
     // If the player landed on a card, use it and return
     for(size_t i = 0; i < 6; i++){
