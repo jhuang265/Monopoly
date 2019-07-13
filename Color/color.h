@@ -15,7 +15,7 @@ class Color{
         std::vector<std::shared_ptr<Property>> properties;
     public:
         // Functions to update building houses, get color name and assign property to a color
-        Color();
+        Color(std::string);
         std::string getColor();
         void updateCanBuild();
         void attach(std::shared_ptr<Property>);

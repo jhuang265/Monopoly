@@ -48,14 +48,14 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     // Set up the board and all the tiles
     int initialBuild = (type == 1)? 0: -1;
 
-    std::shared_ptr<Color> brown = std::make_shared<Color>();
-    std::shared_ptr<Color> lblue = std::make_shared<Color>();
-    std::shared_ptr<Color> pink = std::make_shared<Color>();
-    std::shared_ptr<Color> orange = std::make_shared<Color>();
-    std::shared_ptr<Color> red = std::make_shared<Color>();
-    std::shared_ptr<Color> yellow = std::make_shared<Color>();
-    std::shared_ptr<Color> green = std::make_shared<Color>();
-    std::shared_ptr<Color> blue = std::make_shared<Color>();
+    std::shared_ptr<Color> brown = std::make_shared<Color>("Brown");
+    std::shared_ptr<Color> lblue = std::make_shared<Color>("Light Blue");
+    std::shared_ptr<Color> pink = std::make_shared<Color>("Pink");
+    std::shared_ptr<Color> orange = std::make_shared<Color>("Orange");
+    std::shared_ptr<Color> red = std::make_shared<Color>("Red");
+    std::shared_ptr<Color> yellow = std::make_shared<Color>("Yellow");
+    std::shared_ptr<Color> green = std::make_shared<Color>("Green");
+    std::shared_ptr<Color> blue = std::make_shared<Color>("Blue");
 
     std::shared_ptr<Tile> d1 = std::make_shared<Tile>("Go", "Go");
 

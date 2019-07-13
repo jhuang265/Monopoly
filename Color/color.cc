@@ -3,7 +3,7 @@
 #include "./../Tile/property.h"
 using namespace std;
 
-Color::Color(){}
+Color::Color(std::string name): color{name}{}
 
 void Color::updateCanBuild(){
     int index = -1;
