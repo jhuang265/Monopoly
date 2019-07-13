@@ -312,7 +312,7 @@ void Board::rollDiceAndAction(){
         char yn;
         std::cout << "You are in jail. Would you like to pay your way out? (Y/N): ";
         std::cin >> yn;
-        if(yn == 'Y' && players[currentPlayer]->getMoney() >= 50){
+        if((yn == 'Y' || yn == 'y') && players[currentPlayer]->getMoney() >= 50){
             players[currentPlayer]->payMoney(50);
             players[currentPlayer]->release();
             std::cout << "You are now out of jail." << std::endl;
@@ -325,7 +325,6 @@ void Board::rollDiceAndAction(){
     // Roll the dice twice and show the user
     int firstRoll = rollDice();
     int secondRoll = rollDice();
-    cout << "You rolled: " << firstRoll << " and " << secondRoll << endl;
 
     // If it wasn't a double and the user is still in jail, they have to stay in jail for a turn
     if(firstRoll != secondRoll && players[currentPlayer]->isInJail()){
@@ -357,12 +356,13 @@ void Board::rollDiceAndAction(){
 
     // Move the player and get their new position
     players[currentPlayer]->move(firstRoll+secondRoll);
-
     int pos = players[currentPlayer]->getPos();
 
+    printBoard();
+
+    cout << "You rolled: " << firstRoll << " and " << secondRoll << endl;
     cout << '\n' << "New Position: " << pos << '\n' << endl;
     cout<<endl;
-    printBoard();
 
     // Set the location of cards, transportations, utilities and properties
     int cardLocations[] = {4, 7, 17, 22, 33, 36};
@@ -456,7 +456,7 @@ void Board::rollDiceAndAction(){
                 std::cin >> yn;
 
                 // See if the user can buy it without needing to go through an auction
-                if(yn == 'Y' && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
+                if( (yn == 'Y' || yn == 'y') && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << transportations[i]->getPrice() << endl;
                     transportations[i]->buy(players[currentPlayer]);
@@ -500,7 +500,7 @@ void Board::rollDiceAndAction(){
                                             utilities[i]->getPrice()<<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
 
-                if(yn == 'Y' && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
+                if((yn == 'Y' || yn == 'y')  && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << utilities[i]->getPrice() << endl;
                     utilities[i]->buy(players[currentPlayer]);
@@ -540,7 +540,7 @@ void Board::rollDiceAndAction(){
                             char yn;
                             std::cout << "You have enough money to buy a new house. Would you like to buy it? (Y/N): ";
                             std::cin >> yn;
-                            if(yn == 'Y'){
+                            if((yn == 'Y' || yn == 'y')){
                                 players[currentPlayer]->payMoney((properties[i]->getHouses()+1) * 50);
                                 properties[i]->buyHouse();
                             }
@@ -554,7 +554,7 @@ void Board::rollDiceAndAction(){
                                                             properties[i]->getPrice()    <<". Would you like to buy it? (Y/N): ";
                 std::cin >> yn;
 
-                if(yn == 'Y' && players[currentPlayer]->getMoney() >= properties[i]->getPrice()){
+                if((yn == 'Y' || yn == 'y') && players[currentPlayer]->getMoney() >= properties[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
                     cout << "Cost: " << properties[i]->getPrice() << endl;
                     properties[i]->buy(players[currentPlayer]);
@@ -578,7 +578,7 @@ void Board::printBoard() {
     map<int,int> replacePos; //rowNum, colNum
     map<int,int> tilesPos; //rowNum, left tileNum
     map<int, string> playerEmoji;
-//    vector<string> tileNames;
+    map<int, pair<pair<int,int>,string> > playerLocations; //playerNum, <rowNum, colNum>, playerIndex
 
     int countRow = 5;
 
@@ -622,32 +622,22 @@ void Board::printBoard() {
     c = 65;
     for(int i=0; i < numPlayers; ++i) {
         int colNum = (playerPos[c].second)%10 + 1;;
-//        if(playerPos[c].second == 0 || playerPos[c].second == 41) {colNum = (playerPos[c].second)%10 + 1;}
-//        else colNum = (playerPos[c].second)%10;
         int targetColNum = colNum*12; //-8 if L -> R
         if(playerPos.count(c)) {
-            //while loop is intended to get all players on this line right now
-            //but if we are only displaying one player at a time this may not be required
             while (targetPos.count(pair<int,int>(playerPos[c].first, targetColNum))) {
                 ++targetColNum;
-//                cerr<<"while loop: Player: "<<c<<" targetColNum: "<<targetColNum<<endl;
             }
             int rowNum = playerPos[c].first;
-//            cerr<<"Player "<<c<<" tile: "<<playerPos[c].second<<" targetPos---------"<<"("<<rowNum<<", "<<targetColNum<<")"<<" "<<c<<endl;
             targetPos.insert(pair<pair<int,int>,int> (pair<int,int>(rowNum, targetColNum), c));
-//            cerr << "replacePos: "<<c <<" "<<targetColNum<<endl;
             replacePos.insert(pair<int,int>(c, targetColNum));
             ++c;
         }
     }
 
-    c = 65;
     string boarder = " |++++++++++++|+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|\n";
     string line1 =   " |            |                                                                                                                    |            |\n";
     string line2 =   " |            |            |            |            |            |            |            |            |            |            |            |\n";
     string divider = " |++++++++++++|                                                                                                                    |++++++++++++|\n";
-    int pos = players[currentPlayer]->getPos();
-
     //output board, x: rowNum; y: colNum (horizontal)
     //yPos also refers to position in x direction
     cout << boarder;
@@ -704,45 +694,52 @@ void Board::printBoard() {
             cout << tileNameLine<<endl;
         }
         else if(x % 4 == 1) {
-        //cerr<<"Currentplayer is "<<currentPlayer<<endl;
             string playerIndex = "";
             string line = "";
-            // The following attempts to display all players at one time
-//                while (playerPos[c].first == x && (c-65) < numPlayers) {
-//                    playerIndex += char(c);
-//                    c++;
-//                }
-            //Display one player at one time
-            if (playerPos[currentPlayer+65].first == x) {
-                string playerSymbol = playerEmoji[currentPlayer+65];
-                playerIndex += playerSymbol;
-                playerIndex += char(currentPlayer+65);
-            }
-
+            bool hasPlayerAtLine = false;
+            c = 65;
+                while ((c-65) < numPlayers) {
+                    playerIndex = "";
+                    string playerSymbol = playerEmoji[c];
+                    playerIndex += playerSymbol;
+                    playerIndex += char(c);
+                    int rowNum = playerPos[c].first;
+                    int colNum = players[c-65]->getPos();
+                    playerLocations.insert(pair<int,pair< pair<int,int>, string> >(c,pair< pair<int,int>,string > (pair<int,int>(rowNum,colNum), playerIndex)));
+                    if(playerPos[c].first == x) hasPlayerAtLine = true;
+                    c++;
+                }
+//            for(auto & p : playerLocations) {
+//                cerr<<p.first<<" "<<p.second.first.first<<" "<<p.second.first.second<<" "<<p.second.second<<endl;
+//            }
             if(x > 39 || x < 3) { line = line2; } else { line = line1; }
-            if(playerIndex != "") {
-                int yPos = -1;
-                int y = replacePos[currentPlayer+65];
-//                cerr<< "Pos: "<<pos<<endl;
-//                cerr<<"currentPlayer = "<<currentPlayer+65<<" int x = "<<x<<" int y = "<<y<<endl;
-//                cerr << "Has Player on Row: x,y "<<x<<" "<<y<<" playerNum, colNum: "<<targetPos[pair<int,int>(x,y)] << " |"<<playerIndex<<endl;
-                string replacedLine = line;
-                if(x == 41 && pos != 10 && pos != 0) {
-//                    yPos = line.length()-y-8; //line.length - 12 equal to 132 spaces
-                    yPos = line.length() - 12*++pos;
-                    if(replacedLine.at(yPos) == '|') {yPos++;}
-                    replacedLine.replace(yPos,3,playerIndex);
-                } else if(x == 1) {
-                    yPos = y-4;
-                    if(replacedLine.at(yPos) == '|') {yPos++;}
+
+            if(hasPlayerAtLine){
+                for(auto & loc : playerLocations) {
+                    if (x == loc.second.first.first) {
+                        int yPos = -1;
+                        int posIndex = loc.second.first.second;
+                        int y = replacePos[loc.first];
+                        string playerName = loc.second.second;
+                        string replacedLine = line;
+                        if (x == 41 && posIndex != 10 && posIndex != 0) {
+                            yPos = line.length() - 12 * (++posIndex) - 4;
+//                            cerr << "posIndex, yPos: " << posIndex << " " << yPos << endl;
+//                            cerr << "currentPlayer = " << currentPlayer + 65 << " int x = " << x << " int y = " << y
+//                                 << endl;
+                            if (replacedLine.at(yPos) == '|') { yPos++; }
+                        } else if (x == 1) {
+                            yPos = y - 4;
+                            if (replacedLine.at(yPos) == '|') { yPos++; }
+                        } else {
+                            if (posIndex >= 10 && posIndex <= 20) { yPos = 6; }
+                            else if ((posIndex > 30 && posIndex < 41) || posIndex == 0) { yPos = 136; }
+                        }
+                        replacedLine.replace(yPos, 3, playerName); //+(numPlayers-1) for displaying multiple players
+                        cout << replacedLine;
+                    }
                 }
-                else {
-                    if (pos >= 10 && pos <= 20) { yPos = 6; }
-                    else if ((pos > 30 && pos < 41) || pos == 0) { yPos = 136; }
-                }
-                replacedLine.replace(yPos,3,playerIndex); //+(numPlayers-1) for displaying multiple players
-                cout << replacedLine;
-            } else {cout << line; }
+            }else {cout << line; }
         }
         else if(x == 3 || x == 39) { cout << boarder;}
         else if(x % 4 == 3){
