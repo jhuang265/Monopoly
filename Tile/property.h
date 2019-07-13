@@ -34,7 +34,7 @@ class Property: public Tile, public std::enable_shared_from_this<Property>{
         void reset();
         void changeOwner(std::shared_ptr<Player>) override;
         void setCanBuild();
-        std::string getColor();
+        std::string getColor() override;
         ~Property(){}
 
 };

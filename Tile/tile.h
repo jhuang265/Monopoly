@@ -37,6 +37,7 @@ class Tile{
         Tile(std::string, std::string);
         std::string getType();
         std::string getName();
+        virtual std::string getColor();
 
         //This function is callled when player wants to buy an asset
         //hence an amount of money is deducted from the player and owner is changed to player pointer

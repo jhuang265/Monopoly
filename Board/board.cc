@@ -48,12 +48,12 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     // Set up the board and all the tiles
     int initialBuild = (type == 1)? 0: -1;
 
-    std::shared_ptr<Color> brown = std::make_shared<Color>("Brown");
-    std::shared_ptr<Color> lblue = std::make_shared<Color>("Light Blue");
+    std::shared_ptr<Color> Cyan = std::make_shared<Color>("Cyan");
+    std::shared_ptr<Color> blockRed = std::make_shared<Color>("blockRed");
     std::shared_ptr<Color> pink = std::make_shared<Color>("Pink");
-    std::shared_ptr<Color> orange = std::make_shared<Color>("Orange");
-    std::shared_ptr<Color> red = std::make_shared<Color>("Red");
     std::shared_ptr<Color> yellow = std::make_shared<Color>("Yellow");
+    std::shared_ptr<Color> red = std::make_shared<Color>("Red");
+    std::shared_ptr<Color> blockBlue = std::make_shared<Color>("blockBlue");
     std::shared_ptr<Color> green = std::make_shared<Color>("Green");
     std::shared_ptr<Color> blue = std::make_shared<Color>("Blue");
 
@@ -61,26 +61,26 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
 
     std::vector<int> rents{2, 10, 30, 90, 160, 250};
 
-    std::shared_ptr<Property> d2 = std::make_shared<Property>(60, rents, brown, initialBuild, "Property", "AHS");
+    std::shared_ptr<Property> d2 = std::make_shared<Property>(60, rents, Cyan, initialBuild, "Property", "AHS");
     std::shared_ptr<Tile> d3 = std::make_shared<Tile>("Income Tax", "Income Tax");
 
     rents = {4, 20, 60, 180, 320, 450};
-    std::shared_ptr<Property> d4 = std::make_shared<Property >(60, rents, brown, initialBuild, "Property", "MC");
+    std::shared_ptr<Property> d4 = std::make_shared<Property >(60, rents, Cyan, initialBuild, "Property", "MC");
     std::shared_ptr<Tile> d5 = std::make_shared<Tile>("Community Chest", "Community Chest");
 
     std::vector<int> rentsTrans{25, 50, 100, 200};
-    std::shared_ptr<Transportation> d6 = std::make_shared<Transportation>(200, rents, "Transportation", "ION");
+    std::shared_ptr<Transportation> d6 = std::make_shared<Transportation>(200, rents, "Transportation", "ION Train");
 
     rents = {6, 30, 90, 270, 400, 550};
-    std::shared_ptr<Property> d7 = std::make_shared<Property >(100, rents, lblue, initialBuild, "Property", "STC");
+    std::shared_ptr<Property> d7 = std::make_shared<Property >(100, rents, blockRed, initialBuild, "Property", "STC");
 
     std::shared_ptr<Tile> d8 = std::make_shared<Tile>("Chance", "Chance");
 
     rents = {6, 30, 90, 270, 400, 550};
-    std::shared_ptr<Property> d9 = std::make_shared<Property >(100, rents, lblue, initialBuild, "Property", "RCH");
+    std::shared_ptr<Property> d9 = std::make_shared<Property >(100, rents, blockRed, initialBuild, "Property", "RCH");
 
     rents = {8, 40, 100, 300, 450, 600};
-    std::shared_ptr<Property> teen = std::make_shared<Property >(120, rents, lblue, initialBuild, "Property", "BMH");
+    std::shared_ptr<Property> teen = std::make_shared<Property >(120, rents, blockRed, initialBuild, "Property", "BMH");
 
     std::shared_ptr<Tile> teen1 = std::make_shared<Tile>("Jail/Visiting", "Jail/Visiting");
 
@@ -98,14 +98,14 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     std::shared_ptr<Transportation> teen6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "GRT");
 
     rents = {14, 70, 200, 550, 750, 950};
-    std::shared_ptr<Property> teen7 = std::make_shared<Property >(180, rents, orange, initialBuild, "Property", "E7");
+    std::shared_ptr<Property> teen7 = std::make_shared<Property >(180, rents, yellow, initialBuild, "Property", "E7");
 
     std::shared_ptr<Tile> teen8 = std::make_shared<Tile>("Community Chest", "Community Chest");
 
-    std::shared_ptr<Property> teen9 = std::make_shared<Property >(180, rents, orange, initialBuild, "Property", "E3");
+    std::shared_ptr<Property> teen9 = std::make_shared<Property >(180, rents, yellow, initialBuild, "Property", "E3");
 
     rents = {16, 80, 220, 600, 800, 1000};
-    std::shared_ptr<Property> twenty = std::make_shared<Property >(200, rents, orange, initialBuild, "Property", "E5");
+    std::shared_ptr<Property> twenty = std::make_shared<Property >(200, rents, yellow, initialBuild, "Property", "E5");
 
     std::shared_ptr<Tile> twenty1 = std::make_shared<Tile>("Free Parking", "Free Parking");
 
@@ -122,14 +122,14 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     std::shared_ptr<Transportation> twenty6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "Walk");
 
     rents = {22, 110, 330, 800, 975, 1150};
-    std::shared_ptr<Property> twenty7 = std::make_shared<Property >(260, rents, yellow, initialBuild, "Property", "M3");
+    std::shared_ptr<Property> twenty7 = std::make_shared<Property >(260, rents, blockBlue, initialBuild, "Property", "M3");
 
-    std::shared_ptr<Property> twenty8 = std::make_shared<Property >(260, rents, yellow, initialBuild, "Property", "AL");
+    std::shared_ptr<Property> twenty8 = std::make_shared<Property >(260, rents, blockBlue, initialBuild, "Property", "AL");
 
-    std::shared_ptr<Utility> twenty9 = std::make_shared<Utility>(150, rentsUtils, "Utility", "Water");
+    std::shared_ptr<Utility> twenty9 = std::make_shared<Utility>(150, rentsUtils, "Utility", "CECA");
 
     rents = {22, 120, 360, 850, 1025, 1200};
-    std::shared_ptr<Property> thirty = std::make_shared<Property >(280, rents, yellow, initialBuild, "Property", "DP");
+    std::shared_ptr<Property> thirty = std::make_shared<Property >(280, rents, blockBlue, initialBuild, "Property", "DP");
 
     std::shared_ptr<Tile> thirty1 = std::make_shared<Tile>("Go To Jail", "Go To Jail");
 
@@ -227,34 +227,34 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     tiles.emplace_back(thirty9);
     tiles.emplace_back(forty);
 
-    brown->attach(d2);
-    brown->attach(d4);
-    lblue->attach(d7);
-    lblue->attach(d9);
-    lblue->attach(teen);
+    Cyan->attach(d2);
+    Cyan->attach(d4);
+    blockRed->attach(d7);
+    blockRed->attach(d9);
+    blockRed->attach(teen);
     pink->attach(teen2);
     pink->attach(teen4);
     pink->attach(teen5);
-    orange->attach(teen7);
-    orange->attach(teen9);
-    orange->attach(twenty);
+    yellow->attach(teen7);
+    yellow->attach(teen9);
+    yellow->attach(twenty);
     red->attach(twenty2);
     red->attach(twenty4);
     red->attach(twenty5);
-    yellow->attach(twenty7);
-    yellow->attach(twenty8);
-    yellow->attach(thirty);
+    blockBlue->attach(twenty7);
+    blockBlue->attach(twenty8);
+    blockBlue->attach(thirty);
     green->attach(thirty2);
     green->attach(thirty3);
     green->attach(thirty5);
     blue->attach(thirty8);
     blue->attach(forty);
 
-    colors.emplace_back(lblue);
-    colors.emplace_back(brown);
+    colors.emplace_back(blockRed);
+    colors.emplace_back(Cyan);
     colors.emplace_back(pink);
-    colors.emplace_back(orange);
     colors.emplace_back(yellow);
+    colors.emplace_back(blockBlue);
     colors.emplace_back(red);
     colors.emplace_back(green);
     colors.emplace_back(blue);
@@ -344,8 +344,6 @@ void Board::rollDiceAndAction(){
     // Move the player and get their new position
     players[currentPlayer]->move(firstRoll+secondRoll);
     int pos = players[currentPlayer]->getPos();
-
-    //printBoard();
 
     cout << "You rolled: " << firstRoll << " and " << secondRoll << endl;
     cout << '\n' << "New Position: " << pos << '\n' << endl;
@@ -566,6 +564,7 @@ void Board::printBoard() {
     map<int,int> tilesPos; //rowNum, left tileNum
     map<int, string> playerEmoji;
     map<int, pair<pair<int,int>,string> > playerLocations; //playerNum, <rowNum, colNum>, playerIndex
+    map<string,pair<int,string> > colors; //colorName, <case#, colorcode
 
     int countRow = 5;
 
@@ -583,6 +582,16 @@ void Board::printBoard() {
     playerEmoji.insert(pair<int,string>(68,"\U0001F951"));
     playerEmoji.insert(pair<int,string>(69,"\U0001F47B"));
     playerEmoji.insert(pair<int,string>(70,"\U0001F984"));
+
+    //Property Colors
+    colors.insert(pair<string,pair<int,string> >("Cyan", pair<int,string>(1,"\033[36m")));
+    colors.insert(pair<string,pair<int,string> >("blockRed", pair<int,string>(2,"\033[41m")));
+    colors.insert(pair<string,pair<int,string> >("Pink", pair<int,string>(3,"\033[95m")));
+    colors.insert(pair<string,pair<int,string> >("Yellow", pair<int,string>(4,"\033[33m")));
+    colors.insert(pair<string,pair<int,string> >("Red", pair<int,string>(5,"\033[31m")));
+    colors.insert(pair<string,pair<int,string> >("blockBlue", pair<int,string>(6,"\033[44m")));
+    colors.insert(pair<string,pair<int,string> >("Green", pair<int,string>(7,"\033[32m")));
+    colors.insert(pair<string,pair<int,string> >("Blue", pair<int,string>(8,"\033[34m")));
 
     //boardPos Insertion: tileNumber and rowNum
     for(int i = 0; i < 21; i++) {
@@ -634,10 +643,19 @@ void Board::printBoard() {
             if(x == 0) {
                 for(int i = 20; i <= 30; ++i) {
                     string tileName = "";
+                    string color = "";
                     tileName = tiles.at(i)->getName();
-                    if(tileName == "Community Chest") {tileName = "Chest"; }
-                    while(tileName.length() < 12) {
-                        tileName += " ";
+                    if (tileName == "Community Chest") { tileName = "Chest"; }
+                    if (tiles.at(i)->getType() == "Property") {
+                        color = tiles.at(i)->getColor();
+                        tileName = colors[color].second + tileName + "\033[0m";
+                        while(tileName.length() < 21) {
+                            tileName += " ";
+                        }
+                    } else {
+                        while(tileName.length() < 12) {
+                            tileName += " ";
+                        }
                     }
                     tileNameLine += tileName;
                     tileNameLine += "|";
@@ -645,11 +663,20 @@ void Board::printBoard() {
             } else if(x == 40) {
                 for(int i = 10; i >= 0; --i) {
                     string tileName = "";
+                    string color = "";
                     tileName = tiles.at(i)->getName();
                     if(tileName == "Community Chest") {tileName = "Chest";}
                     else if(tileName == "Jail/Visiting") {tileName = "Jail"; }
-                    while(tileName.length() < 12) {
-                        tileName += " ";
+                    if (tiles.at(i)->getType() == "Property") {
+                        color = tiles.at(i)->getColor();
+                        tileName = colors[color].second + tileName + "\033[0m";
+                        while(tileName.length() < 21) {
+                            tileName += " ";
+                        }
+                    } else {
+                        while(tileName.length() < 12) {
+                            tileName += " ";
+                        }
                     }
                     tileNameLine += tileName;
                     tileNameLine += "|";
@@ -657,23 +684,44 @@ void Board::printBoard() {
             } else {
                 int tileNum = tilesPos[x];
                 string leftTile = tiles.at(tileNum)->getName();
+                string lcolor = tiles.at(tileNum)->getColor();;
                 if(leftTile == "Community Chest") {leftTile = "Chest";}
                 string rightTile = tiles.at(50-tileNum)->getName();
+                string rcolor = tiles.at(50-tileNum)->getColor();;
                 if(rightTile == "Community Chest") {rightTile = "Chest";}
-
-                while(leftTile.length() < 12) {
-                    leftTile += " ";
+                if (lcolor != "") {
+                    leftTile = colors[lcolor].second + leftTile + "\033[0m";
+                    while(leftTile.length() < 21) {
+                        leftTile += " ";
+                    }
+                } else {
+                    while(leftTile.length() < 12) {
+                        leftTile += " ";
+                    }
                 }
                 leftTile += "|";
 
-                while(rightTile.length() < 12) {
-                    rightTile += " ";
+                if (rcolor != "") {
+                    rightTile = colors[rcolor].second + rightTile + "\033[0m";
+                    while(rightTile.length() < 21) {
+                        rightTile += " ";
+                    }
+                } else {
+                    while(rightTile.length() < 12) {
+                        rightTile += " ";
+                    }
                 }
                 rightTile += "|";
 
                 tileNameLine += leftTile;
-                while(tileNameLine.length() <= 130) {
-                    tileNameLine += " ";
+                if(lcolor != "") {
+                    while(tileNameLine.length() <= 139) {
+                        tileNameLine += " ";
+                    }
+                } else {
+                    while(tileNameLine.length() <= 130) {
+                        tileNameLine += " ";
+                    }
                 }
                 tileNameLine += "|";
                 tileNameLine += rightTile;
@@ -696,9 +744,7 @@ void Board::printBoard() {
                     if(playerPos[c].first == x) hasPlayerAtLine = true;
                     c++;
                 }
-//            for(auto & p : playerLocations) {
-//                cerr<<p.first<<" "<<p.second.first.first<<" "<<p.second.first.second<<" "<<p.second.second<<endl;
-//            }
+
             if(x > 39 || x < 3) { line = line2; } else { line = line1; }
 
             if(hasPlayerAtLine){
@@ -711,9 +757,6 @@ void Board::printBoard() {
                         string replacedLine = line;
                         if (x == 41 && posIndex != 10 && posIndex != 0) {
                             yPos = line.length() - 12 * (++posIndex) - 4;
-//                            cerr << "posIndex, yPos: " << posIndex << " " << yPos << endl;
-//                            cerr << "currentPlayer = " << currentPlayer + 65 << " int x = " << x << " int y = " << y
-//                                 << endl;
                             if (replacedLine.at(yPos) == '|') { yPos++; }
                         } else if (x == 1) {
                             yPos = y - 4;

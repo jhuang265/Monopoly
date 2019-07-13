@@ -11,5 +11,9 @@ string Tile:: getName(){
     return name;
 }
 
+string Tile::getColor() {
+    return "";
+}
+
 Tile::~Tile(){
 }
