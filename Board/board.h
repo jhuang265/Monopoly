@@ -21,6 +21,7 @@ class Board{
         std::vector<std::shared_ptr<Property>> properties;
         std::vector<std::shared_ptr<Utility>> utilities;
         std::vector<std::shared_ptr<Transportation>> transportations;
+        //std::vector<std::shared_ptr<Card>> cards;
         // Game type and number of players
         int numPlayers;
         // Keeping track of whose turn it is
