@@ -9,6 +9,7 @@ int main(){
     // We allow the game logic to loop as long as someone wishes to play
     while(true){
         // Ask user if they want to play a game
+        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
         std::cout << "Would you like to play a game? (Enter Y/N): ";
         std::cin >> s;
 
@@ -50,6 +51,7 @@ int main(){
         else{
             break;
         }
+        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
     }
 
     // Exit the program
