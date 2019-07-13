@@ -358,7 +358,7 @@ void Board::rollDiceAndAction(){
     players[currentPlayer]->move(firstRoll+secondRoll);
     int pos = players[currentPlayer]->getPos();
 
-    printBoard();
+    //printBoard();
 
     cout << "You rolled: " << firstRoll << " and " << secondRoll << endl;
     cout << '\n' << "New Position: " << pos << '\n' << endl;
