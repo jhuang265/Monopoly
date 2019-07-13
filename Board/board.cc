@@ -347,7 +347,6 @@ void Board::rollDiceAndAction(){
 
     cout << "You rolled: " << firstRoll << " and " << secondRoll << endl;
     cout << '\n' << "New Position: " << pos << '\n' << endl;
-    cout<<endl;
 
     // Set the location of cards, transportations, utilities and properties
     int cardLocations[] = {4, 7, 17, 22, 33, 36};
