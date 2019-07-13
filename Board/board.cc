@@ -22,7 +22,7 @@ using namespace std;
 
 Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}{
     map<int,string> playerEmojiInit;
-    std::string name;
+    string name;
     playerEmojiInit.insert(pair<int,string>(0,"\U0001F914"));
     playerEmojiInit.insert(pair<int,string>(1,"\U0001F60E"));
     playerEmojiInit.insert(pair<int,string>(2,"\U0001F608"));
@@ -31,13 +31,13 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     playerEmojiInit.insert(pair<int,string>(5,"\U0001F984"));
     // Get all the user's names
     for(int i = 0; i < numPlayers; i++){
-        std::cout << playerEmojiInit[i] <<" Enter the name for Player "<< (i+1) << ": ";
-        std::cin >> name;
-        auto player = std::make_shared<Player>(name, i);
+        cout << playerEmojiInit[i] <<" Enter the name for Player "<< (i+1) << ": ";
+        cin >> name;
+        auto player = make_shared<Player>(name, i);
         players.emplace_back(player);
         /*
         if(find(players.begin(), players.end(), player) != players.end()) {
-            std::cout << "~ Please enter a different name ~"<<endl;
+            cout << "~ Please enter a different name ~"<<endl;
             i--;
         } else {
             players.emplace_back(player);
@@ -48,112 +48,112 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     // Set up the board and all the tiles
     int initialBuild = (type == 1)? 0: -1;
 
-    std::shared_ptr<Color> Cyan = std::make_shared<Color>("Cyan");
-    std::shared_ptr<Color> blockRed = std::make_shared<Color>("blockRed");
-    std::shared_ptr<Color> pink = std::make_shared<Color>("Pink");
-    std::shared_ptr<Color> yellow = std::make_shared<Color>("Yellow");
-    std::shared_ptr<Color> red = std::make_shared<Color>("Red");
-    std::shared_ptr<Color> blockBlue = std::make_shared<Color>("blockBlue");
-    std::shared_ptr<Color> green = std::make_shared<Color>("Green");
-    std::shared_ptr<Color> blue = std::make_shared<Color>("Blue");
+    shared_ptr<Color> Cyan = make_shared<Color>("Cyan");
+    shared_ptr<Color> blockRed = make_shared<Color>("blockRed");
+    shared_ptr<Color> pink = make_shared<Color>("Pink");
+    shared_ptr<Color> yellow = make_shared<Color>("Yellow");
+    shared_ptr<Color> red = make_shared<Color>("Red");
+    shared_ptr<Color> blockBlue = make_shared<Color>("blockBlue");
+    shared_ptr<Color> green = make_shared<Color>("Green");
+    shared_ptr<Color> blue = make_shared<Color>("Blue");
 
-    std::shared_ptr<Tile> d1 = std::make_shared<Tile>("Go", "Go");
+    shared_ptr<Tile> d1 = make_shared<Tile>("Go", "Go");
 
-    std::vector<int> rents{2, 10, 30, 90, 160, 250};
+    vector<int> rents{2, 10, 30, 90, 160, 250};
 
-    std::shared_ptr<Property> d2 = std::make_shared<Property>(60, rents, Cyan, initialBuild, "Property", "AHS");
-    std::shared_ptr<Tile> d3 = std::make_shared<Tile>("Income Tax", "Income Tax");
+    shared_ptr<Property> d2 = make_shared<Property>(60, rents, Cyan, initialBuild, "Property", "AHS");
+    shared_ptr<Tile> d3 = make_shared<Tile>("Income Tax", "Income Tax");
 
     rents = {4, 20, 60, 180, 320, 450};
-    std::shared_ptr<Property> d4 = std::make_shared<Property >(60, rents, Cyan, initialBuild, "Property", "MC");
-    std::shared_ptr<Tile> d5 = std::make_shared<Tile>("Community Chest", "Community Chest");
+    shared_ptr<Property> d4 = make_shared<Property >(60, rents, Cyan, initialBuild, "Property", "MC");
+    shared_ptr<Tile> d5 = make_shared<Tile>("Community Chest", "Community Chest");
 
-    std::vector<int> rentsTrans{25, 50, 100, 200};
-    std::shared_ptr<Transportation> d6 = std::make_shared<Transportation>(200, rents, "Transportation", "ION Train");
-
-    rents = {6, 30, 90, 270, 400, 550};
-    std::shared_ptr<Property> d7 = std::make_shared<Property >(100, rents, blockRed, initialBuild, "Property", "STC");
-
-    std::shared_ptr<Tile> d8 = std::make_shared<Tile>("Chance", "Chance");
+    vector<int> rentsTrans{25, 50, 100, 200};
+    shared_ptr<Transportation> d6 = make_shared<Transportation>(200, rents, "Transportation", "ION Train");
 
     rents = {6, 30, 90, 270, 400, 550};
-    std::shared_ptr<Property> d9 = std::make_shared<Property >(100, rents, blockRed, initialBuild, "Property", "RCH");
+    shared_ptr<Property> d7 = make_shared<Property >(100, rents, blockRed, initialBuild, "Property", "STC");
+
+    shared_ptr<Tile> d8 = make_shared<Tile>("Chance", "Chance");
+
+    rents = {6, 30, 90, 270, 400, 550};
+    shared_ptr<Property> d9 = make_shared<Property >(100, rents, blockRed, initialBuild, "Property", "RCH");
 
     rents = {8, 40, 100, 300, 450, 600};
-    std::shared_ptr<Property> teen = std::make_shared<Property >(120, rents, blockRed, initialBuild, "Property", "BMH");
+    shared_ptr<Property> teen = make_shared<Property >(120, rents, blockRed, initialBuild, "Property", "BMH");
 
-    std::shared_ptr<Tile> teen1 = std::make_shared<Tile>("Jail/Visiting", "Jail/Visiting");
+    shared_ptr<Tile> teen1 = make_shared<Tile>("Jail/Visiting", "Jail/Visiting");
 
     rents = {10, 50, 150, 450, 625, 750};
-    std::shared_ptr<Property> teen2 = std::make_shared<Property >(140, rents, pink, initialBuild, "Property", "QNC");
+    shared_ptr<Property> teen2 = make_shared<Property >(140, rents, pink, initialBuild, "Property", "QNC");
 
     vector<int> rentsUtils {4, 10};
-    std::shared_ptr<Utility> teen3 = std::make_shared<Utility>(150, rentsUtils, "Utility", "Electricity");
+    shared_ptr<Utility> teen3 = make_shared<Utility>(150, rentsUtils, "Utility", "Electricity");
 
-    std::shared_ptr<Property> teen4 = std::make_shared<Property >(140, rents, pink, initialBuild, "Property", "SCH");
+    shared_ptr<Property> teen4 = make_shared<Property >(140, rents, pink, initialBuild, "Property", "SCH");
 
     rents = {12, 60, 180, 500, 700, 900};
-    std::shared_ptr<Property> teen5 = std::make_shared<Property >(160, rents, pink, initialBuild, "Property", "DWE");
+    shared_ptr<Property> teen5 = make_shared<Property >(160, rents, pink, initialBuild, "Property", "DWE");
 
-    std::shared_ptr<Transportation> teen6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "GRT");
+    shared_ptr<Transportation> teen6 = make_shared<Transportation>(200, rentsTrans, "Transportation", "GRT");
 
     rents = {14, 70, 200, 550, 750, 950};
-    std::shared_ptr<Property> teen7 = std::make_shared<Property >(180, rents, yellow, initialBuild, "Property", "E7");
+    shared_ptr<Property> teen7 = make_shared<Property >(180, rents, yellow, initialBuild, "Property", "E7");
 
-    std::shared_ptr<Tile> teen8 = std::make_shared<Tile>("Community Chest", "Community Chest");
+    shared_ptr<Tile> teen8 = make_shared<Tile>("Community Chest", "Community Chest");
 
-    std::shared_ptr<Property> teen9 = std::make_shared<Property >(180, rents, yellow, initialBuild, "Property", "E3");
+    shared_ptr<Property> teen9 = make_shared<Property >(180, rents, yellow, initialBuild, "Property", "E3");
 
     rents = {16, 80, 220, 600, 800, 1000};
-    std::shared_ptr<Property> twenty = std::make_shared<Property >(200, rents, yellow, initialBuild, "Property", "E5");
+    shared_ptr<Property> twenty = make_shared<Property >(200, rents, yellow, initialBuild, "Property", "E5");
 
-    std::shared_ptr<Tile> twenty1 = std::make_shared<Tile>("Free Parking", "Free Parking");
+    shared_ptr<Tile> twenty1 = make_shared<Tile>("Free Parking", "Free Parking");
 
     rents = {18, 90, 250, 700, 875, 1050};
-    std::shared_ptr<Property> twenty2 = std::make_shared<Property >(220, rents, red, initialBuild, "Property", "E2");
+    shared_ptr<Property> twenty2 = make_shared<Property >(220, rents, red, initialBuild, "Property", "E2");
 
-    std::shared_ptr<Tile> twenty3 = std::make_shared<Tile>("Chance", "Chance");
+    shared_ptr<Tile> twenty3 = make_shared<Tile>("Chance", "Chance");
 
-    std::shared_ptr<Property> twenty4 = std::make_shared<Property >(220, rents, red, initialBuild, "Property", "DC");
+    shared_ptr<Property> twenty4 = make_shared<Property >(220, rents, red, initialBuild, "Property", "DC");
 
     rents = {20, 100, 300, 750, 925, 1100};
-    std::shared_ptr<Property> twenty5 = std::make_shared<Property >(240, rents, red, initialBuild, "Property", "CPH");
+    shared_ptr<Property> twenty5 = make_shared<Property >(240, rents, red, initialBuild, "Property", "CPH");
 
-    std::shared_ptr<Transportation> twenty6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "Walk");
+    shared_ptr<Transportation> twenty6 = make_shared<Transportation>(200, rentsTrans, "Transportation", "Walk");
 
     rents = {22, 110, 330, 800, 975, 1150};
-    std::shared_ptr<Property> twenty7 = std::make_shared<Property >(260, rents, blockBlue, initialBuild, "Property", "M3");
+    shared_ptr<Property> twenty7 = make_shared<Property >(260, rents, blockBlue, initialBuild, "Property", "M3");
 
-    std::shared_ptr<Property> twenty8 = std::make_shared<Property >(260, rents, blockBlue, initialBuild, "Property", "AL");
+    shared_ptr<Property> twenty8 = make_shared<Property >(260, rents, blockBlue, initialBuild, "Property", "AL");
 
-    std::shared_ptr<Utility> twenty9 = std::make_shared<Utility>(150, rentsUtils, "Utility", "CECA");
+    shared_ptr<Utility> twenty9 = make_shared<Utility>(150, rentsUtils, "Utility", "CECA");
 
     rents = {22, 120, 360, 850, 1025, 1200};
-    std::shared_ptr<Property> thirty = std::make_shared<Property >(280, rents, blockBlue, initialBuild, "Property", "DP");
+    shared_ptr<Property> thirty = make_shared<Property >(280, rents, blockBlue, initialBuild, "Property", "DP");
 
-    std::shared_ptr<Tile> thirty1 = std::make_shared<Tile>("Go To Jail", "Go To Jail");
+    shared_ptr<Tile> thirty1 = make_shared<Tile>("Go To Jail", "Go To Jail");
 
     rents = {26, 130, 390, 900, 1100, 1275};
-    std::shared_ptr<Property> thirty2 = std::make_shared<Property >(300, rents, green, initialBuild, "Property", "ML");
+    shared_ptr<Property> thirty2 = make_shared<Property >(300, rents, green, initialBuild, "Property", "ML");
 
-    std::shared_ptr<Property> thirty3 = std::make_shared<Property >(300, rents, green, initialBuild, "Property", "EV3");
+    shared_ptr<Property> thirty3 = make_shared<Property >(300, rents, green, initialBuild, "Property", "EV3");
 
-    std::shared_ptr<Tile> thirty4 = std::make_shared<Tile>("Community Chest", "Community Chest");
+    shared_ptr<Tile> thirty4 = make_shared<Tile>("Community Chest", "Community Chest");
 
     rents = {28, 150, 450, 1000, 1200, 1400};
-    std::shared_ptr<Property> thirty5 = std::make_shared<Property >(320, rents, green, initialBuild, "Property", "B2");
+    shared_ptr<Property> thirty5 = make_shared<Property >(320, rents, green, initialBuild, "Property", "B2");
 
-    std::shared_ptr<Transportation> thirty6 = std::make_shared<Transportation>(200, rentsTrans, "Transportation", "Bike");
+    shared_ptr<Transportation> thirty6 = make_shared<Transportation>(200, rentsTrans, "Transportation", "Bike");
 
-    std::shared_ptr<Tile> thirty7 = std::make_shared<Tile>("Chance", "Chance");
+    shared_ptr<Tile> thirty7 = make_shared<Tile>("Chance", "Chance");
 
     rents = {35, 175, 500, 1100, 1300, 1500};
-    std::shared_ptr<Property> thirty8 = std::make_shared<Property >(350, rents, blue, initialBuild, "Property", "EIT");
+    shared_ptr<Property> thirty8 = make_shared<Property >(350, rents, blue, initialBuild, "Property", "EIT");
 
-    std::shared_ptr<Tile> thirty9 = std::make_shared<Tile>("Luxury Tax", "Luxury Tax");
+    shared_ptr<Tile> thirty9 = make_shared<Tile>("Luxury Tax", "Luxury Tax");
 
     rents = {50, 200, 600, 1400, 1700, 2000};
-    std::shared_ptr<Property> forty = std::make_shared<Property >(400, rents, blue, initialBuild, "Property", "PHY");
+    shared_ptr<Property> forty = make_shared<Property >(400, rents, blue, initialBuild, "Property", "PHY");
 
     utilities.emplace_back(teen3);
     utilities.emplace_back(twenty9);
@@ -263,9 +263,9 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
 int Board::rollDice(){
 
     // Use a uniform distribution to get two random dice roll numbers
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> dis(1, 6);
+    random_device rd;  //Will be used to obtain a seed for the random number engine
+    mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    uniform_int_distribution<> dis(1, 6);
     return dis(gen);
 }
 
@@ -297,15 +297,15 @@ void Board::rollDiceAndAction(){
     // If they still are in jail, ask if they want to pay their way out.
     if(players[currentPlayer]->isInJail()){
         char yn;
-        std::cout << "You are in jail. Would you like to pay your way out? (Y/N): ";
-        std::cin >> yn;
+        cout << "You are in jail. Would you like to pay your way out? (Y/N): ";
+        cin >> yn;
         if((yn == 'Y' || yn == 'y') && players[currentPlayer]->getMoney() >= 50){
             players[currentPlayer]->payMoney(50);
             players[currentPlayer]->release();
-            std::cout << "You are now out of jail." << std::endl;
+            cout << "You are now out of jail." << endl;
         }
         else{
-            std::cout << "You have to say in jail." << std::endl;
+            cout << "You have to say in jail." << endl;
         }
     }
 
@@ -315,14 +315,14 @@ void Board::rollDiceAndAction(){
 
     // If it wasn't a double and the user is still in jail, they have to stay in jail for a turn
     if(firstRoll != secondRoll && players[currentPlayer]->isInJail()){
-        std::cout << "You did not roll a double, so you're stuck in jail." << std::endl;
+        cout << "You did not roll a double, so you're stuck in jail." << endl;
         players[currentPlayer]->addTurnInJail();
-        std::cout << "Turns you have been in jail: "<< players[currentPlayer]->getTurnsInJail() << std::endl;
+        cout << "Turns you have been in jail: "<< players[currentPlayer]->getTurnsInJail() << endl;
         return;
     }
     // If they rolled a double, then free the player if they are in jail and increase the number of doubles they have rolled
     else if(firstRoll == secondRoll && players[currentPlayer]->isInJail()){
-        std::cout << "You rolled a double so you're out of jail now." << std::endl;
+        cout << "You rolled a double so you're out of jail now." << endl;
         players[currentPlayer]->release();
         players[currentPlayer]->rolledDoubles();
     }
@@ -437,9 +437,9 @@ void Board::rollDiceAndAction(){
             // Otherwise ask if the player wants to buy it
             else{
                 char yn;
-                std::cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<" that costs $"<<
+                cout << "You have landed on an unowned transportation " << transportations[i]->getName() <<" that costs $"<<
                                 transportations[i]->getPrice()<<    ". Would you like to buy it? (Y/N): ";
-                std::cin >> yn;
+                cin >> yn;
 
                 // See if the user can buy it without needing to go through an auction
                 if( (yn == 'Y' || yn == 'y') && players[currentPlayer]->getMoney() >= transportations[i]->getPrice()){
@@ -484,9 +484,9 @@ void Board::rollDiceAndAction(){
             }
             else{
                 char yn;
-                std::cout << "You have landed on an unowned utility " << utilities[i]->getName() <<" that costs $"<<
+                cout << "You have landed on an unowned utility " << utilities[i]->getName() <<" that costs $"<<
                                             utilities[i]->getPrice()<<". Would you like to buy it? (Y/N): ";
-                std::cin >> yn;
+                cin >> yn;
 
                 if((yn == 'Y' || yn == 'y')  && players[currentPlayer]->getMoney() >= utilities[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
@@ -528,8 +528,8 @@ void Board::rollDiceAndAction(){
                     if(properties[i]->getCanBuild() != 0){
                         if((properties[i]->getHouses()+1) * 50 <= players[currentPlayer]->getMoney()){
                             char yn;
-                            std::cout << "You have enough money to buy a new house. Would you like to buy it? (Y/N): ";
-                            std::cin >> yn;
+                            cout << "You have enough money to buy a new house. Would you like to buy it? (Y/N): ";
+                            cin >> yn;
                             if((yn == 'Y' || yn == 'y')){
                                 players[currentPlayer]->payMoney((properties[i]->getHouses()+1) * 50);
                                 properties[i]->buyHouse();
@@ -540,9 +540,9 @@ void Board::rollDiceAndAction(){
             }
             else{
                 char yn;
-                std::cout << "You have landed on an unowned property " << properties[i]->getName() <<" that costs $"<<
+                cout << "You have landed on an unowned property " << properties[i]->getName() <<" that costs $"<<
                                                             properties[i]->getPrice()    <<". Would you like to buy it? (Y/N): ";
-                std::cin >> yn;
+                cin >> yn;
 
                 if((yn == 'Y' || yn == 'y') && players[currentPlayer]->getMoney() >= properties[i]->getPrice()){
                     cout << "Money before purchase: " << players[currentPlayer]->getMoney() << endl;
@@ -869,7 +869,7 @@ void Board::playTurn(){
                 cout << "-------------------------------------------------" << endl;
                 cout << "You get an extra roll for rolling a double. (Press ENTER to Continue)";
                 cin.ignore();
-                getline(std::cin, temp);
+                getline(cin, temp);
                 cout << "-------------------------------------------------" << endl;
                 cout << "Doubles rolled: " << (*i)->getDoubles() << endl;
 
@@ -885,7 +885,7 @@ void Board::playTurn(){
             cout << "-------------------------------------------------" << endl;
             cout << "Press ENTER to continue to next Player's turn ";
             cin.ignore();
-            getline(std::cin, temp);
+            getline(cin, temp);
             currentPlayer = (currentPlayer+1) % players.size();
 
         }
@@ -909,7 +909,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -943,7 +943,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout<<"None of the property index you entered is valid. You're returned to your dice roll."<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -973,7 +973,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout<<"Oops! This player has no asset, you are returned to dice roll"<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -1006,7 +1006,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "None of the property indices you entered are valid. Return to your dice roll." << endl;
         cout << "Press ENTER to continue to roll your dice ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -1061,7 +1061,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
         cout << "Player " << targetPlayer->getName() << " does not want to trade with you. " << endl;
         cout << "Press ENTER to continue to your dice roll ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -1083,7 +1083,7 @@ void Board::tradeAssetForAsset(shared_ptr<Player> player){
     cout << "************************************************" << endl;
     cout<< "Press ENTER to continue to your dice roll ";
     cin.ignore();
-    getline(std::cin, temp);
+    getline(cin, temp);
     cout << "************************************************" << endl;
 }
 
@@ -1101,7 +1101,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         cout<<"Oops! You have no assets to trade. You are returned to your dice roll."<<endl;
         cout<< "Press ENTER to continue to roll your dice ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -1134,7 +1134,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         cout<<"None of the property indices you entered is valid. The trade is cancelled and you return to your dice roll."<<endl;
         cout<< "Press ENTER to roll the dice ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -1191,7 +1191,7 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
         cout<<"Player "<<targetPlayer->getName()<<"does not want to trade with you. "<<endl;
         cout<< "Press ENTER to continue to your dice roll ";
         cin.ignore();
-        getline(std::cin, temp);
+        getline(cin, temp);
         cout << "************************************************" << endl;
         return;
     }
@@ -1209,14 +1209,14 @@ void Board::tradeAssetForMoney(shared_ptr<Player> player){
     cout << "************************************************" << endl;
     cout<< "Press ENTER to continue to your dice roll ";
     cin.ignore();
-    getline(std::cin, temp);
+    getline(cin, temp);
     cout << "************************************************" << endl;
 }
 
-void Board::auction(std::shared_ptr<Tile> t){
-    std::cout << '\n';
-    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
-    std::cout << "Entered an auction phase" << endl;
+void Board::auction(shared_ptr<Tile> t){
+    cout << '\n';
+    cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
+    cout << "Entered an auction phase" << endl;
 
     // Set the current bid to 0
     int maxBid = 0;
@@ -1234,21 +1234,21 @@ void Board::auction(std::shared_ptr<Tile> t){
         int bid;
 
         // Allow player to enter their bid. If the bid is negative, it means they want to stop bidding.
-        std::cout << '\n';
-        std::cout << "Player " << players[remaining[i]]->getName() << " please enter your bid. (If you want to stop bidding, enter -1): ";
-        std::cin >> bid;
+        cout << '\n';
+        cout << "Player " << players[remaining[i]]->getName() << " please enter your bid. (If you want to stop bidding, enter -1): ";
+        cin >> bid;
         if (!cin.good()){
             bid = 0;
-            std::cin.clear(); //clear bad input flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cin.clear(); //clear bad input flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             //i = i-1;
             //continue;
-            std::cout << "Invalid bid. Please wait your turn to bid again." << std::endl;
+            cout << "Invalid bid. Please wait your turn to bid again." << endl;
         }
 
         // Make sure player has enough money to make bid. If not, skip this turn but allow them to keep bidding
         if(bid > players[i]->getMoney()){
-            std::cout << "Invalid bid. You don't have the money to make this." << std::endl;
+            cout << "Invalid bid. You don't have the money to make this." << endl;
         }
         // Change the maximum bid if the bid is greater
         else if(bid > maxBid){
@@ -1278,16 +1278,16 @@ void Board::auction(std::shared_ptr<Tile> t){
 
     // If the bid is still 0, it means nobody wanted to buy the asset.
     if(maxBid == 0){
-        std::cout << "The asset could not be auctioned off."<< std::endl;
+        cout << "The asset could not be auctioned off."<< endl;
         return;
     }
 
     // Otherwise state who bought the asset
-    std::cout << "Sold to Player " << players[maxPlayerIndex]->getName() << " for " << maxBid << "$."<< std::endl;
+    cout << "Sold to Player " << players[maxPlayerIndex]->getName() << " for " << maxBid << "$."<< endl;
     t->buy(players[maxPlayerIndex]);
     players[maxPlayerIndex]->receiveMoney(t->getPrice());
     players[maxPlayerIndex]->payMoney(maxBid);
-    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << '\n' << std::endl;
+    cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << '\n' << endl;
     return;
 }
 
