@@ -10,6 +10,9 @@ GetMoneyCard::GetMoneyCard() {
     desc.emplace_back("Here's a gift from Mr. Goose. ");
     desc.emplace_back("You sold your kidney on the black market. ");
     desc.emplace_back("You successfully blackmailed your dad for having an affair. ");
+    desc.emplace_back("You explained how object A lost its virginity. ");
+    desc.emplace_back("You have as few friends as possible. ");
+    desc.emplace_back("You made money hand over fist selling weed! ");
 }
 
 void GetMoneyCard::use(shared_ptr<Player> p) {

@@ -11,6 +11,8 @@ LoseMoneyCard::LoseMoneyCard() {
     desc.emplace_back("Pay tuition: ");
     desc.emplace_back("You lost your wallet: ");
     desc.emplace_back("You got catfished: ");
+    desc.emplace_back("You think Aquaman is cool: ");
+    desc.emplace_back("Sometimes you want to go through a binary tree, and then you have to touch all the children.: ");
 }
 
 void LoseMoneyCard::use(shared_ptr<Player> p) {
