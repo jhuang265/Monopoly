@@ -8,6 +8,7 @@ int Utility:: getPrice() {
     return cost;
 }
 
+//gets the rent of the utility depending on dice roll
 int Utility:: getUtilityRent(int dice) {
     return rent[(*owner).getNumUtilities()-1]* dice ;
 }
