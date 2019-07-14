@@ -8,6 +8,7 @@
 #include "../Player/player.h"
 #include "../Board/board.h"
 
+//Card Abstract Base Class organizes all different Cards in the game
 class Card {
     public:
         Card();

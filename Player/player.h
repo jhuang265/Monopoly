@@ -10,6 +10,7 @@
 
 using namespace std;
 
+//Forward declare Utility and Transportation
 class Utility;
 class Transportation;
 
