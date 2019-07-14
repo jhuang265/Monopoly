@@ -6,6 +6,10 @@ using namespace std;
 Color::Color(std::string name): color{name}{}
 
 void Color::updateCanBuild(){
+    if(properties[0]->getCanBuild() == -1 || properties[0]->getCanBuild() == 2){
+        return;
+    }
+
     int index = -1;
 
     // We first need to check that all properties are owned. If not, then we don't need to check any further

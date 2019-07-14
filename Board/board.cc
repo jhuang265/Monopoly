@@ -35,14 +35,6 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
         cin >> name;
         auto player = make_shared<Player>(name, i);
         players.emplace_back(player);
-        /*
-        if(find(players.begin(), players.end(), player) != players.end()) {
-            cout << "~ Please enter a different name ~"<<endl;
-            i--;
-        } else {
-            players.emplace_back(player);
-        }
-        */
     }
 
     // Set up the board and all the tiles
@@ -259,19 +251,6 @@ Board::Board(int type, int numPlayers): numPlayers{numPlayers}, currentPlayer{0}
     colors.emplace_back(green);
     colors.emplace_back(blue);
 
-    /*
-    std::shared_ptr<LoseMoneyCard> lmc = std::make_shared<LoseMoneyCard>();
-    std::shared_ptr<GetMoneyCard> gmc = std::make_shared<GetMoneyCard>();
-    std::shared_ptr<MoveCard> mc = std::make_shared<MoveCard>();
-    std::shared_ptr<GTJCard> gtjc = std::make_shared<GTJCard>();
-    std::shared_ptr<GOJFCard> gojfc = std::make_shared<GOJFCard>();
-
-    cards.emplace_back(lmc);
-    cards.emplace_back(gmc);
-    cards.emplace_back(mc);
-    cards.emplace_back(gtjc);
-    cards.emplace_back(gojfc);
-    */
 }
 
 int Board::rollDice(){
