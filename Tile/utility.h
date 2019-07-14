@@ -6,8 +6,8 @@
 #include "./../Player/player.h"
 class Utility : public Tile, public std::enable_shared_from_this<Utility>{
     private:
-        int cost;
-        std::vector<int> rent; // contains 2 elements; either 4 or 10
+        int cost;//the cost to buy the utility
+        std::vector<int> rent; // contains 2 elements; either 4 or 10 as the multipilcity factor
         Player* owner;
         bool isOwned;
 

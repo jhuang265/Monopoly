@@ -8,9 +8,9 @@
 class Transportation: public Tile, public std::enable_shared_from_this<Transportation>{
     private:
         int cost; //constant, initialized by constructor
-        std::vector<int> rent; //constnat, initialized by constructor
-        Player* owner;
-        bool isOwned;
+        std::vector<int> rent; //contains varied rent prices depending on the number of transportations owned by same person
+        Player* owner;//owner
+        bool isOwned;//stores if transportation land is owned
 
     public:
         std::shared_ptr<Transportation> getptr() {

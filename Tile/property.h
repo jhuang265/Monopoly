@@ -8,14 +8,14 @@
 
 class Property: public Tile, public std::enable_shared_from_this<Property>{
     private:
-        int cost;
-        int gameType;
+        int cost;//the cost to buy property
+        int gameType; //stores the game type of the: either play with color or not
         int houses; //current num of houses
-        std::vector<int> rent;
-        Player* owner;
+        std::vector<int> rent; // stores all the rent prices. rent[0] stores the rent when no house built, rent[1] stores the rent of 1 house built and so on...
+        Player* owner;//points to the Player who owns it
         std::weak_ptr<Color> color; //constant, initilaized by contructor
         int canBuild; // if one can build house, only happens if owner has all colored sets
-        bool isOwned;
+        bool isOwned;//stores if this property is currently owned by somebody
 
     public:
         std::shared_ptr<Property> getptr() {
