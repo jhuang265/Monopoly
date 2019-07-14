@@ -368,6 +368,7 @@ void Board::rollDiceAndAction(){
             else if(rNum == 5) {
                 c5.use(players[currentPlayer]);
                 printBoard();
+                break;
             }
 
             return;
