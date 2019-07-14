@@ -575,12 +575,12 @@ void Board::printBoard() {
     }
 
     //Insert player emojis
-    playerEmoji.insert(pair<int,string>(65,"\U0001F914"));
-    playerEmoji.insert(pair<int,string>(66,"\U0001F60E"));
-    playerEmoji.insert(pair<int,string>(67,"\U0001F608"));
-    playerEmoji.insert(pair<int,string>(68,"\U0001F951"));
-    playerEmoji.insert(pair<int,string>(69,"\U0001F47B"));
-    playerEmoji.insert(pair<int,string>(70,"\U0001F984"));
+    playerEmoji.insert(pair<int,string>(49,"\U0001F914"));
+    playerEmoji.insert(pair<int,string>(50,"\U0001F60E"));
+    playerEmoji.insert(pair<int,string>(51,"\U0001F608"));
+    playerEmoji.insert(pair<int,string>(52,"\U0001F951"));
+    playerEmoji.insert(pair<int,string>(53,"\U0001F47B"));
+    playerEmoji.insert(pair<int,string>(54,"\U0001F984"));
 
     //Property Colors
     colors.insert(pair<string,pair<int,string> >("Cyan", pair<int,string>(1,"\033[36m")));
@@ -605,7 +605,7 @@ void Board::printBoard() {
         }
     }
     //playerPos Insertion
-    int c = 65;
+    int c = 49;
     // playerPos   playerLetter : < rowNum, colNum(tileNum) >
     for(auto& p : players) {
         int rowNum = boardPos[p->getPos()];
@@ -614,7 +614,7 @@ void Board::printBoard() {
     }
 
     //targetPos: Set resulting replace index on a row in the string
-    c = 65;
+    c = 49;
     for(int i=0; i < numPlayers; ++i) {
         int colNum = (playerPos[c].second)%10 + 1;;
         int targetColNum = colNum*12; //-8 if L -> R
@@ -731,14 +731,14 @@ void Board::printBoard() {
             string playerIndex = "";
             string line = "";
             bool hasPlayerAtLine = false;
-            c = 65;
-                while ((c-65) < numPlayers) {
+            c = 49;
+                while ((c-49) < numPlayers) {
                     playerIndex = "";
                     string playerSymbol = playerEmoji[c];
                     playerIndex += playerSymbol;
                     playerIndex += char(c);
                     int rowNum = playerPos[c].first;
-                    int colNum = players[c-65]->getPos();
+                    int colNum = players[c-49]->getPos();
                     playerLocations.insert(pair<int,pair< pair<int,int>, string> >(c,pair< pair<int,int>,string > (pair<int,int>(rowNum,colNum), playerIndex)));
                     if(playerPos[c].first == x) hasPlayerAtLine = true;
                     c++;
@@ -800,7 +800,7 @@ void Board::playTurn(){
             // Prompt user to make a choice
             cout << endl;
             cout << "-------------------------------------------------" << endl;
-            cout << "Player " << (char)((*i)->getIndex()+65) << "'s turn." << endl;
+            cout << "Player " << (char)((*i)->getIndex()+49) << "'s turn." << endl;
             (*i)->print();//prints status of cur player
             cout << endl;
 
