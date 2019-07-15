@@ -442,6 +442,8 @@ void Board::rollDiceAndAction(){
                     transportations[i]->buy(players[currentPlayer]);
                     players[currentPlayer]->addTransportation(transportations[i]->getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "-------------------------------------------------"<<endl;
+                    players[currentPlayer]->print();//prints status of cur player
                 }
                 else{
                     auction(transportations[i]);
@@ -488,6 +490,8 @@ void Board::rollDiceAndAction(){
                     utilities[i]->buy(players[currentPlayer]);
                     players[currentPlayer]->addUtility(utilities[i]->getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "-------------------------------------------------"<<endl;
+                    players[currentPlayer]->print();//prints status of cur player
                 }
                 else{
                     auction(utilities[i]);
@@ -527,6 +531,8 @@ void Board::rollDiceAndAction(){
                             if((yn == 'Y' || yn == 'y')){
                                 players[currentPlayer]->payMoney((properties[i]->getHouses()+1) * 50);
                                 properties[i]->buyHouse();
+                                cout << "-------------------------------------------------"<<endl;
+                                players[currentPlayer]->print();//prints status of cur player
                             }
                         }
                     }
@@ -544,6 +550,8 @@ void Board::rollDiceAndAction(){
                     properties[i]->buy(players[currentPlayer]);
                     players[currentPlayer]->addProperty(properties[i]->getptr());
                     cout << "Money after purchase: " << players[currentPlayer]->getMoney() << endl;
+                    cout << "-------------------------------------------------"<<endl;
+                    players[currentPlayer]->print();//prints status of cur player
                 }
                 else{
                     auction(properties[i]);
