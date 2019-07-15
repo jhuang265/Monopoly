@@ -9,6 +9,12 @@ int main(){
     // We allow the game logic to loop as long as someone wishes to play
     while(true){
         // Ask user if they want to play a game
+        std::cout <<"   __  ___       ____  ___                              __     \n"
+                    "  / / / / |     / /  |/  /___  ____  ____  ____  ____  / /_  __\n"
+                    " / / / /| | /| / / /|_/ / __ \\/ __ \\/ __ \\/ __ \\/ __ \\/ / / / /\n"
+                    "/ /_/ / | |/ |/ / /  / / /_/ / / / / /_/ / /_/ / /_/ / / /_/ / \n"
+                    "\\____/  |__/|__/_/  /_/\\____/_/ /_/\\____/ .___/\\____/_/\\__, /  \n"
+                    "                                       /_/            /____/   "<<endl;
         std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
         std::cout << "Would you like to play a game? (Enter Y/N): ";
         std::cin >> s;
