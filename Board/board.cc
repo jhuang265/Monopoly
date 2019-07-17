@@ -815,23 +815,34 @@ void Board::playTurn(){
             cout << "What would you like to do?" << endl;
             cout << "1) Play without trading (enter A)" << endl;
             cout << "2) Do you want to trade? (enter B)" << endl;
-            cout << "3) Do you want to quit? (enter C)" << endl;
+            cout << "3) Do you want to print all players' info? (Enter P)"<<endl;
+            cout << "4) Do you want to quit? (enter Q)" << endl;
             cout << "Enter your choice: ";
             cin >> playerChoice;
 
             //checkOwnership();
             cout << '\n';
 
-            // Make user enter valid choide
-            while(playerChoice != 'A' && playerChoice != 'B' && playerChoice != 'C'){
+            // Make user enter valid choice
+            while(playerChoice != 'A' && playerChoice != 'B' && playerChoice != 'Q' && playerChoice != 'P'){
                 cout << "Please enter a valid action: ";
                 cin >> playerChoice;
             }
 
             // If they want to quit, then free all their assets and remove them from the players
-            if (playerChoice=='C'){
+            if (playerChoice=='Q'){
                 i = players.erase(i);
                 continue;
+            }
+            else if(playerChoice == 'P') {
+                cout << "-------------------------------------------------" << endl;
+                for(auto &p : players) {
+                    p->print();
+                    cout << "-------------------------------------------------" << endl;
+                }
+                cout << "(Press ENTER to Continue)"<<endl;
+                cin.ignore();
+                getline(cin, temp);
             }
             else if(playerChoice == 'B'){
                 char choice;
