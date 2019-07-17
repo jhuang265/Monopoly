@@ -815,7 +815,7 @@ void Board::playTurn(){
             cout << "What would you like to do?" << endl;
             cout << "1) Play without trading (enter A)" << endl;
             cout << "2) Do you want to trade? (enter B)" << endl;
-            cout << "3) Do you want to print all players' info? (Enter P)"<<endl;
+            cout << "3) Do you want to print all players' info and continue to roll? (Enter P)"<<endl;
             cout << "4) Do you want to quit? (enter Q)" << endl;
             cout << "Enter your choice: ";
             cin >> playerChoice;
@@ -840,7 +840,7 @@ void Board::playTurn(){
                     p->print();
                     cout << "-------------------------------------------------" << endl;
                 }
-                cout << "(Press ENTER to Continue)"<<endl;
+                cout << "(Press ENTER to Continue to Roll)"<<endl;
                 cin.ignore();
                 getline(cin, temp);
             }
